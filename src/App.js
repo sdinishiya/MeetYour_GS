@@ -1,31 +1,11 @@
-<<<<<<< Updated upstream
 import "./App.css";
 import styled from "styled-components";
 import { AccountBox } from "./components/accountBox";
 
-const AppContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-function App() {
-  return (
-    <AppContainer>
-      <AccountBox />
-    </AppContainer>
-=======
-// import logo from './logo.svg';
-import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import ForumDiscussion from './components/Forum/admin_view_post'
 import ForumView from './components/Forum/public_view_post'
-
 import Navbar from './components/navbar/index';
 import Footer from './components/navbar/footer';
 import About from './components/navbar/pages/about';
@@ -35,11 +15,26 @@ import contact from './components/navbar/pages/contact';
 import Login from './components/navbar/pages/login';
 import signup from './components/navbar/pages/signup';
 
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+      
+
+
+
 function App() {
   return (
-    // <div style = {{ maxWidth : "90%", margin : "4rem auto" }}>
-    // <div className="App">
-    // </div>
+    <div style = {{ maxWidth : "90%", margin : "4rem auto" }}>
+    <div className="App">
+    <AppContainer>
+      <AccountBox />
+    </AppContainer>
+    </div>
     <Router>
       <div> 
       <Navbar /> 
@@ -61,10 +56,9 @@ function App() {
       </div>
     </Router>
    
-    // </div>
+    </div>
    
 
->>>>>>> Stashed changes
   );
 }
 
