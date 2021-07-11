@@ -1,8 +1,23 @@
 {
-  "name": "meetgs",
+  "name": "react-modern-login",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "framer-motion": "^2.9.5",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-script": "^2.0.5",
+    "react-scripts": "4.0.1",
+    "styled-components": "^5.2.1",
+    "web-vitals": "^0.2.4"
+=======
+>>>>>>> origin/master
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
@@ -10,9 +25,17 @@
     "@testing-library/user-event": "^12.8.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
+=======
+    "react-icons": "^4.2.0",
+>>>>>>> origin/master
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-swipeable-views": "^0.14.0",
+    "styled-components": "^5.3.0",
+    "twin.macro": "^2.6.2",
     "web-vitals": "^1.1.2"
+>>>>>>> Stashed changes
   },
   "scripts": {
     "start": "react-scripts start",
