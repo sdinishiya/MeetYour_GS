@@ -4,6 +4,10 @@ import { AccountBox } from "./components/accountBox";
 
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+<<<<<<< HEAD
+import ProjectReviewCard from './components/cards/PresentProjects'
+import SimplePaper1 from './components/grid/PresentProjects'
+=======
 import ForumDiscussion from './components/Forum/admin_view_post'
 import ForumView from './components/Forum/public_view_post'
 import Navbar from './components/navbar/index';
@@ -26,6 +30,7 @@ const AppContainer = styled.div`
       
 
 
+>>>>>>> origin/master
 
 function App() {
   return (
@@ -41,6 +46,12 @@ function App() {
       <Footer /> 
 
       <switch>
+<<<<<<< HEAD
+      <Route exact path = "/cards/PresentProjects" component = {ProjectReviewCard} />
+      <Route exact path = "/grid/PresentProjects" component = {SimplePaper1} />
+
+      
+=======
         <Route path='/navbar' exact component={Navbar} />
         <Route path='/navbar/footer' exact component={Footer} />
         <Route exact path = "./about" component = {About} />
@@ -52,6 +63,7 @@ function App() {
         <Route exact path = "/Forum/admin_view_post" component = {ForumDiscussion} />
         <Route exact path = "/Forum/public_view_post" component = {ForumView} />
 
+>>>>>>> origin/master
       </switch>
       </div>
     </Router>
