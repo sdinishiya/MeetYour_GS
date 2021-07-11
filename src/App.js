@@ -2,10 +2,8 @@
 import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import CustomizedTables from './components/Table'
-// import CustomizedTimeline from './components/forum/forum'
-// import RecipeReviewCard from './components/forum/card'
-// import Appointment from './components/forum/appointment'
+import ProjectReviewCard from './components/cards/PresentProjects'
+import SimplePaper1 from './components/grid/PresentProjects'
 
 function App() {
   return (
@@ -16,10 +14,10 @@ function App() {
     <Router>
 
       <switch>
-        {/* <Route exact path = "/Table" component = {CustomizedTables} />
-        <Route exact path = "/forum/forum" component = {CustomizedTimeline} />
-        <Route exact path = "/forum/card" component = {RecipeReviewCard} />
-        <Route exact path = "/forum/appointment" component = {Appointment} /> */}
+      <Route exact path = "/cards/PresentProjects" component = {ProjectReviewCard} />
+      <Route exact path = "/grid/PresentProjects" component = {SimplePaper1} />
+
+      
       </switch>
     </Router>
    
