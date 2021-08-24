@@ -16,7 +16,7 @@ export default function Landing() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-              "url(" + require("assets/img/gss.jpeg").default + ")",
+              "url(" + require("assets/img/gs3.jpg").default + ")",
             }}
           >
             <span
