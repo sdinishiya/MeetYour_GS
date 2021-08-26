@@ -14,6 +14,8 @@ import Landing from "views/Landing.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 
+//appointment
+import Schedule from "components/Appointment/schedule.js";
 
 
 
@@ -29,7 +31,12 @@ ReactDOM.render(
       <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
-      <Redirect from="*" to="/" />
+      {/* <Redirect from="*" to="/" /> */}
+      
+      {/* Appointment  */}
+      <Route path="/schedule"  component={Schedule} />
+
+      
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

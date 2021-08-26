@@ -39,7 +39,7 @@ const [searchTerm,setSearchTerm]=useState("");
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                Card Tables
+                Notice Details Table
               </h3>
             </div>
           </div>
