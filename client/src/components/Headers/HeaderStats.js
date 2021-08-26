@@ -60,6 +60,7 @@ export default function HeaderStats() {
                   statIconName="fas fa-percent"
                   statIconColor="bg-lightBlue-500"
                 />
+                
               </div>
             </div>
           </div>

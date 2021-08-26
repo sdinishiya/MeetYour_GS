@@ -29,12 +29,14 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    Your story starts with us.
+                      MEET YOUR GS
                   </h1>
+                  <br/>
+                  <h3 className="text-white font-semibold text-2xl">
+                     UDAPALATHA GRAMA NILADHARI WASAMA
+                  </h3>
                   <p className="mt-4 text-lg text-blueGray-200">
-                    This is a simple example of a Landing Page you can build
-                    using Notus React. It features multiple CSS components based
-                    on the Tailwind CSS design system.
+                      We are the Grama Sevakha Niladhari division of Udapalatha GS wasama under the Kandy Division Secretariate.
                   </p>
                 </div>
               </div>
