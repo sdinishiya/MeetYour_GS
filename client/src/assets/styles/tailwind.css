@@ -1170,6 +1170,11 @@ select {
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
+.bg-yellow-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(252, 222, 98, var(--tw-bg-opacity));
+}
+
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(234, 179, 8, var(--tw-bg-opacity));
@@ -1258,6 +1263,11 @@ select {
 .active\:bg-blueGray-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(71, 85, 105, var(--tw-bg-opacity));
+}
+
+.active\:bg-yellow-200:active {
+  --tw-bg-opacity: 1;
+  background-color: rgba(234, 169, 8, var(--tw-bg-opacity));
 }
 
 .bg-center {

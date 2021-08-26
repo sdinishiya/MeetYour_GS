@@ -9,7 +9,7 @@ import props from 'prop-types';
 // components
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function BookTable({ color }) {
+export default function NoticeTable({ color }) {
 
 const [searchTerm,setSearchTerm]=useState("");
   const [notices,setnotices]=useState([])
@@ -178,10 +178,10 @@ const [searchTerm,setSearchTerm]=useState("");
   );
 }
 
-BookTable.defaultProps = {
-  color: "light",
-};
+// BookTable.defaultProps = {
+//   color: "light",
+// };
 
-BookTable.propTypes = {
-  color: PropTypes.oneOf(["light", "dark"]),
-};
+// BookTable.propTypes = {
+//   color: PropTypes.oneOf(["light", "dark"]),
+// };
