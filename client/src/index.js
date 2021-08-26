@@ -17,7 +17,7 @@ import Index from "views/Index.js";
 //appointment
 import Schedule from "components/Appointment/schedule.js";
 
-
+       
 
 
 ReactDOM.render(
