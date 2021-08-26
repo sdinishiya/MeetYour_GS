@@ -18,7 +18,7 @@ import Notice from "views/admin/Notice.js";
 export default function Admin() {
   return (
     <>
-      <Sidebar />
+      <Sidebar />     
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
         {/* Header */}

@@ -190,12 +190,12 @@ export default function Sidebar() {
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="/admin/Finance"
                 >
                   <i
                     className={
                       "fas fa-donate mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
+                      (window.location.href.indexOf("/admin/Finance") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -261,7 +261,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-hands-helping mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
+                      (window.location.href.indexOf("/admin/Finance") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -274,16 +274,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
+                    (window.location.href.indexOf("/admin/Business") !== -1
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="/admin/Material"
                 >
                   <i
                     className={
                       "fas fa-shopping-cart mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
+                      (window.location.href.indexOf("/admin/Material") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
