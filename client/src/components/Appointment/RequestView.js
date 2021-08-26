@@ -9,8 +9,8 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import AppointHeader from "components/Appointment/AppointHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
-
-export default function Schedule() {
+//to be edited
+export default function RequestView() {
     const [appointID,setID] = useState("");
     const [gsname,setName] = useState("");
     const [date,setDate] = useState("");

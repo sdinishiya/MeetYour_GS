@@ -1080,6 +1080,7 @@ select {
   }
 }
 
+/* color pallete */
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
@@ -1088,6 +1089,63 @@ select {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+.bg-emerald-50{
+  --tw-bg-opacity: 1;
+  background-color: rgba(238, 238, 238, var(--tw-bg-opacity));
+}
+
+.bg-emerald-100{
+  --tw-bg-opacity: 1;
+  background-color: rgba(210, 247, 247, var(--tw-bg-opacity));
+}
+
+.bg-emerald-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(178, 222, 223, var(--tw-bg-opacity));
+}
+
+.bg-emerald-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(86, 191, 196, var(--tw-bg-opacity));
+}
+
+.bg-emerald-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(55, 123, 126, var(--tw-bg-opacity));
+}
+
+.bg-emerald-450 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(28, 97, 100, var(--tw-bg-opacity));
+}
+
+.bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(209, 29, 29, var(--tw-bg-opacity));
+}
+
+.bg-red-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 00, 00, var(--tw-bg-opacity));
+}
+
+/* color pallete ends */
+
+.bg-emerald-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
+}
+
+.bg-emerald-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+}
+
+.bg-emerald-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
 .bg-pink-500 {
@@ -1153,21 +1211,6 @@ select {
 .bg-teal-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(20, 184, 166, var(--tw-bg-opacity));
-}
-
-.bg-emerald-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(167, 243, 208, var(--tw-bg-opacity));
-}
-
-.bg-emerald-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
-}
-
-.bg-emerald-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
 .bg-yellow-100 {
@@ -2391,7 +2434,7 @@ select {
 
 .text-emerald-500 {
   --tw-text-opacity: 1;
-  color: rgba(16, 185, 129, var(--tw-text-opacity));
+  color: rgba(6, 150, 109, var(--tw-text-opacity));
 }
 
 .text-orange-500 {
