@@ -12,7 +12,8 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 export default function BookTable({ color }) {
 
 const [searchTerm,setSearchTerm]=useState("");
-  const [notices,setnotices]=useState([])
+
+const [notices,setnotices]=useState([])
   // const classes = useStyles();
 
 
