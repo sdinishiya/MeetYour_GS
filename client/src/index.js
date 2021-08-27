@@ -17,7 +17,9 @@ import Index from "views/Index.js";
 //appointment
 import Schedule from "components/Appointment/schedule.js";
 
-       
+//Finance
+import Receive from "components/Finance/CashReceive.js";
+import Expense from "components/Finance/AddExpenses.js";       
 
 
 ReactDOM.render(
@@ -36,7 +38,10 @@ ReactDOM.render(
       {/* Appointment  */}
       <Route path="/schedule"  component={Schedule} />
 
-      
+      {/* Finance */}
+      <Route path="/CashReceive" component={Receive}/>
+      <Route path="/AddExpenses" component={Expense}/>
+
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

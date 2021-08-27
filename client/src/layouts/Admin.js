@@ -7,13 +7,15 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
+
 // views
 import Dashboard from "views/admin/Dashboard.js";
 import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
-
+import Finance from "views/admin/Finance.js";
 import Notice from "views/admin/Notice.js";
+
 
 export default function Admin() {
   return (
@@ -29,8 +31,9 @@ export default function Admin() {
             <Route path="/admin/maps" exact component={Maps} />
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
-
+            <Route path="/admin/Finance" exact component={Finance} />
             <Route path="/admin/Notice" exact component={Notice} />
+            {/* <Route path="/Finance/ViewPettycash" exact component={PettyCash} /> */}
 
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>
