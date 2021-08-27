@@ -186,7 +186,7 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
+                    (window.location.href.indexOf("/admin/Finance") !== -1
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
