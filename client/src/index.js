@@ -28,7 +28,7 @@ import ReceivedFund from "components/Finance/AddReceivedfund.js";
 import AllocateFund from "components/Finance/AllocateFund.js";
 
 
-// import CardPageVisits from "components/Cards/CardPageVisits.js";
+import CardPageVisitsCheck from "components/Cards/CardPageVisitsCheck.js";
 
 
 ReactDOM.render(
@@ -58,7 +58,7 @@ ReactDOM.render(
       <Route path="/AddReceivedfund" component={ReceivedFund}/>
       <Route path="/AllocateFund" component={AllocateFund}/>
 
-      {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+      <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>
       {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
     </Switch>
   </BrowserRouter>,
