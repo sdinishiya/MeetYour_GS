@@ -12,23 +12,23 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function ReceivedFund() {
   const [date,setdate] = useState("");
-  const [receiptno,setreceiptno] = useState("");
+  const [fundID,setfundID] = useState("");
   const [description,setdescription] = useState("");
-  const [income,setincome] = useState("");
+  const [debit,setdebit] = useState("");
     const history  = useHistory();
 
     const receive = (e)=>{
       e.preventDefault();
-      console.log(receiptno);
-       axios.post('http://localhost:3001/financecreate',{
+      console.log(fundID);
+       axios.post('http://localhost:3001/fundcreate',{
         date:date,
-        receiptno:receiptno,
+        fundID:fundID,
         description:description,
-        income:income,
+        debit:debit,
 
         }).then(()=>{
            console.log("success");
-           history.push("/admin/Finance");
+           history.push("/ViewFund");
 
          });
     };
@@ -72,7 +72,7 @@ export default function ReceivedFund() {
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Receipt No" onChange={(event)=>{setreceiptno(event.target.value);}} 
+                        name="Receipt No" onChange={(event)=>{setfundID(event.target.value);}} 
                         required
                         placeholder="Fund ID..."/>
                     </div>
@@ -94,7 +94,7 @@ export default function ReceivedFund() {
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Amount" onChange={(event)=>{setincome(event.target.value);}} 
+                        name="Amount" onChange={(event)=>{setdebit(event.target.value);}} 
                         required
                         placeholder="Enter Amount..."/>
                     </div>

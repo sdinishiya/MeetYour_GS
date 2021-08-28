@@ -266,16 +266,17 @@ app.get('/othermaterials',(req,res)=>{
 //Donation
 app.post('/donationcreate',(req,res)=>{
     console.log(req.body)
+    const date = req.body.date;
     const donorID = req.body.donorID;
     const donorName = req.body.donorName;
     const address = req.body.address;
     const phone = req.body.phone;
     const email = req.body.email;
-    const date = req.body.date;
+    const description = req.body.description;
     const amount = req.body.amount;
 
-    db.query("INSERT INTO donation (donorID,donorName,address,phone,email,date,amount) VALUES (?,?,?,?,?,?)",
-    [donorID,donorName,address,phone,email,date,amount],(err,result)=>{
+    db.query("INSERT INTO donation (date,donorName,address,phone,email,description,amount) VALUES (?,?,?,?,?,?,?)",
+    [date,donorName,address,phone,email,description,amount],(err,result)=>{
         if(err){
             console.log(err);
         } else{
@@ -285,8 +286,8 @@ app.post('/donationcreate',(req,res)=>{
     })
     
 });
-app.get('/transaction',(req,res)=>{
-    db.query("SELECT * FROM finance order by date ASC" ,(err,result,) => {
+app.get('/donationview',(req,res)=>{
+    db.query("SELECT * FROM donation order by donorID ASC" ,(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -301,6 +302,7 @@ app.get('/transaction',(req,res)=>{
 app.post('/financecreate',(req,res)=>{
     console.log(req.body)
     const date = req.body.date;
+    const transectionID = req.body.transectionID;
     const receiptno = req.body.receiptno;
     const description = req.body.description;
     const income = req.body.income;
@@ -317,7 +319,7 @@ app.post('/financecreate',(req,res)=>{
     
 });
 app.get('/transaction',(req,res)=>{
-    db.query("SELECT * FROM finance order by date ASC" ,(err,result,) => {
+    db.query("SELECT * FROM finance order by transectionID ASC" ,(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -349,6 +351,7 @@ app.post('/expensecreate',(req,res)=>{
 app.post('/fundcreate',(req,res)=>{
     console.log(req.body)
     const date = req.body.date;
+    const transectionID = req.body.transectionID;
     const fundID = req.body.fundID;
     const description = req.body.description;
     const debit = req.body.debit;

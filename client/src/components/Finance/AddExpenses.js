@@ -28,7 +28,7 @@ export default function Expense() {
 
       }).then(()=>{
          console.log("success");
-         history.push("/admin/Finance");
+         history.push("/ViewPettycash");
        });
   };
   return (

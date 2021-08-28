@@ -28,7 +28,7 @@ export default function Receive() {
 
         }).then(()=>{
            console.log("success");
-           history.push("/admin/Finance");
+           history.push("/ViewPettycash");
 
          });
     };
