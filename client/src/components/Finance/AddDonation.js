@@ -10,25 +10,30 @@ import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function ReceivedFund() {
+export default function AddDonation() {
+  const [donorID,setdonorID] = useState("");
+  const [donorName,setdonorName] = useState("");
+  const [address,setaddress] = useState("");
+  const [phone,setphone] = useState("");
+  const [email,setemail] = useState("");
   const [date,setdate] = useState("");
-  const [receiptno,setreceiptno] = useState("");
-  const [description,setdescription] = useState("");
-  const [income,setincome] = useState("");
+  const [amount,setamount] = useState("");
     const history  = useHistory();
 
-    const receive = (e)=>{
+    const adddonation = (e)=>{
       e.preventDefault();
-      console.log(receiptno);
-       axios.post('http://localhost:3001/financecreate',{
+      console.log(donorID);
+       axios.post('http://localhost:3001/donationcreate',{
+        donorName:donorName,
+        address:address,
+        phone:phone,
+        email:email,
         date:date,
-        receiptno:receiptno,
-        description:description,
-        income:income,
+        amount:amount,
 
         }).then(()=>{
            console.log("success");
-           history.push("/admin/Finance");
+           history.push("/ViewDonation");
 
          });
     };
@@ -52,9 +57,64 @@ export default function ReceivedFund() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        ADD RECEIVED FUND
+                        ADD DIRECT DONATION
                     </h1>
                     
+                    {/* <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Donor ID
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Donor ID" onChange={(event)=>{setdonorID(event.target.value);}} 
+                        required
+                        placeholder="Donor ID..."/>
+                    </div> */}
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Donor Name
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Donor Name" onChange={(event)=>{setdonorName(event.target.value);}} 
+                        required
+                        placeholder="Enter Name..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Address
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Address" onChange={(event)=>{setaddress(event.target.value);}} 
+                        required
+                        placeholder="Enter Address..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Phone No
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Phone No" onChange={(event)=>{setphone(event.target.value);}} 
+                        required
+                        placeholder="Enter Phone No..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Email ID
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Email ID" onChange={(event)=>{setemail(event.target.value);}} 
+                        required
+                        placeholder="Enter Email ID..."/>
+                    </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Date
@@ -68,33 +128,11 @@ export default function ReceivedFund() {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Fund ID
-                      </label>
-                      <input type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Receipt No" onChange={(event)=>{setreceiptno(event.target.value);}} 
-                        required
-                        placeholder="Fund ID..."/>
-                    </div>
-
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Description
-                      </label>
-                      <input type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Description" onChange={(event)=>{setdescription(event.target.value);}} 
-                        required
-                        placeholder="Description..."/>
-                    </div>
-
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Amount
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Amount" onChange={(event)=>{setincome(event.target.value);}} 
+                        name="Amount" onChange={(event)=>{setamount(event.target.value);}} 
                         required
                         placeholder="Enter Amount..."/>
                     </div>
@@ -105,10 +143,10 @@ export default function ReceivedFund() {
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={receive}>
+                        onClick={adddonation}>
                           ADD 
                       </button>
-                      <Link to = '/ViewFund'>
+                      <Link to = '/ViewDonation'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"> 
