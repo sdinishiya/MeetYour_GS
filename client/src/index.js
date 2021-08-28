@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
 
-
 // layouts
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
@@ -17,6 +16,7 @@ import Index from "views/Index.js";
 
 //appointment
 import Schedule from "components/Appointment/schedule.js";
+import AddNotice from "components/Notice/AddNotice.js";
 
 //Finance
 import Receive from "components/Finance/CashReceive.js";
@@ -26,6 +26,8 @@ import PettyCash from "components/Finance/ViewPettycash";
 import Fund from "components/Finance/ViewFund"; 
 import ReceivedFund from "components/Finance/AddReceivedfund.js";
 import AllocateFund from "components/Finance/AllocateFund.js";
+
+
 // import CardPageVisits from "components/Cards/CardPageVisits.js";
 
 
@@ -45,6 +47,7 @@ ReactDOM.render(
       
       {/* Appointment  */}
       <Route path="/schedule"  component={Schedule} />
+      <Route path="/AddNotice"  component={AddNotice} />
 
       {/* Finance */}
       <Route path="/CashReceive" component={Receive}/>
@@ -55,7 +58,8 @@ ReactDOM.render(
       <Route path="/AddReceivedfund" component={ReceivedFund}/>
       <Route path="/AllocateFund" component={AllocateFund}/>
 
- {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+      {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+      {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
