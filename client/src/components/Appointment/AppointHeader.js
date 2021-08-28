@@ -17,14 +17,14 @@ export default function Appoint() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/landing">
+                    <Link to="/schedule">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
                             Schedule
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            Schedule Avaialability of Grama Niladhari
+                            Schedule GS's Availability
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -41,14 +41,14 @@ export default function Appoint() {
             <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/landing">
+                    <Link to="/ViewRequests">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
                             View
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            View Appointment Requests
+                            Appointment Requests
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -65,14 +65,14 @@ export default function Appoint() {
              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/landing">
+                    <Link to="/ViewConfirmed">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
                             View
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            View Confirmed Appointments
+                            Confirmed Appointments
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">

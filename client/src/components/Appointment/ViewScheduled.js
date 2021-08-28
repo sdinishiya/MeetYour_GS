@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { useParams, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import props from 'prop-types';
 
 // components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -13,34 +13,15 @@ import AppointHeader from "components/Appointment/AppointHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function ViewRequests() {
+export default function ViewScheduled() {
 
     const [viewList,setviewList]=useState([])
+
     useEffect(()=>{
-      axios.get("http://localhost:3001/requestView").then((response)=>{
-          setviewList(response.data)
-      })
-    },[])
-
-    const { appID } = useParams();
-    const [newstatus, setnewstatus] = useState("");
-    const Accept = (appID) => {
-      axios
-        .put("http://localhost:3001/accept-book", {
-          status: newstatus,
-          appID: appID,
+        axios.get("http://localhost:3001/viewSchedule").then((response)=>{
+            setviewList(response.data)
         })
-
-        .then((response) => {
-          console.log(appID);
-        });
-      alert(" Appointment Request Accepted ");
-      // history.push("/ViewRequests");
-    };
-
-  
-
-
+    },[])
   return (
     <>
     
@@ -63,7 +44,7 @@ export default function ViewRequests() {
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                            Appointment Requests From Villagers
+                            Past Appointment Schedules
                           </h3>
                         </div>
                       </div>
@@ -74,40 +55,28 @@ export default function ViewRequests() {
                         <thead>
                           <tr>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              ID
+                              Appointment ID
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                              GS Name
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Date
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Time
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Villager NIC
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Address
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Phone
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Email
+                              Time Slot
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Description
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              
+                              Status
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                        {viewList.map((record)=>{
-                            const dt = new Date(record.date);
+                        {viewList.map((viewApp)=>{
+                            const dt = new Date(viewApp.date);
                             const year = dt.getFullYear() + '/';
                             const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
                             const day = ('0' + dt.getDate()).slice(-2);
@@ -116,45 +85,22 @@ export default function ViewRequests() {
                             return(
                           <tr>
                             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                                 {record.appID} 
+                                 {viewApp.appID} 
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {year + month + day}
+                                 {viewApp.gsname}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.startTime} - {record.endTime}
+                                {year + month + day} 
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.nic}
+                                {viewApp.startTime} - {viewApp.endTime}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.home_no}, {record.address}
+                                 {viewApp.description}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                 {record.phone}
-                            </td>
-                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.email}
-                            </td>
-                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.des}
-                            </td>
-                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <Link to="/ViewRequests">
-                                <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                      type="submit" 
-                                      onClick={() => Accept(appID)}>  {" "}         
-                                      Accept
-                                </button>
-                              </Link> 
-                            </td>
-                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                            <Link to="/ViewRequests">
-                                <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                      type="submit" >
-                                      Decline
-                                </button>
-                              </Link>  
+                                 {viewApp.status}
                             </td>
                           </tr>
                             )

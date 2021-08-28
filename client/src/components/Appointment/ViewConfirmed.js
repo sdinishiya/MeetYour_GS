@@ -22,25 +22,6 @@ export default function ViewRequests() {
       })
     },[])
 
-    const { appID } = useParams();
-    const [newstatus, setnewstatus] = useState("");
-    const Accept = (appID) => {
-      axios
-        .put("http://localhost:3001/accept-book", {
-          status: newstatus,
-          appID: appID,
-        })
-
-        .then((response) => {
-          console.log(appID);
-        });
-      alert(" Appointment Request Accepted ");
-      // history.push("/ViewRequests");
-    };
-
-  
-
-
   return (
     <>
     

@@ -15,8 +15,16 @@ import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 
 //appointment
+import ViewScheduled from "components/Appointment/ViewScheduled.js";
 import Schedule from "components/Appointment/schedule.js";
+import UserView from "components/Appointment/UserView.js";
+import ViewRequests from "components/Appointment/ViewRequests.js";
+import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
+
+
+//Notice 
 import AddNotice from "components/Notice/AddNotice.js";
+import NoticeTable from "components/Notice/noticeView.js";
 
 //Finance
 import Receive from "components/Finance/CashReceive.js";
@@ -46,8 +54,15 @@ ReactDOM.render(
       {/* <Redirect from="*" to="/" /> */}
       
       {/* Appointment  */}
+      <Route path="/ViewScheduled"  component={ViewScheduled} />
       <Route path="/schedule"  component={Schedule} />
+      <Route path="/UserView"  component={UserView} />
+      <Route path="/ViewRequests"  component={ViewRequests} />
+      <Route path="/ViewConfirmed"  component={ViewConfirmed} />
+
+      {/* Notices */}
       <Route path="/AddNotice"  component={AddNotice} />
+      <Route path="/noticeView"  component={NoticeTable} />
 
       {/* Finance */}
       <Route path="/CashReceive" component={Receive}/>

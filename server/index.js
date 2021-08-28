@@ -375,7 +375,7 @@ app.post('/schedule',(req,res)=>{
 });
 //gsview
 app.get('/viewSchedule',(req,res)=>{
-    db.query("SELECT appointID,gsname,date,startTime,endTime,description,status status FROM appointment",(err,result,) => {
+    db.query("SELECT appID,gsname,date,startTime,endTime,description,status FROM appointment ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -386,7 +386,7 @@ app.get('/viewSchedule',(req,res)=>{
 });
 //userview
 app.get('/book',(req,res)=>{
-    db.query("SELECT appointID,gsname,date,startTime,endTime,description FROM appointment WHERE book_status = 0",(err,result,) => {
+    db.query("SELECT appID,gsname,date,startTime,endTime,description FROM appointment WHERE book_status = 0",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -397,8 +397,8 @@ app.get('/book',(req,res)=>{
 });
 
 //addbooking //appointview
-app.get('/appview',(req,res)=>{
-    db.query("SELECT appointID,nic,name,home_no,address,phone,email,des FROM appointment WHERE book_status = 1",(err,result,) => {
+app.get('/requestView',(req,res)=>{
+    db.query("SELECT * FROM appointment WHERE status='pending' AND book_status = 1 ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -416,7 +416,7 @@ app.get('/appdetails',(req,res)=>{
     });
 });
 app.put('/add-app-booking', (req,res) => {
-    const appointID = req.body.appointID;
+    const appID = req.body.appID;
     const nic = req.body.nic;
     const name = req.body.name;
     const home_no = req.body.home_no;
@@ -427,8 +427,8 @@ app.put('/add-app-booking', (req,res) => {
     console.log("reach")
     console.log(req.body)
 
-    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=? WHERE appointID = ?; ", 
-    [nic,name,home_no,address,phone,email,des, appointID], 
+    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=? WHERE appID = ?; ", 
+    [nic,name,home_no,address,phone,email,des, appID], 
     (err, result) => {
 
         if (err) {
@@ -439,9 +439,48 @@ app.put('/add-app-booking', (req,res) => {
        }
     );
   });
+//accept
+app.put('/accept-book', (req,res) => {
+    const apptID = req.body.appID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE appointment SET status=Confirmed WHERE appID = ?; ", 
+    [status, appID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+//decline
+app.put('/decline-book', (req,res) => {
+    const apptID = req.body.appID;
+    const nic = req.body.nic;
+
+    console.log(req.body)
+
+    db.query("UPDATE appointment SET status='Declined' WHERE appID = ?; ", 
+    [status, appID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
 //confirmed appointment
   app.get('/confirmbook',(req,res)=>{
-    db.query("SELECT appointID,gsname,date,startTime,endTime,description,name,home_no,address,phone,email,des FROM appointment WHERE status = 1",(err,result,) => {
+    db.query("SELECT appID,gsname,date,startTime,endTime,description,name,home_no,address,phone,email,des FROM appointment WHERE status = 'Confirmed' ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {

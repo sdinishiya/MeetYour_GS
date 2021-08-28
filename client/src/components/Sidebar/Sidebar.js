@@ -171,12 +171,12 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                  className={ "text-xs uppercase py-3 font-bold block " + (window.location.href.indexOf("/schedule") !== -1 
+                  className={ "text-xs uppercase py-3 font-bold block " + (window.location.href.indexOf("/ViewScheduled") !== -1 
                             ? "text-emerald-500 hover:text-emerald-500" 
                             : "text-blueGray-700 hover:text-blueGray-500")}
-                  to="/schedule" 
+                  to="/ViewScheduled" 
                   >
-                  <i  className={ "fas fa-calendar-check mr-2 text-sm " + (window.location.href.indexOf("/schedule") !== -1 ? "opacity-75" 
+                  <i  className={ "fas fa-calendar-check mr-2 text-sm " + (window.location.href.indexOf("/ViewScheduled") !== -1 ? "opacity-75" 
                                 : "text-blueGray-300") }> </i>{" "}
                   Appointments
                 </Link>
@@ -190,7 +190,7 @@ export default function Sidebar() {
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/ViewDonation"
+                  to="/admin/Finance"
                 >
                   <i
                     className={
