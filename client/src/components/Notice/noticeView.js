@@ -28,24 +28,17 @@ const [searchTerm,setSearchTerm]=useState("");
     <div className="container px-6 mx-auto">
       <div className="flex flex-wrap">
         <div className="w-1/3 px-6">
-            <Link to="/landing">
+            <Link to="/AddNotice">
               <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                     type="submit" >
                     Add New Notices
               </button> <br /><br />
             </Link>
         </div>
-        <div className="w-1/3 px-6">
-            <Link to="/landing">
-              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                    type="submit" >
-                    Add New Notices
-              </button> <br /><br />
-            </Link>
-        </div>
-        
+
       </div>
     </div>
+    
       <div className={ "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white" } >
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
@@ -110,6 +103,9 @@ const [searchTerm,setSearchTerm]=useState("");
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {year1 + month1 + day1}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {notice.active_status}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                   <TableDropdown />

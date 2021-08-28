@@ -42,7 +42,7 @@ export default function CardPageVisits() {
                 </th>
               </tr>
             </thead>
-            {/* <tbody>
+            <tbody>
               <tr>
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                   /argon/
@@ -118,7 +118,7 @@ export default function CardPageVisits() {
                   46,53%
                 </td>
               </tr>
-            </tbody> */}
+            </tbody>
           </table>
         </div>
       </div>

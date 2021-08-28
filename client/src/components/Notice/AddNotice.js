@@ -6,40 +6,43 @@ import axios from "axios";
 // components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import AppointHeader from "components/Appointment/AppointHeader.js";
+import NoticeHeader from "components/Notice/NoticeHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function Schedule() {
-    const [appointID,setID] = useState("");
-    const [gsname,setName] = useState("");
-    const [date,setDate] = useState("");
-    const [startTime,setStartTime] = useState("");
-    const [endTime,setEndTime] = useState("");
+export default function AddNotice() {
+    const [noticeID,setID] = useState("");
+    const [topic,setTopic] = useState("");
     const [description,setDescription] = useState("");
+    const [uploadDate,setUploadDate] = useState("");
+    const [expDate,setExpDate] = useState("");
+    const [active_status,setStatus] = useState("");
     const history  = useHistory();
 
-    const schedule = ()=>{
-      console.log(appointID);
+    const noticeadd = ()=>{
+      console.log(noticeID);
 
-      const d1 = new Date();
-      const d2 = new Date(date);
-      if (d2.getTime() < d1.getTime()) {
-        alert("Date must be greater than today");
+      const d1 = new Date(uploadDate);
+      const d2 = new Date(expDate);
+      if (d2< d1) {
+        alert("Expiry Date must be after the Date Upoaded");
         return;
       }
 
-       axios.post('http://localhost:3001/schedule',{
-        gsname:gsname,
-        date:date,
-        startTime: startTime,
-        endTime:endTime,
+       axios.post('http://localhost:3001/addnotice',{
+        topic:topic,
         description:description,
+        uploadDate: uploadDate,
+        expDate:expDate,
+        active_status:active_status,
 
         }).then(()=>{
            console.log("success");
-           //history.push("/Appointment/viewScheduled");
+
          });
+
+         alert(" Added successfully ");
+        history.push("/Notice/noticeView");
     };
   return (
     <>
@@ -49,7 +52,7 @@ export default function Schedule() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <AdminNavbar />
       {/* Header */}
-      <AppointHeader />
+      <NoticeHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
@@ -60,47 +63,18 @@ export default function Schedule() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        SCHEDULE APPOINTMENT AVAILABILITY
+                        ADD NEW NOTICES 
                     </h1>
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        GS Name
+                        Topic
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="gsname" onChange={(event)=>{setName(event.target.value);}} 
+                        name="topic" onChange={(event)=>{setTopic(event.target.value);}} 
                         required
-                        placeholder="GS Name"/>
+                        placeholder="Topic"/>
                     </div>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Date
-                      </label>
-                      <input type="date"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="date" onChange={(event)=>{setDate(event.target.value);}} 
-                        required
-                        placeholder="Date"/>
-                    </div>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Start Time
-                      </label>
-                      <input type="time"
-                        name="startTime" onChange={(event)=>{setStartTime(event.target.value);}} 
-                        required
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
-                    </div>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        End Time
-                      </label>
-                      <input type="time"
-                        name="endTime" onChange={(event)=>{setEndTime(event.target.value);}} 
-                        required
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
-                    </div>
-                    
                     <div className="relative w-full mb-3">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" >
                         Message
@@ -111,16 +85,35 @@ export default function Schedule() {
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         name="description" onChange={(event)=>{setDescription(event.target.value);}} 
                         required
-                        placeholder="Type a message..."
+                        placeholder="Type a message to notify..."
                       />
                     </div>
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Date Uploaded
+                      </label>
+                      <input type="date"
+                        name="uploadDate" onChange={(event)=>{setUploadDate(event.target.value);}} 
+                        required
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
+                    </div>
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Expiry Date
+                      </label>
+                      <input type="date"
+                        name="expDate" onChange={(event)=>{setExpDate(event.target.value);}} 
+                        required
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
+                    </div>
+
                     <box>
                     <div className="text-center mt-6">
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={schedule}
-                      > Schedule 
+                        onClick={noticeadd}
+                      > Add 
                       </button>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -140,7 +133,6 @@ export default function Schedule() {
         </div>
         <FooterAdmin />
         </section>
-        
         </div>
       </main>
       

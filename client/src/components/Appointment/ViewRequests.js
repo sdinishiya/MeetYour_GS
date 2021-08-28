@@ -10,7 +10,7 @@ import AppointHeader from "components/Appointment/AppointHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 //to be edited
-export default function RequestView() {
+export default function ViewRequest() {
     const [appointID,setID] = useState("");
     const [gsname,setName] = useState("");
     const [date,setDate] = useState("");
