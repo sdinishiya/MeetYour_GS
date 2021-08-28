@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 // components
 
-import Navbarsignup from "components/Navbars/Navbarsignup";
+import Navbarloglanding from "components/Navbars/Navbarlanding";
 import Footer from "components/Footers/Footer.js";
 
-export default function Landing() {
+export default function LogLanding() {
   return (
     <>
-      <Navbarsignup transparent />
+      <Navbarloglanding transparent />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
@@ -37,6 +37,7 @@ export default function Landing() {
                   </h3>
                   <p className="mt-4 text-lg text-blueGray-200">
                       We are the Grama Sevakha Niladhari division of Udapalatha GS wasama under the Kandy Division Secretariate.
+                      
                   </p>
                 </div>
               </div>
@@ -130,13 +131,13 @@ export default function Landing() {
                   good to go. Just make sure you enable them first via
                   JavaScript.
                 </p> */}
-                <Link to="/Pages/Formpage" className="font-bold text-blueGray-700 mt-8">
+                 <Link to="/Pages/Formpage" className="font-bold text-blueGray-700 mt-8">
                   Click to Download Forms
                 </Link>
               </div>
 
-              <Link to="/Pages/Formpage" className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+              <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+                <Link to="/Pages/Formpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
                   <img
                     alt="..."
                     src={require("assets/img/img-form.jpg").default}
@@ -162,8 +163,8 @@ export default function Landing() {
                       Isn’t it time saving?
                     </p>
                   </blockquote>
-                </div>
-              </Link>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -190,7 +191,7 @@ export default function Landing() {
           <div className="container mx-auto px-4">
             <div className="items-center flex flex-wrap">
               <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
-                <Link to="/Pages/Projectpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-400">
+                <Link to="/Pages/Formpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-400">
                   <img
                     alt="..."
                     className="max-w-full rounded-lg"
@@ -227,7 +228,7 @@ export default function Landing() {
                     Take a look at the projects that are happening in your neighbourhood. 
                     There is so much that we can do as a community to help each other out for the welfare of everyone. 
                   </p>
-
+                  
                   <ul className="list-none mt-6">
                     <li className="py-2">
                       <Link to="/Pages/Projectpage" className="font-bold flex items-center">
@@ -292,7 +293,7 @@ export default function Landing() {
                   In need of resource materials for your on-going projects or inventions? 
                   We are here to provide and facilitate your small scale businesses.
                 </p>
-                <Link to="/Pages/Resoursepage" className="font-bold text-blueGray-700 mt-8">
+                <Link to="/Pages/Resourcepage" className="font-bold text-blueGray-700 mt-8">
                   Click to View & Request Resources
                 </Link>
               </div>
@@ -325,6 +326,195 @@ export default function Landing() {
                     </p>
                   </blockquote>
                 </Link> 
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative py-20">
+          <div
+            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+            style={{ transform: "translateZ(0)" }}
+          >
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0"
+            >
+              <polygon
+                className="text-white fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+
+          <div className="container mx-auto px-4">
+            <div className="items-center flex flex-wrap">
+              <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+              <Link to="/Pages/Appointmentpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-400">
+                <img
+                  alt="..."
+                  className="max-w-full rounded-lg"
+                  src={require("assets/img/img-book.jpg").default}/>
+                
+                <blockquote className="relative p-8 mb-4">
+                    <svg
+                      preserveAspectRatio="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 583 95"
+                      className="absolute left-0 w-full block h-95-px -top-94-px"
+                    >
+                      <polygon
+                        points="-30,95 583,95 583,65"
+                        className="text-emerald-400 fill-current"
+                      ></polygon>
+                    </svg>
+                    <h4 className="text-xl font-bold text-white">
+                      Appointments
+                    </h4>
+                    <p className="text-md font-light mt-2 text-white">
+                      Schedule appoitnments according to your convenience with your GS
+                    </p>
+                  </blockquote>
+              </Link>   
+              </div>
+              <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
+                <div className="md:pr-12">
+                  {/* <div className="text-lightBlue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-lightBlue-300">
+                    <i className="fas fa-rocket text-xl"></i>
+                  </div> */}
+                  <h3 className="text-3xl font-semibold">Make Appointmants</h3>
+                  <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                    Waiting in like to meet your GS could be frustrating and time consuming. 
+                    Why not schedule your meeting with the GS online. This will help you save a lot of time. 
+                  </p>
+                  <Link to="/Pages/Appointmentpage" className="font-bold text-blueGray-700 mt-8">
+                      Click to Make Appointmants
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20 bg-blueGray-200 -mt-24">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap items-center mt-32">
+              <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
+                {/* <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+                  <i className="fas fa-file-download text-xl"></i>
+                </div> */}
+                <h3 className="text-3xl mb-2 font-semibold leading-normal">
+                  Make donations and become a donor!
+                </h3>
+                <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
+                  Interested in our projects and our community? 
+                  Lend a helping hand for the small scale businesses and new inventions by making a generous donation.  
+                </p>
+                <Link to="/Pages/Donationpage" className="font-bold text-blueGray-700 mt-8">
+                  Click to Make Donation
+                </Link>
+              </div>
+
+              <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+                <br/><br/><br/>
+              <Link to="/pages/Donationpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+                <img
+                  alt="..."
+                  className="max-w-full rounded-lg"
+                  src={require("assets/img/img-donate.jpg").default}/>
+                
+                <blockquote className="relative p-8 mb-4">
+                    <svg
+                      preserveAspectRatio="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 583 95"
+                      className="absolute left-0 w-full block h-95-px -top-94-px"
+                    >
+                      <polygon
+                        points="-30,95 583,95 583,65"
+                        className="text-emerald-300 fill-current"
+                      ></polygon>
+                    </svg>
+                    <h4 className="text-xl font-bold text-white">
+                      Donation
+                    </h4>
+                    <p className="text-md font-light mt-2 text-white">
+                      Interested in our projects and our community? 
+                      Lend a helping hand for the small scale businesses and new inventions by making a generous donation. 
+                    </p>
+                  </blockquote>
+              </Link> 
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative py-20">
+          <div
+            className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
+            style={{ transform: "translateZ(0)" }}>
+            <svg
+              className="absolute bottom-0 overflow-hidden"
+              xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="none"
+              version="1.1"
+              viewBox="0 0 2560 100"
+              x="0"
+              y="0">
+              <polygon
+                className="text-white fill-current"
+                points="2560 0 2560 100 0 100"
+              ></polygon>
+            </svg>
+          </div>
+
+          <div className="container mx-auto px-4">
+            <div className="items-center flex flex-wrap">
+              <div className="w-full md:w-4/12 ml-auto mr-auto px-4">
+              <Link to="/Pages/Forumpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-400">
+                <img
+                  alt="..."
+                  className="max-w-full rounded-lg"
+                  src={require("assets/img/img-forum.jpg").default}/>
+                <blockquote className="relative p-8 mb-4">
+                    <svg
+                      preserveAspectRatio="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 583 95"
+                      className="absolute left-0 w-full block h-95-px -top-94-px"
+                    >
+                      <polygon
+                        points="-30,95 583,95 583,65"
+                        className="text-emerald-400 fill-current"
+                      ></polygon>
+                    </svg>
+                    <h4 className="text-xl font-bold text-white">
+                      Forum Discussion
+                    </h4>
+                    <p className="text-md font-light mt-2 text-white">
+                      Join the discussions and be a part of the active community. Share your ideas and your thoughts with us. 
+                    </p>
+                  </blockquote>
+              </Link>   
+              </div>
+              <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
+                <div className="md:pr-12">
+                  {/* <div className="text-lightBlue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-lightBlue-300">
+                    <i className="fas fa-rocket text-xl"></i>
+                  </div> */}
+                  <h3 className="text-3xl font-semibold">Forum Discussion</h3>
+                  <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                    Join the discussions and be a part of the active community. Share your ideas and your thoughts with us.  
+                  </p>
+                  <Link to="/Pages/Forumpage" className="font-bold text-blueGray-700 mt-8">
+                  Click to Participate Forum Discussion
+                </Link>
+                </div>
               </div>
             </div>
           </div>

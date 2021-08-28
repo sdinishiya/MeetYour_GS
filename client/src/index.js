@@ -11,6 +11,7 @@ import Auth from "layouts/Auth.js";
 
 // views without layouts
 import Landing from "views/Landing.js";
+import LogLanding from "views/Loglanding.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
 
@@ -19,7 +20,13 @@ import Schedule from "components/Appointment/schedule.js";
 
 //Finance
 import Receive from "components/Finance/CashReceive.js";
-import Expense from "components/Finance/AddExpenses.js";       
+import Expense from "components/Finance/AddExpenses.js";
+import Donation from "components/Finance/ViewDonation";
+import PettyCash from "components/Finance/ViewPettycash";       
+import Fund from "components/Finance/ViewFund"; 
+import ReceivedFund from "components/Finance/AddReceivedfund.js";
+import AllocateFund from "components/Finance/AllocateFund.js";
+// import CardPageVisits from "components/Cards/CardPageVisits.js";
 
 
 ReactDOM.render(
@@ -30,6 +37,7 @@ ReactDOM.render(
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
+      <Route path="/Loglanding" exact component={LogLanding} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
@@ -41,7 +49,13 @@ ReactDOM.render(
       {/* Finance */}
       <Route path="/CashReceive" component={Receive}/>
       <Route path="/AddExpenses" component={Expense}/>
+      <Route path="/ViewDonation" component={Donation}/>
+      <Route path="/ViewPettycash" component={PettyCash}/>
+      <Route path="/ViewFund" component={Fund}/>
+      <Route path="/AddReceivedfund" component={ReceivedFund}/>
+      <Route path="/AllocateFund" component={AllocateFund}/>
 
+ {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

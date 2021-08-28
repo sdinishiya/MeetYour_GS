@@ -10,27 +10,28 @@ import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function Expense() {
+export default function AllocateFund() {
   const [date,setdate] = useState("");
   const [receiptno,setreceiptno] = useState("");
   const [description,setdescription] = useState("");
-  const [expense,setexpense] = useState("");
-  const history  = useHistory();
+  const [income,setincome] = useState("");
+    const history  = useHistory();
 
-  const add_Expense = (e)=>{
-    e.preventDefault();
-    console.log(receiptno);
-     axios.post('http://localhost:3001/expensecreate',{
-      date:date,
-      receiptno:receiptno,
-      description:description,
-      expense:expense,
+    const receive = (e)=>{
+      e.preventDefault();
+      console.log(receiptno);
+       axios.post('http://localhost:3001/financecreate',{
+        date:date,
+        receiptno:receiptno,
+        description:description,
+        income:income,
 
-      }).then(()=>{
-         console.log("success");
-         history.push("/admin/Finance");
-       });
-  };
+        }).then(()=>{
+           console.log("success");
+           history.push("/admin/Finance");
+
+         });
+    };
   return (
     <>
     
@@ -51,28 +52,31 @@ export default function Expense() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        ADD NEW EXPENSE
+                        ALLOCATE FUNDS FOR PROJECTS
                     </h1>
+                    
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Date
                       </label>
                       <input type="date"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="date" onChange={(event)=>{setdate(event.target.value);}} 
+                        name="Date" onChange={(event)=>{setdate(event.target.value);}} 
                         required
                         placeholder="Date"/>
                     </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Receipt No
+                        Fund ID
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="Receipt No" onChange={(event)=>{setreceiptno(event.target.value);}} 
                         required
-                        placeholder="Receipt No..."/>
+                        placeholder="Fund ID..."/>
                     </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Description
@@ -83,29 +87,31 @@ export default function Expense() {
                         required
                         placeholder="Description..."/>
                     </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Amount
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Amount" onChange={(event)=>{setexpense(event.target.value);}} 
+                        name="Amount" onChange={(event)=>{setincome(event.target.value);}} 
                         required
                         placeholder="Enter Amount..."/>
                     </div>
+                    
                     <box>
                     <div className="text-center mt-6">
+                      {/* <button type="submit" onClick={add_fund} id="submitBtn"style={mystyle.submitBtn}> Add</button> */}
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={add_Expense}
-                      > ADD 
+                        onClick={receive}>
+                          ADD 
                       </button>
                       <Link to = '/ViewPettycash'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button"
-                      > 
+                        type="button"> 
                         CANCEL  
                       </button>
                       </Link>
@@ -124,7 +130,7 @@ export default function Expense() {
         
         </div>
       </main>
-      
+                 
     </>
   );
 }

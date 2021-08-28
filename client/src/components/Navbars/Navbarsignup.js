@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
-export default function Navbar(props) {
+export default function Navbarsignup(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -46,23 +46,25 @@ export default function Navbar(props) {
               </li>
             </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="flex items-center">
-                <PagesDropdown />
-              </li>
-              
-              <li className="flex items-center">
-              <Link
-                 to="/profile" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
-                   Profile
-             </Link>
-              </li>
-
               {/* <li className="flex items-center">
+                <PagesDropdown />
+              </li> */}
+
+              <li className="flex items-center">
               <Link
                  to="/auth/login" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
                    LOGIN
              </Link>
-              </li> */}
+              </li>
+              
+              <li className="flex items-center">
+              <Link
+                 to="/auth/register" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
+                   SIGN-UP
+             </Link>
+              </li>
+
+             
               
               {/* <Link
           to="/profile"

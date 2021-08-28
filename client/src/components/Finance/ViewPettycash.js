@@ -1,73 +1,75 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
-import props from 'prop-types';
-
+import { Link, useHistory } from 'react-router-dom';
+import axios from "axios";
 
 // components
-import TableDropdown from "components/Dropdowns/TableDropdown.js";
-// import FinanceHeader from "components/Finance/FinanceHeader.js";
+import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import Sidebar from "components/Sidebar/Sidebar.js";
+import FinanceHeader from "components/Finance/FinanceHeader.js";
+import FooterAdmin from "components/Footers/FooterAdmin.js";
 
-export default function PettyCash({ color }) {
 
-const [searchTerm,setSearchTerm]=useState("");
-  const [notices,setnotices]=useState([])
+export default function PettyCash() {
+    const [searchTerm,setSearchTerm]=useState("");
+  const [transaction,settransaction]=useState([])
   // const classes = useStyles();
 
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/noticeview").then((response)=>{
-        setnotices(response.data)
+    axios.get("http://localhost:3001/transaction").then((response)=>{
+        settransaction(response.data)
     })
-  },[])
-
+  },[])    
+  
+  const getTotal = () => {
+    let total = 0;
+    transaction.forEach(tr => {
+      if (tr.income > 0) {
+        total += tr.income;
+      } else {
+        total -= tr.expense;
+      }
+    })
+    return total;
+  }
   return (
     <>
-    {/* <FinanceHeader/> */}
-    <section> 
-    <div className="container px-6 mx-auto">
-      <div className="flex flex-wrap">
-      <div className="w-1/3 px-6 ml={120} ">
-            <Link to="/CashReceive">
-              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                    type="submit" >
-                    Add Income
-              </button> <br /><br />
-            </Link>
+    
+  <main>
+  <Sidebar />
+    <div className="relative md:ml-64 bg-blueGray-100">
+      <AdminNavbar />
+      {/* Header */}
+      <FinanceHeader /> 
+      <section className="pb-18 relative block bg-white">
+      <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
+      <br /> <br /> <br /> <br /> 
+      <section>
+      <div className="container px-6 mx-auto">
+        <div className="flex flex-wrap">
+          <div className="w-1/3 px-6 ml={120} ">
+              <Link to="/CashReceive">
+                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      Add Income
+                </button> <br /><br />
+              </Link>
           </div>
           <div className="w-1/3 px-6">
-            <Link to="/AddExpenses">
-              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                    type="submit" >
-                    Add Expenses
-              </button> <br /><br />
-            </Link>
+              <Link to="/AddExpenses">
+                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      Add Expenses
+                </button> <br /><br />
+              </Link>  
           </div>
-        
-            {/* <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
-                    <div className="relative flex w-full flex-wrap items-stretch">
-                    <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
-                        <i className="fas fa-search"></i>
-                    </span>
-                    <input
-                    type="text"
-                    placeholder="Search here..."
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10"
-                    />
-                    </div>
-                </form> */}
-
-        
-        
-    </div>
-    </div>
-      <div className={ "relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white" } >
+        </div>
+      </div>
+      <div className={ " flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white" } >
         <div className="rounded-t mb-0 px-4 py-3 border-0">
           <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
+            <div className="relative w-full px-4 max-w-full flex-grow flex-1  ">
               <h3
                 className={ "font-bold text-lg " + "text-emerald"  } >
                 Petty Cash Account
@@ -77,13 +79,25 @@ const [searchTerm,setSearchTerm]=useState("");
         </div>
         <div className="block w-full overflow-x-auto">
           {/* Projects table */}
+          
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
+                <tr>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td> 
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <b>Cash in Hand: </b>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                      <b>{getTotal()}</b>
+                  </td>
+                </tr>
                 <tr
                   className={
                     "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                     "bg-blueGray-50 text-blueGray-500 border-blueGray-100" }>
-                <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
+                <th className={ "px-12 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                     Date 
                 </th>
                 <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
@@ -102,53 +116,48 @@ const [searchTerm,setSearchTerm]=useState("");
               </tr>
             </thead>
             <tbody>
-            {notices.map((notice)=>{
-                const dt = new Date(notice.uploadDate);
+            {transaction.map((record)=>{
+                const dt = new Date(record.date);
                 const year = dt.getFullYear() + '/';
                 const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
                 const day = ('0' + dt.getDate()).slice(-2);
-
-                const dp = new Date(notice.expDate);
-                const year1 = dp.getFullYear() + '/';
-                const month1 = ('0' + (dp.getMonth() + 1)).slice(-2) + '/';
-                const day1 = ('0' + dp.getDate()).slice(-2);
 
                 return(
               <tr>
                 <th className ="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                   <span className ={ "ml-3 font-bold " + "text-blueGray-600"}>
-                    {notice.topic}
+                    {year + month + day}
                   </span>
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {notice.description}
+                    {record.receiptno}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {year + month + day}
+                    {record.description}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {year1 + month1 + day1}
+                    {record.income}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                  <TableDropdown />
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    {record.expense}
                 </td>
               </tr>
                 )
+              
             })} 
+            
             </tbody>
           </table>
         </div>
       </div>
-    
-  </section>
+      </section> 
+        </div>
+        <FooterAdmin />
+        </section>
+        
+        </div>
+      </main>
+      
     </>
   );
 }
-
-// NoticeTable.defaultProps = {
-//   color: "light",
-// };
-
-// BookTable.propTypes = {
-//   color: PropTypes.oneOf(["light", "dark"]),
-// };

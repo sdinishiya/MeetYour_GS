@@ -1136,6 +1136,31 @@ select {
   background-color: rgba(255, 00, 00, var(--tw-bg-opacity));
 }
 
+.text-emerald-50 {
+  --tw-text-opacity: 1;
+  color: rgba(238, 238, 238, var(--tw-text-opacity));
+}
+
+.text-emerald-100 {
+  --tw-text-opacity: 1;
+  color: rgba(210, 247, 247, var(--tw-text-opacity));
+}
+
+.text-emerald-200 {
+  --tw-text-opacity: 1;
+  color: rgba(178, 222, 223, var(--tw-text-opacity));
+}
+
+.text-emerald-300 {
+  --tw-text-opacity: 1;
+  color: rgba(86, 191, 196, var(--tw-text-opacity));
+}
+
+.text-emerald-400 {
+  --tw-text-opacity: 1;
+  color: rgba(55, 123, 126, var(--tw-text-opacity));
+}
+
 /* color pallete ends */
 
 .bg-emerald-600 {
