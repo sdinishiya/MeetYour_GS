@@ -257,6 +257,46 @@ app.get('/othermaterials',(req,res)=>{
     });
 });
 
+
+
+
+
+
+
+//Donation
+app.post('/donationcreate',(req,res)=>{
+    console.log(req.body)
+    const donorID = req.body.donorID;
+    const donorName = req.body.donorName;
+    const address = req.body.address;
+    const phone = req.body.phone;
+    const email = req.body.email;
+    const date = req.body.date;
+    const amount = req.body.amount;
+
+    db.query("INSERT INTO donation (donorID,donorName,address,phone,email,date,amount) VALUES (?,?,?,?,?,?)",
+    [donorID,donorName,address,phone,email,date,amount],(err,result)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    
+    })
+    
+});
+app.get('/transaction',(req,res)=>{
+    db.query("SELECT * FROM finance order by date ASC" ,(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+
 // income
 app.post('/financecreate',(req,res)=>{
     console.log(req.body)

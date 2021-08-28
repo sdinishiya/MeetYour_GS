@@ -13,7 +13,7 @@ import MaterialHeader from "components/Material/MaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function AddconstMaterial() {
+export default function AddagriMaterial() {
     const [getmaterial,setgetmaterial] = useState ([])
     const [addeddate,setaddeddate] = useState("");
     const [materialid,setmaterialid] = useState("");
@@ -214,7 +214,7 @@ const mystyle = {
                         onClick={add_Materials}>
                           ADD 
                       </button>
-                      <Link to = '/ConstMaterial'>
+                      <Link to = '/AgriMaterial'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"> 

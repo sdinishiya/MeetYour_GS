@@ -34,7 +34,7 @@ import CardPageVisitsCheck from "components/Cards/CardPageVisitsCheck.js";
 
 //Donation
 import Donation from "components/Finance/ViewDonation";
-
+import AddDonation from "components/Finance/AddDonation";
 
 //MATERIAL
 //Const Material
@@ -45,9 +45,15 @@ import SupplyconstMaterial from "components/Material/SupplyconstMaterial";
 
 //Agri Material
 import AgriMaterial from "components/Material/AgriMaterial";
+import AddnewagriMaterial from "components/Material/AddnewagriMaterial";
+import AddagriMaterial from "components/Material/AddagriMaterial";
+import SupplyagriMaterial from "components/Material/SupplyagriMaterial";
 
 //Other Material
 import OtherMaterial from "components/Material/OtherMaterial";
+import AddnewotherMaterial from "components/Material/AddnewotherMaterial";
+import AddotherMaterial from "components/Material/AddotherMaterial";
+import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -81,7 +87,8 @@ ReactDOM.render(
 
       {/* Donation */}
       <Route path="/ViewDonation" component={Donation}/>
-
+      <Route path="/AddDonation" component={AddDonation}/>
+      {/* <Route path="/viewwdonation" component={ViewDonation}/> */}
       {/* Material */}
       {/* Const Material */}
       <Route path="/ConstMaterial" component={ConstMaterial}/>
@@ -91,11 +98,15 @@ ReactDOM.render(
 
       {/* Agri Material */}
       <Route path="/AgriMaterial" component={AgriMaterial}/>
-
+      <Route path="/AddnewagriMaterial" component={AddnewagriMaterial}/>
+      <Route path="/AddagriMaterial" component={AddagriMaterial}/>
+      <Route path="/SupplyagriMaterial" component={SupplyagriMaterial}/>
 
       {/* Other Material */}
       <Route path="/OtherMaterial" component={OtherMaterial}/>
-
+      <Route path="/AddnewotherMaterial" component={AddnewotherMaterial}/>
+      <Route path="/AddotherMaterial" component={AddotherMaterial}/>
+      <Route path="/SupplyotherMaterial" component={SupplyotherMaterial}/>
 
 
 
