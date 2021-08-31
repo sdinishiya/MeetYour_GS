@@ -395,6 +395,7 @@ app.post('/fundallocatecreate',(req,res)=>{
 });
 
 
+//APPOINTMENTS
 //schedule
 app.post('/schedule',(req,res)=>{
     console.log(req.body)
@@ -435,8 +436,7 @@ app.get('/book',(req,res)=>{
         
     });
 });
-
-//addbooking //appointview
+//RequestView
 app.get('/requestView',(req,res)=>{
     db.query("SELECT * FROM appointment WHERE status='pending' AND book_status = 1 ",(err,result,) => {
         if(err) {
@@ -446,6 +446,18 @@ app.get('/requestView',(req,res)=>{
 	  }     
     });
 });
+
+//appview
+app.get('/appview',(req,res)=>{
+    db.query("SELECT * FROM appointment",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
+
 app.get('/appdetails',(req,res)=>{
     db.query("SELECT nic,name,home_no,address,phone,email,des FROM appointment",(err,result,) => {
         if(err) {
@@ -455,6 +467,7 @@ app.get('/appdetails',(req,res)=>{
 	  }     
     });
 });
+
 app.put('/add-app-booking', (req,res) => {
     const appID = req.body.appID;
     const nic = req.body.nic;
@@ -464,11 +477,12 @@ app.put('/add-app-booking', (req,res) => {
     const phone = req.body.phone;
     const email = req.body.email; 
     const des = req.body.des;
-    console.log("reach")
+    const book_status = req.body.book_status;
+    console.log("db reach")
     console.log(req.body)
 
-    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=? WHERE appID = ?; ", 
-    [nic,name,home_no,address,phone,email,des, appID], 
+    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=?,book_status=1 WHERE appID = ?; ", 
+    [nic,name,home_no,address,phone,email,des,book_status, appID], 
     (err, result) => {
 
         if (err) {
@@ -479,15 +493,16 @@ app.put('/add-app-booking', (req,res) => {
        }
     );
   });
+
 //accept
 app.put('/accept-book', (req,res) => {
-    const apptID = req.body.appID;
+    const appID = req.body.appID;
     const status = req.body.status;
 
     console.log(req.body)
 
-    db.query("UPDATE appointment SET status=Confirmed WHERE appID = ?; ", 
-    [status, appID], 
+    db.query("UPDATE appointment SET status='Confirmed' WHERE appID = ?; ", 
+    [appID], 
     (err, result) => {
 
         if (err) {
@@ -498,15 +513,16 @@ app.put('/accept-book', (req,res) => {
        }
     );
   });
+
 //decline
 app.put('/decline-book', (req,res) => {
-    const apptID = req.body.appID;
-    const nic = req.body.nic;
+    const appID = req.body.appID;
+    const status = req.body.status;
 
     console.log(req.body)
 
     db.query("UPDATE appointment SET status='Declined' WHERE appID = ?; ", 
-    [status, appID], 
+    [appID], 
     (err, result) => {
 
         if (err) {
@@ -520,7 +536,7 @@ app.put('/decline-book', (req,res) => {
 
 //confirmed appointment
   app.get('/confirmbook',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description,name,home_no,address,phone,email,des FROM appointment WHERE status = 'Confirmed' ",(err,result,) => {
+    db.query("SELECT * FROM appointment WHERE status='Confirmed' AND book_status = 1",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -530,6 +546,25 @@ app.put('/decline-book', (req,res) => {
     });
 });
 
+//cancel
+app.put('/cancel-book', (req,res) => {
+    const appID = req.body.appID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE appointment SET status='Cancelled' WHERE appID = ?; ", 
+    [appID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
 
 
 //donations
@@ -605,10 +640,10 @@ app.post('/addnotice',(req,res)=>{
     const description = req.body.description; 
     const uploadDate = req.body.uploadDate;
     const expDate = req.body.expDate; 
-    const active_status = req.body.active_status;  
+    const status = req.body.status;  
 
-    db.query("INSERT INTO notice (topic,description,uploadDate,expDate,active_status) VALUES (?,?,?,?,?)",
-    [topic,description,uploadDate,expDate,active_status],(err,result)=>{
+    db.query("INSERT INTO notice (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
+    [topic,description,uploadDate,expDate],(err,result)=>{
 		if(err){
             console.log(err);
         } else{
@@ -619,7 +654,7 @@ app.post('/addnotice',(req,res)=>{
     
 });
 app.get('/noticeview',(req,res)=>{
-    db.query("SELECT topic,description,uploadDate,expDate,active_status FROM notice",(err,result,) => {
+    db.query("SELECT  * FROM notice WHERE status = 'Active' ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -628,6 +663,56 @@ app.get('/noticeview',(req,res)=>{
         
     });
 });
+app.get('/allnoticeview',(req,res)=>{
+    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+//remove
+app.put('/remove-notice', (req,res) => {
+    const noticeID = req.body.noticeID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE notice SET status='Inactive' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+  //Activate
+app.put('/active-notice', (req,res) => {
+    const noticeID = req.body.noticeID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE notice SET status='Active' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
+
 
 app.listen(3001, () => {
 	console.log("running on port 3001");

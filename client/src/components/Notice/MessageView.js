@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import props from 'prop-types';
 
 // components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
@@ -14,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function NoticeTable() {
+export default function MessageTable() {
 
   const [notices,setnotices]=useState([])
 

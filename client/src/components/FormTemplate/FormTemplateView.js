@@ -24,21 +24,6 @@ export default function NoticeTable() {
         setnotices(response.data)
     })
   },[])
-
-    // decline
-    const [status, setstatus] = useState("Inactive");
-    const removeNotice = (noticeID) => {
-      axios
-        .put("http://localhost:3001/remove-notice", {
-          status: status,
-          noticeID: noticeID,
-        })
-
-        .then((response) => {
-          console.log(noticeID);
-        });
-      alert(" Notice Removed ");
-    };
   return (
     <>
     
@@ -55,18 +40,13 @@ export default function NoticeTable() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-11/12 px-4">
-              <Link to="/AllNoticeView">
-                <button className="bg-emerald-400 text-white active:bg-emerald-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                      type="submit" >
-                      View Past Notices 
-                </button> <br /><br />
-              </Link>
+
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                              Active Notice Details Table
+                              Notice Details Table
                           </h3>
                         </div>
                         {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -85,7 +65,7 @@ export default function NoticeTable() {
                         <thead>
                           <tr>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                              Topic   
+                              Notice Topic   
                           </th>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                               Description  
@@ -137,7 +117,7 @@ export default function NoticeTable() {
                                   {year1 + month1 + day1}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {notice.status}
+                                  {notice.active_status}
                               </td>
                               {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                 <TableDropdown />
@@ -153,12 +133,11 @@ export default function NoticeTable() {
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <Link to="/noticeView">
-                                <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                      type="submit" 
-                                      onClick={() => removeNotice(notice.noticeID)}>  {" "}  
-                                     Remove
-                                </button>
-                              </Link>
+                                  <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                        type="submit" >
+                                        Remove
+                                  </button>
+                                </Link>  
                               </td>
                             </tr>
                             )

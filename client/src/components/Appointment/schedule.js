@@ -29,13 +29,6 @@ export default function Schedule() {
         return;
       }
 
-      // var startTime = new String(startTime);
-      // var endTime = new String(endTime);
-      // var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
-      // if(parseInt(endTime) > parseInt(startTime )){
-      // alert("End time is greater");
-      // }
-
 
        axios.post('http://localhost:3001/schedule',{
         gsname:gsname,
@@ -46,7 +39,8 @@ export default function Schedule() {
 
         }).then(()=>{
            console.log("success");
-           //history.push("/Appointment/viewScheduled");
+           alert(" Appointment Scheduled Successfully ");
+           history.push("/ViewScheduled");
          });
     };
   return (

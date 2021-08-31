@@ -20,11 +20,20 @@ import Schedule from "components/Appointment/schedule.js";
 import UserView from "components/Appointment/UserView.js";
 import ViewRequests from "components/Appointment/ViewRequests.js";
 import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
+import UserBooking from "components/Appointment/UserBooking";
+
 
 
 //Notice 
 import AddNotice from "components/Notice/AddNotice.js";
 import NoticeTable from "components/Notice/noticeView.js";
+import AllNotice from "components/Notice/AllNoticeView.js";
+
+//SMSmessage
+import AddMessage from "components/Notice/AddMessage.js";
+import MessageView from "components/Notice/MessageView.js";
+import AllMessageView from "components/Notice/AllMessageView.js";
+
 
 //FINANCE
 //Petty Cash
@@ -80,13 +89,21 @@ ReactDOM.render(
       {/* Appointment  */}
       <Route path="/ViewScheduled"  component={ViewScheduled} />
       <Route path="/schedule"  component={Schedule} />
-      <Route path="/UserView"  component={UserView} />
       <Route path="/ViewRequests"  component={ViewRequests} />
       <Route path="/ViewConfirmed"  component={ViewConfirmed} />
+      <Route path="/UserView"  component={UserView} />
+      <Route path="/UserBooking"  component={UserBooking} />
+      
 
       {/* Notices */}
       <Route path="/AddNotice"  component={AddNotice} />
       <Route path="/noticeView"  component={NoticeTable} />
+      <Route path="/AllNoticeView"  component={AllNotice} />
+      {/* sms */}
+      <Route path="/AddMessage"  component={AddMessage} />
+      <Route path="/MessageView"  component={MessageView} />
+      <Route path="/AllMessageView"  component={AllMessageView} />
+      
 
       {/* FINANCE */}
       {/* Petty Cash */}
