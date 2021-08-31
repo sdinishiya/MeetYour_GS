@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import FundNavbar from "components/Navbars/FundNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
@@ -12,23 +12,23 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function AllocateFund() {
   const [date,setdate] = useState("");
-  const [receiptno,setreceiptno] = useState("");
+  const [fundID,setfundID] = useState("");
   const [description,setdescription] = useState("");
-  const [income,setincome] = useState("");
+  const [credit,setcredit] = useState("");
     const history  = useHistory();
 
     const receive = (e)=>{
       e.preventDefault();
-      console.log(receiptno);
-       axios.post('http://localhost:3001/financecreate',{
+      console.log(fundID);
+       axios.post('http://localhost:3001/fundallocatecreate',{
         date:date,
-        receiptno:receiptno,
+        fundID:fundID,
         description:description,
-        income:income,
+        credit:credit,
 
         }).then(()=>{
            console.log("success");
-           history.push("/admin/Finance");
+           history.push("/ViewFund");
 
          });
     };
@@ -38,7 +38,7 @@ export default function AllocateFund() {
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <FundNavbar />
       {/* Header */}
       <FinanceHeader />
       <section className="pb-18 relative block bg-white">
@@ -72,7 +72,7 @@ export default function AllocateFund() {
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Receipt No" onChange={(event)=>{setreceiptno(event.target.value);}} 
+                        name="Receipt No" onChange={(event)=>{setfundID(event.target.value);}} 
                         required
                         placeholder="Fund ID..."/>
                     </div>
@@ -94,7 +94,7 @@ export default function AllocateFund() {
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Amount" onChange={(event)=>{setincome(event.target.value);}} 
+                        name="Amount" onChange={(event)=>{setcredit(event.target.value);}} 
                         required
                         placeholder="Enter Amount..."/>
                     </div>

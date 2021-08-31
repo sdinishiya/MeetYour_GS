@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import CardStats from "components/Cards/CardStats.js";
 
-export default function FinanceHeader() {
+export default function UserHeader() {
   return (
     <>
       {/* Header */}
@@ -14,23 +14,17 @@ export default function FinanceHeader() {
           <div>
             {/* Card 1 */}
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
+              <div className="w-full lg:w-6/12 xl:w-4/12 px-">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link
-                      // className={
-                      //   (window.location.href.indexOf("/ViewDonation") !== -1
-                      //     ? "text-black hover:text-black"
-                      //     : "text-blueGray-700 hover:text-blueGray-400")
-                      // }
-                     to="/ViewDonation">
+                    <Link to="/Users/Const">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Donations
+                            Materials
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            Donations Account
+                            Construction Materials
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -47,14 +41,14 @@ export default function FinanceHeader() {
             <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/ViewPettycash">
+                    <Link to="/Users/Agri">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Government
+                            Materials
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            Petty Cash Account
+                            Agriculture Materials
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">
@@ -71,14 +65,14 @@ export default function FinanceHeader() {
              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/ViewFund">
+                    <Link to="/Users/Other">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
-                            Government
+                            Materials
                             </h5>
                             <span className="font-semibold text-xl text-blueGray-700">
-                            Fund Account
+                            Other Materials
                             </span>
                         </div>
                         <div className="relative w-auto pl-4 flex-initial">

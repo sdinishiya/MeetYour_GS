@@ -190,12 +190,12 @@ export default function Sidebar() {
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/Finance"
+                  to="/ViewDonation"
                 >
                   <i
                     className={
                       "fas fa-donate mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/Finance") !== -1
+                      (window.location.href.indexOf("/ViewDonation") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -208,7 +208,7 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/Finance") !== -1
+                    (window.location.href.indexOf("/ViewDonation") !== -1
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -274,16 +274,16 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/Material") !== -1
+                    (window.location.href.indexOf("/AddnewconstMaterial") !== -1
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="ConstMaterial"
+                  to="/AddnewconstMaterial"
                 >
                   <i
                     className={
                       "fas fa-shopping-cart mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/Material") !== -1
+                      (window.location.href.indexOf("/AddnewconstMaterial") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }

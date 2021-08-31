@@ -4,19 +4,20 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import DonationNavbar from "components/Navbars/DonationNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
 export default function AddDonation() {
+  const [date,setdate] = useState("");
   const [donorID,setdonorID] = useState("");
   const [donorName,setdonorName] = useState("");
   const [address,setaddress] = useState("");
   const [phone,setphone] = useState("");
   const [email,setemail] = useState("");
-  const [date,setdate] = useState("");
+  const [description,setdescription] = useState("");
   const [amount,setamount] = useState("");
     const history  = useHistory();
 
@@ -24,11 +25,12 @@ export default function AddDonation() {
       e.preventDefault();
       console.log(donorID);
        axios.post('http://localhost:3001/donationcreate',{
+        date:date,
         donorName:donorName,
         address:address,
         phone:phone,
         email:email,
-        date:date,
+        description:description,
         amount:amount,
 
         }).then(()=>{
@@ -43,7 +45,7 @@ export default function AddDonation() {
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <DonationNavbar />
       {/* Header */}
       <FinanceHeader />
       <section className="pb-18 relative block bg-white">
@@ -59,17 +61,16 @@ export default function AddDonation() {
                     <h1 className="text-2xl font-semibold text-center justify-center">
                         ADD DIRECT DONATION
                     </h1>
-                    
-                    {/* <div className="relative w-full mb-3 mt-8">
+                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Donor ID
+                        Date
                       </label>
-                      <input type="text"
+                      <input type="date"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Donor ID" onChange={(event)=>{setdonorID(event.target.value);}} 
+                        name="Date" onChange={(event)=>{setdate(event.target.value);}} 
                         required
-                        placeholder="Donor ID..."/>
-                    </div> */}
+                        placeholder="Date"/>
+                    </div>
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -117,13 +118,13 @@ export default function AddDonation() {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Date
+                        Description
                       </label>
-                      <input type="date"
+                      <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Date" onChange={(event)=>{setdate(event.target.value);}} 
+                        name="Description" onChange={(event)=>{setdescription(event.target.value);}} 
                         required
-                        placeholder="Date"/>
+                        placeholder="Enter Description..."/>
                     </div>
 
                     <div className="relative w-full mb-3 mt-8">

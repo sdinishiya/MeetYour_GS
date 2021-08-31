@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import AgriMaterialNavbar from "components/Navbars/AgriMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import MaterialHeader from "components/Material/MaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
@@ -20,18 +20,18 @@ export default function AddnewagriMaterial() {
     const new_Materials = (e)=>{
       e.preventDefault();
       console.log(materialid);
-       axios.post('http://localhost:3001/createnew',{
+       axios.post('http://localhost:3001/createnewagri',{
         materialname:materialname,
 
 
         }).then(()=>{
            console.log("success");
-           history.push("/materials/Addnewmaterial");
+           history.push("/AddnewagriMaterial");
          });
     };
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/newmaterial").then((response)=>{
+        axios.get("http://localhost:3001/newagrimaterial").then((response)=>{
           setmaterialList(response.data)
         })
       },[])
@@ -42,7 +42,7 @@ export default function AddnewagriMaterial() {
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <AgriMaterialNavbar />
       {/* Header */}
       <MaterialHeader />
       <section className="pb-18 relative block bg-white">
@@ -52,11 +52,35 @@ export default function AddnewagriMaterial() {
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-              <div className="w-full lg:w-6/12 px-4">
+              <div className="w-full lg:w-7/12 px-4">
+              <Link to="/AddagriMaterial">
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      Add Material
+                </button> 
+              </Link>
+              <Link to="/AgriMaterial">
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      View Added Material
+                </button> 
+              </Link>   
+              <Link to="/SupplyagriMaterial">
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      Supply Material    
+                </button>
+              </Link>
+              <Link to="ViewSuppliedagriMaterial">
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      View Supplied Material
+                </button> <br/><br/>
+              </Link>
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
-                    <h1 className="text-2xl font-semibold text-center justify-center">
-                        ADD NEW CONSTRUCTION MATERIAL
+                    <h1 className="text-2xl font-semibold uppercase text-center justify-center">
+                        Add New Agriculture Material
                     </h1>
 
                     <div className="relative w-full mb-3 mt-8">
@@ -79,7 +103,7 @@ export default function AddnewagriMaterial() {
                         onClick={new_Materials}>
                           ADD 
                       </button>
-                      <Link to = '/AgriMaterial'>
+                      <Link to = '/AddnewagriMaterial'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"> 
@@ -90,6 +114,53 @@ export default function AddnewagriMaterial() {
                     </box>
                   </div>
                 </div>
+              </div>
+              <div className="w-full lg:w-5/12 px-4">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+        <div className="rounded-t mb-0 px-4 py-3 border-0">
+          <div className="flex flex-wrap items-center">
+            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3 className="font-semibold uppercase text-center text-base text-blueGray-700">
+                Agriculture Material
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div className="block w-full overflow-x-auto">
+          {/* Projects table */}
+          <table className="items-center w-full bg-transparent border-collapse">
+            <thead>
+              <tr>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+                  Material ID
+                </th>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                  Material Name
+                </th>
+                <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+                  Available Quantity
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {materialList.map((record)=>{
+                    return(
+                      <tr>
+                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                          {record.materialid} 
+                        </th>
+
+                        <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
+                          {record.materialname} 
+                        </th>
+                      </tr>
+                            )
+                      })
+                }
+            </tbody>
+          </table>
+        </div>
+      </div>
               </div>
             </div>
           </div>

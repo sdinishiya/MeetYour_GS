@@ -1116,6 +1116,11 @@ select {
   background-color: rgba(86, 191, 196, var(--tw-bg-opacity));
 }
 
+.bg-emerald-350 {
+  --tw-text-opacity: 1;
+  background-color: rgba(64, 173, 179, var(--tw-bg-opacity));
+}
+
 .bg-emerald-400 {
   --tw-bg-opacity: 1;
   background-color: rgba(55, 123, 126, var(--tw-bg-opacity));
@@ -1160,6 +1165,7 @@ select {
   --tw-text-opacity: 1;
   color: rgba(55, 123, 126, var(--tw-text-opacity));
 }
+
 
 /* color pallete ends */
 
@@ -3084,8 +3090,20 @@ select {
     width: 33.333333%;
   }
 
+  .lg\:w-4\/12 {
+    width: 33.333333%;
+  } 
+
+  .lg\:w-5\/12 {
+    width: 41.666%;
+  }
+
   .lg\:w-6\/12 {
     width: 50%;
+  }
+
+  .lg\:w-7\/12 {
+    width: 58.333%;
   }
 
   .lg\:w-8\/12 {
