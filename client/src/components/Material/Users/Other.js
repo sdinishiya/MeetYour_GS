@@ -4,30 +4,27 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AgriMaterialNavbar from "components/Navbars/AgriMaterialNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import OtherUserNavbar from "components/Navbars/Users/OtherUserNavbar.js";
+import UserHeader from "components/Material/Users/UserHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function ViewDonation() {
+export default function Other() {
   const [viewList,setviewList]=useState([])
   
       useEffect(()=>{
-          axios.get("http://localhost:3001/agrimaterials").then((response)=>{
+          axios.get("http://localhost:3001/othermaterials").then((response)=>{
               setviewList(response.data)
           })
       },[])
 
-  return (    
+  return (
     <>
     
   <main>
-  <Sidebar />
-    <div className="relative md:ml-64 bg-blueGray-100">
-      <AgriMaterialNavbar />
+      <OtherUserNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <UserHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
@@ -35,36 +32,36 @@ export default function ViewDonation() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
-              <Link to="/AddnewagriMaterial">
+              {/* <Link to="/AddnewotherMaterial">
                 <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       Add New Material
                 </button> 
               </Link>
-              <Link to="/AddagriMaterial">
+              <Link to="/AddotherMaterial">
                 <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       Add Material
                 </button> 
               </Link>
-              <Link to="/SupplyagriMaterial">
+              <Link to="/SupplyotherMaterial">
                 <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       Supply Material    
                 </button>
               </Link>
-              <Link to="/ViewSuppliedagriMaterial">
+              <Link to="/ViewSuppliedotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                         type="submit" >
                         View Supplied Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="uppercase text-center font-bold text-base text-blueGray-700">
-                            Detailed list of Agriculture Materials
+                            Detailed list of Other Materials
                           </h3>
                         </div>
                       </div>
@@ -131,8 +128,6 @@ export default function ViewDonation() {
         </div>
         <FooterAdmin />
         </section>
-        
-        </div>
       </main>
       
     </>

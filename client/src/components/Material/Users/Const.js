@@ -4,30 +4,26 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AgriMaterialNavbar from "components/Navbars/AgriMaterialNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import ConstUserNavbar from "components/Navbars/Users/ConstUserNavbar.js";
+import UserHeader from "components/Material/Users/UserHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function ViewDonation() {
+export default function Const() {
   const [viewList,setviewList]=useState([])
   
       useEffect(()=>{
-          axios.get("http://localhost:3001/agrimaterials").then((response)=>{
+          axios.get("http://localhost:3001/materials").then((response)=>{
               setviewList(response.data)
           })
       },[])
 
-  return (    
+  return (  
     <>
     
   <main>
-  <Sidebar />
-    <div className="relative md:ml-64 bg-blueGray-100">
-      <AgriMaterialNavbar />
-      {/* Header */}
-      <MaterialHeader />
+      <ConstUserNavbar />
+      <UserHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
@@ -35,36 +31,12 @@ export default function ViewDonation() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
-              <Link to="/AddnewagriMaterial">
-                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                      type="submit" >
-                      Add New Material
-                </button> 
-              </Link>
-              <Link to="/AddagriMaterial">
-                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                      type="submit" >
-                      Add Material
-                </button> 
-              </Link>
-              <Link to="/SupplyagriMaterial">
-                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                      type="submit" >
-                      Supply Material    
-                </button>
-              </Link>
-              <Link to="/ViewSuppliedagriMaterial">
-                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                        type="submit" >
-                        View Supplied Material
-                  </button> <br/><br/>
-                </Link>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                          <h3 className="uppercase text-center font-bold text-base text-blueGray-700">
-                            Detailed list of Agriculture Materials
+                          <h3 className="uppercase text-center font-bold text-base text-blueGray-700 ">
+                            Detailed list of Construction Materials
                           </h3>
                         </div>
                       </div>
@@ -74,7 +46,7 @@ export default function ViewDonation() {
                       <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                           <tr>
-                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
                               Added Date
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
@@ -132,7 +104,7 @@ export default function ViewDonation() {
         <FooterAdmin />
         </section>
         
-        </div>
+        {/* </div> */}
       </main>
       
     </>

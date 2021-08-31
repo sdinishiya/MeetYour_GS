@@ -66,6 +66,11 @@ import AddotherMaterial from "components/Material/AddotherMaterial";
 import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
 import ViewSupplyOther from "components/Material/ViewSuppliedotherMaterial";
 
+//Users(Material)
+import Const from "components/Material/Users/Const.js";
+import Agri from "components/Material/Users/Agri.js";
+import Other from "components/Material/Users/Other.js";
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -129,6 +134,10 @@ ReactDOM.render(
       <Route path="/SupplyotherMaterial" component={SupplyotherMaterial}/>
       <Route path="/ViewSuppliedotherMaterial" component={ViewSupplyOther}/>
 
+      {/* Users(Material) */}
+      <Route path ="/Users/Const" component={Const}/>
+      <Route path ="/Users/Agri" component={Agri}/>
+      <Route path ="/Users/Other" component={Other}/>
 
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>
