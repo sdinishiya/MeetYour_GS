@@ -50,18 +50,21 @@ import ConstMaterial from "components/Material/ConstMaterial";
 import AddnewconstMaterial from "components/Material/AddnewconstMaterial";
 import AddconstMaterial from "components/Material/AddconstMaterial";
 import SupplyconstMaterial from "components/Material/SupplyconstMaterial";
+import ViewSupplyConst from "components/Material/ViewSuppliedconstMaterial";
 
 //Agri Material
 import AgriMaterial from "components/Material/AgriMaterial";
 import AddnewagriMaterial from "components/Material/AddnewagriMaterial";
 import AddagriMaterial from "components/Material/AddagriMaterial";
 import SupplyagriMaterial from "components/Material/SupplyagriMaterial";
+import ViewSupplyAgri from "components/Material/ViewSuppliedagriMaterial";
 
 //Other Material
 import OtherMaterial from "components/Material/OtherMaterial";
 import AddnewotherMaterial from "components/Material/AddnewotherMaterial";
 import AddotherMaterial from "components/Material/AddotherMaterial";
 import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
+import ViewSupplyOther from "components/Material/ViewSuppliedotherMaterial";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -98,7 +101,7 @@ ReactDOM.render(
       <Route path="/ViewFund" component={Fund}/>
       <Route path="/AddReceivedfund" component={ReceivedFund}/>
       <Route path="/AllocateFund" component={AllocateFund}/>
- {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+      {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
 
       {/* Donation */}
       <Route path="/ViewDonation" component={Donation}/>
@@ -110,18 +113,21 @@ ReactDOM.render(
       <Route path="/AddnewconstMaterial" component={AddnewconstMaterial}/>
       <Route path="/AddconstMaterial" component={AddconstMaterial}/>
       <Route path="/SupplyconstMaterial" component={SupplyconstMaterial}/>
+      <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst}/>
 
       {/* Agri Material */}
       <Route path="/AgriMaterial" component={AgriMaterial}/>
       <Route path="/AddnewagriMaterial" component={AddnewagriMaterial}/>
       <Route path="/AddagriMaterial" component={AddagriMaterial}/>
       <Route path="/SupplyagriMaterial" component={SupplyagriMaterial}/>
+      <Route path="/ViewSuppliedagriMaterial" component={ViewSupplyAgri}/>
 
       {/* Other Material */}
       <Route path="/OtherMaterial" component={OtherMaterial}/>
       <Route path="/AddnewotherMaterial" component={AddnewotherMaterial}/>
       <Route path="/AddotherMaterial" component={AddotherMaterial}/>
       <Route path="/SupplyotherMaterial" component={SupplyotherMaterial}/>
+      <Route path="/ViewSuppliedotherMaterial" component={ViewSupplyOther}/>
 
 
 

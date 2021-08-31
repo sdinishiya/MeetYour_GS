@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import DonationNavbar from "components/Navbars/DonationNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
@@ -45,7 +45,7 @@ export default function AddDonation() {
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <DonationNavbar />
       {/* Header */}
       <FinanceHeader />
       <section className="pb-18 relative block bg-white">

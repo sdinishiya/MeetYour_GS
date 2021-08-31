@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from "axios";
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import DonationNavbar from "components/Navbars/DonationNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FinanceHeader from "components/Finance/FinanceHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
@@ -26,7 +26,7 @@ export default function ViewDonation() {
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <DonationNavbar />
       {/* Header */}
       <FinanceHeader />
       <section className="pb-18 relative block bg-white">
@@ -37,7 +37,7 @@ export default function ViewDonation() {
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
               <Link to="/AddDonation">
-                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       Add Direct Donation
                 </button> <br /><br />

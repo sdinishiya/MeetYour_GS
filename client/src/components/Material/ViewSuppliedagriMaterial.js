@@ -10,16 +10,16 @@ import MaterialHeader from "components/Material/MaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function ViewDonation() {
+export default function ViewSupplyAgri() {
   const [viewList,setviewList]=useState([])
   
       useEffect(()=>{
-          axios.get("http://localhost:3001/agrimaterials").then((response)=>{
+          axios.get("http://localhost:3001/agrisupply").then((response)=>{
               setviewList(response.data)
           })
       },[])
 
-  return (    
+  return (   
     <>
     
   <main>
@@ -47,24 +47,24 @@ export default function ViewDonation() {
                       Add Material
                 </button> 
               </Link>
+              <Link to="/AgriMaterial">
+                <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="submit" >
+                      View Added Material    
+                </button>
+              </Link>
               <Link to="/SupplyagriMaterial">
                 <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       Supply Material    
-                </button>
+                </button><br/><br/>
               </Link>
-              <Link to="/ViewSuppliedagriMaterial">
-                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                        type="submit" >
-                        View Supplied Material
-                  </button> <br/><br/>
-                </Link>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                          <h3 className="uppercase text-center font-bold text-base text-blueGray-700">
-                            Detailed list of Agriculture Materials
+                          <h3 className="uppercase text-center font-bold text-base text-blueGray-700 ">
+                            Detailed list of Supplied Agriculture Materials
                           </h3>
                         </div>
                       </div>
@@ -74,8 +74,8 @@ export default function ViewDonation() {
                       <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                           <tr>
-                          <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
-                              Added Date
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+                              Supplied Date
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
                               Material ID
@@ -93,7 +93,7 @@ export default function ViewDonation() {
                         </thead>
                         <tbody> 
                           {viewList.map((record)=>{
-                            const dt = new Date(record.addeddate);
+                            const dt = new Date(record.supplieddate);
                             const year = dt.getFullYear() + '/';
                             const month = ('0' + (dt.getMonth() + 1 )).slice(-2) + '/';
                             const day = ('0' + dt.getDate()).slice(-2);
@@ -141,6 +141,8 @@ export default function ViewDonation() {
 
 
 
+
+
 // import React from "react";
 // import { useEffect, useState } from 'react';
 // import { Link, useHistory } from 'react-router-dom';
@@ -153,7 +155,7 @@ export default function ViewDonation() {
 // import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-// export default function AgriMaterial() {
+// export default function ConstMaterial() {
 //     const [searchTerm,setSearchTerm]=useState("");
 //   const [transaction,settransaction]=useState([])
 //   // const classes = useStyles();
@@ -192,20 +194,28 @@ export default function ViewDonation() {
 //       <div className="container px-6 mx-auto">
 //         <div className="flex flex-wrap">
 //           <div className="w-1/3 px-6 ml={120} ">
-//               <Link to="/CashReceive">
+//               <Link to="/AddnewconstMaterial">
 //                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
 //                       type="submit" >
-//                       Add Income
+//                       Add New Material
 //                 </button> <br /><br />
 //               </Link>
 //           </div>
 //           <div className="w-1/3 px-6">
-//               <Link to="/AddExpenses">
+//               <Link to="/AddconstMaterial">
 //                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
 //                       type="submit" >
-//                       Add Expenses
+//                       Add Material
 //                 </button> <br /><br />
 //               </Link>  
+//           </div>
+//           <div className="w-1/3 px-6 ml={120} ">
+//               <Link to="/SupplyconstMaterial">
+//                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+//                       type="submit" >
+//                       Supply Material
+//                 </button> <br /><br />
+//               </Link>
 //           </div>
 //         </div>
 //       </div>

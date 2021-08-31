@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import ConstMaterialNavbar from "components/Navbars/ConstMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import MaterialHeader from "components/Material/MaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
@@ -15,7 +15,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function SupplyconstMaterial() {
     const [getmaterial,setgetmaterial] = useState ([])
-    const [addeddate,setaddeddate] = useState("");
+    const [supplieddate,setsupplieddate] = useState("");
     const [materialid,setmaterialid] = useState("");
     const [materialname,setmaterialname] = useState("");
     const [description,setdescription] = useState("");
@@ -24,11 +24,11 @@ export default function SupplyconstMaterial() {
     const history = useHistory();
     // const [materialList,setmaterialList] = useState([]);
 
-    const add_Materials = (e)=>{
+    const supply_Materials = (e)=>{
       e.preventDefault();
       console.log(materialid);
-       axios.post('http://localhost:3001/create',{
-        addeddate:addeddate,
+       axios.post('http://localhost:3001/constsupply',{
+        supplieddate:supplieddate,
         materialid:materialid,
         materialname:materialname,
         description:description,
@@ -36,7 +36,7 @@ export default function SupplyconstMaterial() {
 
         }).then(()=>{
            console.log("success");
-           history.push("/resourcematerial/const.materials");
+           history.push("/ViewSuppliedconstMaterial");
          });
     };
   
@@ -52,78 +52,7 @@ export default function SupplyconstMaterial() {
 }, []);
 
 const mystyle = {
-    // formstep: {
-    //   fontsize: '35px',
-    //   textalign: 'center',
-    //   color: '#23750a',
-    // },
-
-    // formbox: {
-    //   backgroundColor: 'white',
-    //   width: '60%',
-    //   textalign: 'center',
-    //   marginTop: '10px',
-    //   height: 'full',
-    //   boxShadow: "2px 2px 5px  2px #9E9E9E",
-    //   padding : "2vh",
-    //   borderRadius : "5px"
-    // },
-    // popupbox: {
-    //   position: 'fixed',
-    //   background: '#00000050',
-    //   width: '75vh',
-    //   height: '75vh',
-    //   top: '12vh',
-    //   left: '90vh',
-    // },
-    // forminput: {
-
-    //   width: '70%',
-    //   padding: '10px 10px',
-    //   margin: '8px 0',
-    //   display: 'inline - block',
-    //   border: '1px solid #C0C0C0',
-    //   borderRadius: '5px',
-    //   height: '40px'
-    // },
-    // formhead: {
-    //   paddingTop: '50px',
-    //   paddingBottom: '20px'
-    // },
-    // submitBtn: {
-    //   marginTop: '20px',
-    //   width: '145px',
-    //   height: '40px',
-    //   fontSize: '18px',
-    //   backgroundColor: '#048a0d',
-    //   cursor: 'pointer',
-    //   border: 'none',
-    //   borderRadius: '5px',
-    //   color: 'white',
-    //   marginRight: '30px'
-    // },
-    // closeBtn: {
-    //   marginTop: '20px',
-    //   width: '145px',
-    //   height: '40px',
-    //   fontSize: '18px',
-    //   backgroundColor: 'red',
-    //   transition: '1s background ease',
-    //   cursor: 'pointer',
-    //   border: 'none',
-    //   borderRadius: '5px',
-    //   color: 'white',
-    //   marginRight: '150px'
-    // },
-
-    // search: {
-    //   width: '620px',
-    //   padding: '10px 10px',
-    //   margin: '6px 0',
-    //   border: '1px solid #C0C0C0',
-    //   borderRadius: '5px',
-    // },
-
+   
     formControl: {
       minWidth: '454px',
     },
@@ -133,11 +62,11 @@ const mystyle = {
 
   return (
     <>
-    
+      
   <main>
   <Sidebar />
     <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+      <ConstMaterialNavbar />
       {/* Header */}
       <MaterialHeader />
       <section className="pb-18 relative block bg-white">
@@ -147,6 +76,32 @@ const mystyle = {
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
+            <div className="w-full lg:w-10/12 px-4">
+                <Link to="/AddnewconstMaterial">
+                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                          type="submit" >
+                          Add New Material
+                  </button> 
+                </Link>
+                <Link to="/AddconstMaterial">
+                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                          type="submit" >
+                          Add Material
+                  </button> 
+                </Link>
+                <Link to="/ConstMaterial">
+                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                          type="submit" >
+                          View Added Material    
+                  </button>
+                </Link>
+                <Link to="/ViewSuppliedconstMaterial">
+                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                          type="submit" >
+                          View Supplied Material
+                  </button> <br/><br/>
+                </Link>
+              </div>
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
@@ -160,7 +115,7 @@ const mystyle = {
                       </label>
                       <input type="date"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Date" onChange={(event)=>{setaddeddate(event.target.value);}} 
+                        name="Date" onChange={(event)=>{setsupplieddate(event.target.value);}} 
                         required
                         placeholder="Date"/>
                     </div>
@@ -211,7 +166,7 @@ const mystyle = {
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={add_Materials}>
+                        onClick={supply_Materials}>
                           ADD 
                       </button>
                       <Link to = '/ConstMaterial'>
@@ -221,7 +176,7 @@ const mystyle = {
                         CANCEL  
                       </button>
                       </Link>
-                    </div>
+                    </div> 
                     </box>
                   </div>
                 </div>
