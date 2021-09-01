@@ -18,7 +18,7 @@ export default function ViewScheduled() {
     const [viewList,setviewList]=useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/donationview").then((response)=>{
+        axios.get("http://localhost:3001/appview").then((response)=>{
             setviewList(response.data)
         })
     },[])

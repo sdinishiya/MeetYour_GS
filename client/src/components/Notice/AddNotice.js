@@ -16,7 +16,7 @@ export default function AddNotice() {
     const [description,setDescription] = useState("");
     const [uploadDate,setUploadDate] = useState("");
     const [expDate,setExpDate] = useState("");
-    const [active_status,setStatus] = useState("");
+    const [status,setStatus] = useState("");
     const history  = useHistory();
 
     const noticeadd = ()=>{
@@ -34,15 +34,15 @@ export default function AddNotice() {
         description:description,
         uploadDate: uploadDate,
         expDate:expDate,
-        active_status:active_status,
+        status:status,
 
         }).then(()=>{
            console.log("success");
 
          });
 
-         alert(" Added successfully ");
-        history.push("/Notice/noticeView");
+         alert("Notice added successfully ");
+        history.push("/noticeView");
     };
   return (
     <>
@@ -55,7 +55,7 @@ export default function AddNotice() {
       <NoticeHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
-        <br /> <br /> <br /> <br /> 
+        <br /> <br /> <br /> <br />
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
@@ -115,6 +115,7 @@ export default function AddNotice() {
                         onClick={noticeadd}
                       > Add 
                       </button>
+                    
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"

@@ -20,11 +20,20 @@ import Schedule from "components/Appointment/schedule.js";
 import UserView from "components/Appointment/UserView.js";
 import ViewRequests from "components/Appointment/ViewRequests.js";
 import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
+import UserBooking from "components/Appointment/UserBooking";
+
 
 
 //Notice 
 import AddNotice from "components/Notice/AddNotice.js";
 import NoticeTable from "components/Notice/noticeView.js";
+import AllNotice from "components/Notice/AllNoticeView.js";
+
+//SMSmessage
+import AddMessage from "components/Notice/AddMessage.js";
+import MessageView from "components/Notice/MessageView.js";
+import AllMessageView from "components/Notice/AllMessageView.js";
+
 
 //FINANCE
 //Petty Cash
@@ -35,6 +44,7 @@ import PettyCash from "components/Finance/ViewPettycash.js";
 //Forum
 import AddForum from "components/Forum/AddForum.js";
 import ForumTable from "components/Forum/ForumView.js";
+import ForumView from "components/Pages/Formpage.js";
 
 //Fund
 import Fund from "components/Finance/ViewFund"; 
@@ -54,12 +64,14 @@ import ConstMaterial from "components/Material/ConstMaterial";
 import AddnewconstMaterial from "components/Material/AddnewconstMaterial";
 import AddconstMaterial from "components/Material/AddconstMaterial";
 import SupplyconstMaterial from "components/Material/SupplyconstMaterial";
+import ViewSupplyConst from "components/Material/ViewSuppliedconstMaterial";
 
 //Agri Material
 import AgriMaterial from "components/Material/AgriMaterial";
 import AddnewagriMaterial from "components/Material/AddnewagriMaterial";
 import AddagriMaterial from "components/Material/AddagriMaterial";
 import SupplyagriMaterial from "components/Material/SupplyagriMaterial";
+import ViewSupplyAgri from "components/Material/ViewSuppliedagriMaterial";
 
 //Other Material
 import OtherMaterial from "components/Material/OtherMaterial";
@@ -67,6 +79,14 @@ import AddnewotherMaterial from "components/Material/AddnewotherMaterial";
 import AddotherMaterial from "components/Material/AddotherMaterial";
 import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
 //import ForumTable from "components/Forum/ForumView";
+
+import ViewSupplyOther from "components/Material/ViewSuppliedotherMaterial";
+
+//Users(Material)
+import Const from "components/Material/Users/Const.js";
+import Agri from "components/Material/Users/Agri.js";
+import Other from "components/Material/Users/Other.js";
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -85,13 +105,21 @@ ReactDOM.render(
       {/* Appointment  */}
       <Route path="/ViewScheduled"  component={ViewScheduled} />
       <Route path="/schedule"  component={Schedule} />
-      <Route path="/UserView"  component={UserView} />
       <Route path="/ViewRequests"  component={ViewRequests} />
       <Route path="/ViewConfirmed"  component={ViewConfirmed} />
+      <Route path="/UserView"  component={UserView} />
+      <Route path="/UserBooking"  component={UserBooking} />
+      
 
       {/* Notices */}
       <Route path="/AddNotice"  component={AddNotice} />
       <Route path="/noticeView"  component={NoticeTable} />
+      <Route path="/AllNoticeView"  component={AllNotice} />
+      {/* sms */}
+      <Route path="/AddMessage"  component={AddMessage} />
+      <Route path="/MessageView"  component={MessageView} />
+      <Route path="/AllMessageView"  component={AllMessageView} />
+      
 
       {/* FINANCE */}
       {/* Petty Cash */}
@@ -102,12 +130,13 @@ ReactDOM.render(
       {/* Forum */}
       <Route path="/AddForum" component={AddForum}/>
       <Route path="/forumView" component={ForumTable}/>
+      <Route path="/Forumpage" component={ForumView}/>
 
       {/* Fund */}
       <Route path="/ViewFund" component={Fund}/>
       <Route path="/AddReceivedfund" component={ReceivedFund}/>
       <Route path="/AllocateFund" component={AllocateFund}/>
- {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+      {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
 
       {/* Donation */}
       <Route path="/ViewDonation" component={Donation}/>
@@ -119,19 +148,28 @@ ReactDOM.render(
       <Route path="/AddnewconstMaterial" component={AddnewconstMaterial}/>
       <Route path="/AddconstMaterial" component={AddconstMaterial}/>
       <Route path="/SupplyconstMaterial" component={SupplyconstMaterial}/>
+      <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst}/>
 
       {/* Agri Material */}
       <Route path="/AgriMaterial" component={AgriMaterial}/>
       <Route path="/AddnewagriMaterial" component={AddnewagriMaterial}/>
       <Route path="/AddagriMaterial" component={AddagriMaterial}/>
       <Route path="/SupplyagriMaterial" component={SupplyagriMaterial}/>
+      <Route path="/ViewSuppliedagriMaterial" component={ViewSupplyAgri}/>
 
       {/* Other Material */}
       <Route path="/OtherMaterial" component={OtherMaterial}/>
       <Route path="/AddnewotherMaterial" component={AddnewotherMaterial}/>
       <Route path="/AddotherMaterial" component={AddotherMaterial}/>
       <Route path="/SupplyotherMaterial" component={SupplyotherMaterial}/>
+      <Route path="/ViewSuppliedotherMaterial" component={ViewSupplyOther}/>
 
+      {/* Users(Material) */}
+      <Route path ="/Users/Const" component={Const}/>
+      <Route path ="/Users/Agri" component={Agri}/>
+      <Route path ="/Users/Other" component={Other}/>
+
+      {/* people */}
 
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>

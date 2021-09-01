@@ -17,7 +17,7 @@ export default function MaterialHeader() {
               <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/ConstMaterial">
+                    <Link to="/AddnewconstMaterial">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
@@ -41,7 +41,7 @@ export default function MaterialHeader() {
             <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/AgriMaterial">
+                    <Link to="/AddnewagriMaterial">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
@@ -65,7 +65,7 @@ export default function MaterialHeader() {
              <div className="w-full lg:w-6/12 xl:w-4/12 px-4">
               <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
                 <div className="flex-auto p-4">
-                    <Link to="/OtherMaterial">
+                    <Link to="/AddnewotherMaterial">
                     <div className="flex flex-wrap">
                         <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
                             <h5 className="text-blueGray-400 uppercase font-bold text-xs">
