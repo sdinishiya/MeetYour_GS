@@ -30,7 +30,11 @@ import NoticeTable from "components/Notice/noticeView.js";
 //Petty Cash
 import Receive from "components/Finance/CashReceive.js";
 import Expense from "components/Finance/AddExpenses.js";
-import PettyCash from "components/Finance/ViewPettycash"; 
+import PettyCash from "components/Finance/ViewPettycash.js"; 
+
+//Forum
+import AddForum from "components/Forum/AddForum.js";
+import ForumTable from "components/Forum/ForumView.js";
 
 //Fund
 import Fund from "components/Finance/ViewFund"; 
@@ -62,6 +66,7 @@ import OtherMaterial from "components/Material/OtherMaterial";
 import AddnewotherMaterial from "components/Material/AddnewotherMaterial";
 import AddotherMaterial from "components/Material/AddotherMaterial";
 import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
+//import ForumTable from "components/Forum/ForumView";
 
 ReactDOM.render(
   <BrowserRouter>
@@ -93,6 +98,10 @@ ReactDOM.render(
       <Route path="/CashReceive" component={Receive}/>
       <Route path="/AddExpenses" component={Expense}/>
       <Route path="/ViewPettycash" component={PettyCash}/>
+
+      {/* Forum */}
+      <Route path="/AddForum" component={AddForum}/>
+      <Route path="/forumView" component={ForumTable}/>
 
       {/* Fund */}
       <Route path="/ViewFund" component={Fund}/>
