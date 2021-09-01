@@ -80,6 +80,8 @@ import Const from "components/Material/Users/Const.js";
 import Agri from "components/Material/Users/Agri.js";
 import Other from "components/Material/Users/Other.js";
 
+//people
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -155,6 +157,8 @@ ReactDOM.render(
       <Route path ="/Users/Const" component={Const}/>
       <Route path ="/Users/Agri" component={Agri}/>
       <Route path ="/Users/Other" component={Other}/>
+
+      {/* people */}
 
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>

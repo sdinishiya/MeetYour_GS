@@ -29,7 +29,7 @@ export default function AddMessage() {
         return;
       }
 
-       axios.post('http://localhost:3001/addnotice',{
+       axios.post('http://localhost:3001/addsms',{
         topic:topic,
         description:description,
         uploadDate: uploadDate,
@@ -42,7 +42,7 @@ export default function AddMessage() {
          });
 
          alert("Added successfully ");
-        history.push("/Notice/MessageView");
+        history.push("/MessageView");
     };
   return (
     <>
@@ -77,7 +77,7 @@ export default function AddMessage() {
                     </div>
                     <div className="relative w-full mb-3">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" >
-                        Message
+                        SMS Message Body
                       </label>
                       <textarea
                         rows="4"
@@ -85,7 +85,7 @@ export default function AddMessage() {
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         name="description" onChange={(event)=>{setDescription(event.target.value);}} 
                         required
-                        placeholder="Type a message to notify..."
+                        placeholder="Type a message to send SMS...."
                       />
                     </div>
                     <div className="relative w-full mb-3 mt-8">

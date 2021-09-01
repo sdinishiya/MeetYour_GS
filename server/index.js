@@ -875,6 +875,68 @@ app.put('/active-notice', (req,res) => {
     );
   });
 
+  //General Message
+app.post('/addsms',(req,res)=>{
+    console.log(req.body)
+    const smsID = req.body.smsID;
+    const topic = req.body.topic;
+    const description = req.body.description; 
+    const uploadDate = req.body.uploadDate;
+    const expDate = req.body.expDate; 
+    const status = req.body.status;  
+
+    db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
+    [topic,description,uploadDate,expDate],(err,result)=>{
+		if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    
+    })
+    
+});
+app.get('/smsview',(req,res)=>{
+    db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+app.get('/allsmsview',(req,res)=>{
+    db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+//send
+app.put('/send-sms', (req,res) => {
+    const smsID = req.body.smsID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE sms SET status='Sent' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
 
 
 app.listen(3001, () => {

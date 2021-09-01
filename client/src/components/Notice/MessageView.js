@@ -13,30 +13,30 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function MessageTable() {
+export default function MessageView() {
 
   const [notices,setnotices]=useState([])
 
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/noticeview").then((response)=>{
+    axios.get("http://localhost:3001/smsview").then((response)=>{
         setnotices(response.data)
     })
   },[])
 
     // decline
-    const [status, setstatus] = useState("Inactive");
-    const removeNotice = (noticeID) => {
+    const [status, setstatus] = useState("Sent");
+    const sendSMS = (smsID) => {
       axios
-        .put("http://localhost:3001/remove-notice", {
+        .put("http://localhost:3001/send-sms", {
           status: status,
-          noticeID: noticeID,
+          smsID: smsID,
         })
 
         .then((response) => {
-          console.log(noticeID);
+          console.log(smsID);
         });
-      alert(" Notice Removed ");
+      alert(" SMS Sent Successfully ");
     };
   return (
     <>
@@ -54,10 +54,10 @@ export default function MessageTable() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-11/12 px-4">
-              <Link to="/AllNoticeView">
+              <Link to="/AllMessageView">
                 <button className="bg-emerald-400 text-white active:bg-emerald-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
-                      View Past Notices 
+                      View All SMS  
                 </button> <br /><br />
               </Link>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -65,7 +65,7 @@ export default function MessageTable() {
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                              Active Notice Details Table
+                              Details Table of SMS Message Sent in the Past 
                           </h3>
                         </div>
                         {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -93,17 +93,17 @@ export default function MessageTable() {
                               Date Uploaded  
                           </th>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                              Expiry Date  
+                              Deadline Date  
                           </th>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                               Status  
                           </th>
-                          <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
+                          {/* <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                                 
-                          </th>
-                          <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
+                          </th> */}
+                          {/* <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                                
-                          </th>
+                          </th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -141,7 +141,8 @@ export default function MessageTable() {
                               {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                 <TableDropdown />
                               </td> */}
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+
+                              {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <Link to="/EditNotice">
                                   <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                         type="submit" 
@@ -149,16 +150,17 @@ export default function MessageTable() {
                                         Edit
                                   </button>
                                 </Link> 
+
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                               <Link to="/noticeView">
                                 <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                       type="submit" 
-                                      onClick={() => removeNotice(notice.noticeID)}>  {" "}  
-                                     Remove
+                                      onClick={() => sendSMS(notice.smsID)}>  {" "}  
+                                     Send
                                 </button>
                               </Link>
-                              </td>
+                              </td> */}
                             </tr>
                             )
                             })}

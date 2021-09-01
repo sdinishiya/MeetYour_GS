@@ -14,30 +14,30 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function AllNotice() {
+export default function AllmessageView() {
 
   const [notices,setnotices]=useState([])
 
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/allnoticeview").then((response)=>{
+    axios.get("http://localhost:3001/allsmsview").then((response)=>{
         setnotices(response.data)
     })
   },[])
 
     // activate
-    const [status, setstatus] = useState("Active");
-    const activate = (noticeID) => {
+    const [status, setstatus] = useState("Sent");
+    const sendSMS = (smsID) => {
       axios
-        .put("http://localhost:3001/active-notice", {
+        .put("http://localhost:3001/send-sms", {
           status: status,
-          noticeID: noticeID,
+          smsID: smsID,
         })
 
         .then((response) => {
-          console.log(noticeID);
+          console.log(smsID);
         });
-      alert(" Notice Activated ");
+      alert(" SMS Sent ");
     };
   return (
     <>
@@ -58,7 +58,7 @@ export default function AllNotice() {
               <Link to="/noticeView">
                 <button className="bg-emerald-400 text-white active:bg-emerald-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
-                      View Active Notices 
+                      View Sent SMS
                 </button> <br /><br />
               </Link>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -66,7 +66,7 @@ export default function AllNotice() {
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                              All Notice Details Table
+                              All SMS Message Details 
                           </h3>
                         </div>
                         {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -142,11 +142,11 @@ export default function AllNotice() {
                                 <TableDropdown />
                               </td> */}
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/noticeView">
+                              <Link to="/MessageView">
                                   <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                         type="submit" 
-                                        onClick={() => activate(notice.noticeID)}>  {" "}         
-                                        Activate
+                                        onClick={() => sendSMS(notice.smsID)}>  {" "}         
+                                        Send
                                   </button>
                                 </Link> 
                               </td>
