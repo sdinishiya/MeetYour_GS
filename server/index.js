@@ -945,15 +945,44 @@ app.post('/addnewforum' , (req , res)=>{
     const emailid = req.body.emailid;
     const comments = req.body.comments;
     
-   db.query("INSERT INTO forumpost (postID,postText,topic,date,emailID,comments) VALUES (?,?,?,?,?,?)",[postid,posttext,topic,date,emaiid,comments],(err,result)=>{
+   db.query("INSERT INTO forumpost (postID,postText,topic,date,emailID,comments) VALUES (?,?,?,?,?,?)",[postid,posttext,topic,date,emailid,comments],(err,result)=>{
        if(err){
            console.log(err);
        }else{
            res.send("Post inserted");
        }
-   })
+   });
 
-})  
+});
+
+app.get('/forumview', (req,res)=>{
+    db.query("SELECT * FROM forumpost ORDER BY date ASC",(err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    });
+});
+
+app.put('/update-forum',(req,res)=>{
+    const reply = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE forumpost SET status='Active' WHERE postID = ?;",
+    [postID],
+    (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    }
+    );
+});
+
+
 
 
 app.listen(3001, () => {

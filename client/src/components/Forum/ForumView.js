@@ -72,7 +72,7 @@ export default function ForumTable({ color }) {
           </div>
         </div>
 
-        <div className={"relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white"} >
+        {/* <div className={"relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white"} >
           <div className="rounded-t mb-0 px-4 py-3 border-0">
             <div className="flex flex-wrap items-center">
               <div className="relative w-full px-4 max-w-full flex-grow flex-1">
@@ -84,7 +84,6 @@ export default function ForumTable({ color }) {
             </div>
           </div>
           <div className="block w-full overflow-x-auto">
-            {/* Projects table */}
             <table className="items-center w-full bg-transparent border-collapse">
               <thead>
                 <tr
@@ -149,8 +148,87 @@ export default function ForumTable({ color }) {
               </tbody>
             </table>
           </div>
-        </div>
+        </div> */}
 
+      </section>
+
+      <section className="pb-20 bg-white-200 -mt-24">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center mt-32">
+
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+
+                <blockquote className="relative p-8 mb-4">
+
+                  <h4 className="text-xl font-bold text-white">
+                    Topic 1
+                  </h4>
+                  <p className="text-md font-light mt-2 text-white">
+                    In need of resource materials for your on-going projects or inventions?
+                    We are here to provide and facilitate your small scale businesses.
+                  </p>
+                  <br />
+                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Reply
+                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+                </blockquote>
+
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+
+                <blockquote className="relative p-8 mb-4">
+
+                  <h4 className="text-xl font-bold text-white">
+                    Topic 2
+                  </h4>
+                  <p className="text-md font-light mt-2 text-white">
+                    In need of resource materials for your on-going projects or inventions?
+                    We are here to provide and facilitate your small scale businesses.
+                  </p>
+                  <br />
+                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Reply
+                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+                </blockquote>
+
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+
+                <blockquote className="relative p-8 mb-4">
+
+                  <h4 className="text-xl font-bold text-white">
+                    Topic 3
+                  </h4>
+                  <p className="text-md font-light mt-2 text-white">
+                    In need of resource materials for your on-going projects or inventions?
+                    We are here to provide and facilitate your small scale businesses.
+                  </p>
+                  <br />
+                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Reply
+                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+                </blockquote>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );
