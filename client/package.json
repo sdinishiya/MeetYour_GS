@@ -7,6 +7,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
     "all": "^0.0.0",
@@ -19,6 +20,7 @@
     "express-handlebars": "^5.3.3",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "material-ui": "^0.20.2",
     "mysql": "^2.18.1",
     "postcss": "8.2.8",
     "react": "17.0.1",
