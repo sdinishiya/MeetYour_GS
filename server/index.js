@@ -26,7 +26,7 @@ app.use(cors());
 const db = mysql.createConnection({
 	user: "root",
 	host: "localhost",
-	password: "",
+	password: "root",
 	database: "meetyourgs",
 });
 
@@ -819,7 +819,7 @@ app.post('/addnotice',(req,res)=>{
     
 });
 app.get('/noticeview',(req,res)=>{
-    db.query("SELECT  * FROM notice WHERE status = 'Active' ORDER BY uploadDate ASC",(err,result,) => {
+    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -938,6 +938,52 @@ app.put('/send-sms', (req,res) => {
        }
     );
   });
+
+app.post('/addnewforum' , (req , res)=>{
+    const postid = req.body.postid;
+    const posttext = req.body.posttext;
+    const topic = req.body.topic;
+    const date = req.body.date;
+    const emailid = req.body.emailid;
+    const comments = req.body.comments;
+    
+   db.query("INSERT INTO forumpost (postID,postText,topic,date,emailID,comments) VALUES (?,?,?,?,?,?)",[postid,posttext,topic,date,emailid,comments],(err,result)=>{
+       if(err){
+           console.log(err);
+       }else{
+           res.send("Post inserted");
+       }
+   });
+
+});
+
+app.get('/forumview', (req,res)=>{
+    db.query("SELECT * FROM forumpost ORDER BY date ASC",(err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    });
+});
+
+app.put('/update-forum',(req,res)=>{
+    const reply = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE forumpost SET status='Active' WHERE postID = ?;",
+    [postID],
+    (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    }
+    );
+});
+
 
 
 

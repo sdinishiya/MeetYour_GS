@@ -15,7 +15,7 @@ import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 // import Finance from "views/admin/Finance.js";
 import Notice from "views/admin/Notice.js";
-
+import Forum from "views/admin/Forum.js"
 
 export default function Admin() {
   return (
@@ -33,6 +33,7 @@ export default function Admin() {
             <Route path="/admin/tables" exact component={Tables} />
             {/* <Route path="/admin/Finance" exact component={Finance} /> */}
             <Route path="/admin/Notice" exact component={Notice} />
+            <Route path="/admin/Forum" exact component={Forum} />
             {/* <Route path="/Finance/ViewPettycash" exact component={PettyCash} /> */}
 
             <Redirect from="/admin" to="/admin/dashboard" />
