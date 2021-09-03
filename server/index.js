@@ -566,10 +566,11 @@ app.post('/schedule',(req,res)=>{
     const date = req.body.date;
     const startTime = req.body.startTime;
     const endTime = req.body.endTime;
+    const maxCount = req.body.maxCount;
     const description = req.body.description;
 
-    db.query("INSERT INTO appointment (gsname,date,startTime,endTime,description) VALUES (?,?,?,?,?)",
-    [gsname,date,startTime,endTime,description],(err,result)=>{
+    db.query("INSERT INTO availability (gsname,date,startTime,endTime,maxCount,description) VALUES (?,?,?,?,?,?)",
+    [gsname,date,startTime,endTime,maxCount,description],(err,result)=>{
         if(err){
             console.log(err);
         } else{
@@ -577,9 +578,10 @@ app.post('/schedule',(req,res)=>{
         }
     })  
 });
+
 //gsview
 app.get('/viewSchedule',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description,status FROM appointment ",(err,result,) => {
+    db.query("SELECT *, TIMEDIFF( endTime, startTime) AS Duration FROM availability ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -588,9 +590,10 @@ app.get('/viewSchedule',(req,res)=>{
         
     });
 });
+
 //userview
-app.get('/book',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description FROM appointment WHERE book_status = 0",(err,result,) => {
+app.get('/userView',(req,res)=>{
+    db.query("SELECT *, TIMEDIFF( endTime, startTime) AS Duration FROM availability ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -599,6 +602,7 @@ app.get('/book',(req,res)=>{
         
     });
 });
+
 //RequestView
 app.get('/requestView',(req,res)=>{
     db.query("SELECT * FROM appointment WHERE status='pending' AND book_status = 1 ",(err,result,) => {
@@ -609,10 +613,9 @@ app.get('/requestView',(req,res)=>{
 	  }     
     });
 });
-
-//appview
-app.get('/appview',(req,res)=>{
-    db.query("SELECT * FROM appointment",(err,result,) => {
+//dropdown 
+app.get('/booktopics',(req,res)=>{
+    db.query("SELECT topic FROM book_topics",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -622,7 +625,7 @@ app.get('/appview',(req,res)=>{
 });
 
 app.get('/appdetails',(req,res)=>{
-    db.query("SELECT nic,name,home_no,address,phone,email,des FROM appointment",(err,result,) => {
+    db.query("SELECT * FROM availability",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -631,31 +634,30 @@ app.get('/appdetails',(req,res)=>{
     });
 });
 
-app.put('/add-app-booking', (req,res) => {
-    const appID = req.body.appID;
+app.post('/add-booking',(req,res)=>{
+    const bookID = req.body.bookID;
     const nic = req.body.nic;
     const name = req.body.name;
     const home_no = req.body.home_no;
     const address = req.body.address;
     const phone = req.body.phone;
     const email = req.body.email; 
-    const des = req.body.des;
+    const topic = req.body.topic;
     const book_status = req.body.book_status;
+    const availID= req.body.availID;
     console.log("db reach")
     console.log(req.body)
 
-    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=?,book_status=1 WHERE appID = ?; ", 
-    [nic,name,home_no,address,phone,email,des,book_status, appID], 
-    (err, result) => {
-
-        if (err) {
+    db.query("INSERT INTO bookings (nic,name,home_no,address,phone,email,topic,book_status) VALUES (?,?,?,?,?,?,?,?)",
+    [nic,name,home_no,address,phone,email,topic,book_status],(err,result)=>{
+        if(err){
             console.log(err);
-        } else {
-            res.send(result);
+        } else{
+            res.send("values inserted");
         }
-       }
-    );
-  });
+    })  
+});
+
 
 //accept
 app.put('/accept-book', (req,res) => {

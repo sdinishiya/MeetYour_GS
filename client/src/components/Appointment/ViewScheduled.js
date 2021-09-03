@@ -18,10 +18,13 @@ export default function ViewScheduled() {
     const [viewList,setviewList]=useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/appview").then((response)=>{
+        axios.get("http://localhost:3001/viewSchedule").then((response)=>{
             setviewList(response.data)
         })
     },[])
+
+
+
   return (
     <>
     
@@ -55,7 +58,7 @@ export default function ViewScheduled() {
                         <thead>
                           <tr>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Appointment ID
+                              Availability ID
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               GS Name
@@ -67,7 +70,10 @@ export default function ViewScheduled() {
                               Time Slot
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Description
+                               Duration
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                               Booked slots
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Status
@@ -85,7 +91,7 @@ export default function ViewScheduled() {
                             return(
                           <tr>
                             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                                 {viewApp.appID} 
+                                 {viewApp.availID} 
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                  {viewApp.gsname}
@@ -97,10 +103,13 @@ export default function ViewScheduled() {
                                 {viewApp.startTime} - {viewApp.endTime}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                 {viewApp.description}
+                                 {viewApp.Duration}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                 {viewApp.status}
+                                {viewApp.currentCount}/{viewApp.maxCount}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                 {viewApp.availStatus}
                             </td>
                           </tr>
                             )

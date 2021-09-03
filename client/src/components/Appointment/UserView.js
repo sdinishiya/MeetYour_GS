@@ -18,7 +18,7 @@ export default function UserView() {
     const [viewList,setviewList]=useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/viewSchedule").then((response)=>{
+        axios.get("http://localhost:3001/userView").then((response)=>{
             setviewList(response.data)
         })
     },[])
@@ -53,7 +53,7 @@ export default function UserView() {
                         <thead>
                           <tr>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Booking ID
+                              Availability ID
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               GS Name
@@ -65,7 +65,13 @@ export default function UserView() {
                               Time Slot
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Description
+                              Duration
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                              Booked slots
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                              Status
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                              
@@ -83,7 +89,7 @@ export default function UserView() {
                             return(
                           <tr>
                             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                                 {viewApp.appID} 
+                                 {viewApp.availID} 
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                  {viewApp.gsname}
@@ -95,10 +101,16 @@ export default function UserView() {
                                 {viewApp.startTime} - {viewApp.endTime}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                 {viewApp.description}
+                                 {viewApp.Duration}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to={location=> `/UserBookingRoute/${viewApp.appID}`}>
+                                {viewApp.currentCount}/{viewApp.maxCount}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                 {viewApp.availStatus}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <Link to={location=> `/UserBooking/${viewApp.availID}`}>
                               <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                   > Book 
                               </button>

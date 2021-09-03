@@ -11,16 +11,17 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
 export default function Schedule() {
-    const [appID,setID] = useState("");
+    const [availID,setavailID] = useState("");
     const [gsname,setName] = useState("");
     const [date,setDate] = useState("");
     const [startTime,setStartTime] = useState("");
     const [endTime,setEndTime] = useState("");
+    const [maxCount,setmaxCount] = useState("");
     const [description,setDescription] = useState("");
     const history  = useHistory();
 
     const schedule = ()=>{
-      console.log(appID);
+      console.log(availID);
 
       const d1 = new Date();
       const d2 = new Date(date);
@@ -36,6 +37,7 @@ export default function Schedule() {
         startTime: startTime,
         endTime:endTime,
         description:description,
+        maxCount:maxCount,
 
         }).then(()=>{
            console.log("success");
@@ -102,6 +104,15 @@ export default function Schedule() {
                         required
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
                     </div>
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Maximum No. Count Possible
+                      </label>
+                      <input type="int"
+                        name="maxcount" onChange={(event)=>{setmaxCount(event.target.value);}} 
+                        required
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
+                    </div>
                     
                     <div className="relative w-full mb-3">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" >
@@ -112,7 +123,6 @@ export default function Schedule() {
                         cols="80"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         name="description" onChange={(event)=>{setDescription(event.target.value);}} 
-                        required
                         placeholder="Type a message..."
                       />
                     </div>
@@ -122,7 +132,7 @@ export default function Schedule() {
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
                         onClick={schedule}
-                      > Schedule 
+                      > Add Availability 
                       </button>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

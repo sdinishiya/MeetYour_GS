@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 // components
 import Navbarloglanding from "components/Navbars/Navbarlanding.js";
@@ -10,72 +12,61 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
 export default function UserBooking() {
-    const { appID } = useParams();
-    const [newnic, setNewNic] = useState("");
-    const [newname, setNewName] = useState("");
-    const [newhome_no, setNewHome_no] = useState("");
-    const [newaddress, setNewAddress] = useState("");
-    const [newphone, setNewPhone] = useState("");
-    const [newemail, setNewEmail] = useState("");
-    const [newdes, setNewDes] = useState("");
-    const [newbook_status, setNewbook_status] = useState("1");
+    const { availID } = useParams();
 
-  //let history = useHistory();
+    const [gettopic,setgettopic] = useState ([])
+    // const [topicID,settopicID] = useState("");
 
-  const [Dt, setDt] = useState([]);
-  const [BookingList, setBookingList] = useState([]);
+    const [nic, setNic] = useState("");
+    const [name, setName] = useState("");
+    const [home_no, setHome_no] = useState("");
+    const [address, setAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [topic, settopic] = useState("");
+    const [book_status, setNewbook_status] = useState("Pending");
+    const [newavailID, setavailID] = useState(" ");
 
+    const AddBook = ()=>{
+      console.log(availID);
+
+       axios.post('http://localhost:3001/add-booking',{
+        nic: nic,
+        name: name,
+        home_no: home_no,
+        address: address,
+        phone: phone,
+        email: email,
+        topic: topic,
+        book_status:book_status,
+        availID: availID,
+
+        }).then(()=>{
+           console.log("success");
+           alert(" Appointment Booked Successfully ");
+          //  history.push("/ViewScheduled");
+         });
+    };
+
+//dropdown
   useEffect(() => {
-    axios.get("http://localhost:3001/appview").then((response) => {
-      setBookingList(response.data);
-    });
-  }, []);
-
-  const fetchData = async () => {
-    const response = await axios.get("http://localhost:3001/appdetails", {
-      params: {
-        appID: appID,
-      },
-    });
-
-    setDt(response.data[0]);
-    setNewNic(response.data[0].nic);
-    setNewName(response.data[0].name);
-    setNewHome_no(response.data[0].home_no);
-    setNewAddress(response.data[0].address);
-    setNewPhone(response.data[0].phone);
-    setNewEmail(response.data[0].email);
-    setNewDes(response.data[0].des);
-    setNewbook_status(response.data[0].des);
-
-    console.log(response.data[0]);
-  };
-
-  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/booktopics', {
+            
+        });
+        setgettopic(response.data);
+        console.log(response.data);
+    };
     fetchData();
-  }, [appID]);
+}, []);
 
-  const AddBook = (appID) => {
-    console.log("UI reach");
-    console.log(appID);
-    axios
-      .put("http://localhost:3001/add-app-booking", {
-        nic: newnic,
-        name: newname,
-        home_no: newhome_no,
-        address: newaddress,
-        phone: newphone,
-        email: newemail,
-        des: newdes,
-        book_status:newbook_status,
-        appID: appID,
-      })
-      .then((response) => {
-        console.log("booked");
-      });
-    //alert(" Appointment Booked successfully ");
-    // history.push("/Appointment/thankyou");
-  };
+const mystyle = {
+    
+  formControl: {
+    minWidth: '454px',
+  },
+};
+
   return (
     <>
     
@@ -102,9 +93,8 @@ export default function UserBooking() {
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="gsname" 
-                        defaultValue={newnic}
                         onChange={(event) => {
-                          setNewNic(event.target.value);
+                          setNic(event.target.value);
                         }}
                         required
                         placeholder="NIC*"/>
@@ -117,9 +107,8 @@ export default function UserBooking() {
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="name" 
-                        defaultValue={newname}
                         onChange={(event) => {
-                          setNewName(event.target.value);
+                          setName(event.target.value);
                         }}
                         required
                         placeholder="Name*"/>
@@ -132,9 +121,8 @@ export default function UserBooking() {
                       <input type="text"
                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                          name="home_no"
-                         defaultValue={newhome_no}
                          onChange={(event) => {
-                           setNewHome_no(event.target.value);
+                           setHome_no(event.target.value);
                          }}
                          required
                          placeholder="House No. / House Name*"
@@ -148,9 +136,8 @@ export default function UserBooking() {
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="address"
-                        defaultValue={newaddress}
                         onChange={(event) => {
-                          setNewAddress(event.target.value);
+                          setAddress(event.target.value);
                         }}
                         required
                         placeholder="Address"/>
@@ -163,9 +150,8 @@ export default function UserBooking() {
                       <input type="int"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="phone"
-                        defaultValue={newphone}
                         onChange={(event) => {
-                          setNewPhone(event.target.value);
+                          setPhone(event.target.value);
                         }}
                         required
                         placeholder="Contact No.*"/>
@@ -178,9 +164,8 @@ export default function UserBooking() {
                       <input type="text"
                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                          name="email"
-                         defaultValue={newemail}
                          onChange={(event) => {
-                          setNewEmail(event.target.value);
+                          setEmail(event.target.value);
                          }}
                          required
                          placeholder="E-mail Address"
@@ -188,19 +173,20 @@ export default function UserBooking() {
                     </div>
 
                     <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Topic
-                      </label>
-                      <input type="text"
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          name="des"
-                          defaultValue={newdes}
-                          onChange={(event) => {
-                            setNewDes(event.target.value);
-                          }}
-                          required
-                          placeholder="Additional Note If Any"
-                        />
+                    <labe className="block uppercase text-blueGray-600 text-xs font-bold mb-2"> Topic </labe> 
+                    <FormControl className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
+                           <Select
+                               native
+                               onChange={(event) => {settopic(event.target.value); }}
+                               style={mystyle.search} >
+                                    
+                               <option aria-label="None" value="" />
+                               {gettopic.map((record) => (
+                                   <option Value={record.ID}>{record.topic}</option>
+                               ))}
+
+                           </Select>
+                       </FormControl><br /> 
                     </div>
 
                     <box>
@@ -208,7 +194,7 @@ export default function UserBooking() {
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={AddBook(appID)}
+                        onClick={AddBook}
                       > Book 
                       </button>
                       <button
