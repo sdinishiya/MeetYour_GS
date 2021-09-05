@@ -5,8 +5,16 @@ import { Link } from "react-router-dom";
 // components
 
 import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
+import App from "App";
+import { useTranslation } from "react-i18next";
+import Languagesdropdown from "components/Dropdowns/Languagesdropdown.js";
 
 export default function Navbarsignup(props) {
+  const {t,i18n} = useTranslation()
+  // const changeLanguage = (lng) =>{
+  //   i18n.changeLanguage(lng)
+  //   console.log (i18n)
+  // }
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <>
@@ -46,10 +54,14 @@ export default function Navbarsignup(props) {
               </li>
             </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+            <li className="flex items-center">
+              <Languagesdropdown />
+              </li>
               {/* <li className="flex items-center">
-                <PagesDropdown />
+                <button onClick={()=>changeLanguage("en")}> English </button>
+                <button onClick={()=>changeLanguage("ta")}> Tamil </button>
               </li> */}
-
+            
               <li className="flex items-center">
               <Link
                  to="/auth/login" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>

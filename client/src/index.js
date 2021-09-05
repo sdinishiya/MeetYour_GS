@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -51,6 +51,7 @@ import AddnewconstMaterial from "components/Material/AddnewconstMaterial";
 import AddconstMaterial from "components/Material/AddconstMaterial";
 import SupplyconstMaterial from "components/Material/SupplyconstMaterial";
 import ViewSupplyConst from "components/Material/ViewSuppliedconstMaterial";
+import UpdateconstMaterial from "components/Material/UpdateconstMaterial";
 
 //Agri Material
 import AgriMaterial from "components/Material/AgriMaterial";
@@ -71,11 +72,26 @@ import Const from "components/Material/Users/Const.js";
 import Agri from "components/Material/Users/Agri.js";
 import Other from "components/Material/Users/Other.js";
 
+import './i18';
+
+import App from 'App.js';
+// import Register from "components/Votors/RegisterVillager.js";
+
+
+
+
 ReactDOM.render(
+ 
+
   <BrowserRouter>
     <Switch>
+
+{/* 
+      <Route path="/RegisterVillager" component={Register} /> */}
+        
+      {/* <App /> */}
       {/* add routes with layouts */}
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin" component={Admin} />          
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
@@ -119,6 +135,7 @@ ReactDOM.render(
       <Route path="/AddconstMaterial" component={AddconstMaterial}/>
       <Route path="/SupplyconstMaterial" component={SupplyconstMaterial}/>
       <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst}/>
+      <Route path="/UpdateconstMaterial/:materialid" component={UpdateconstMaterial}/>
 
       {/* Agri Material */}
       <Route path="/AgriMaterial" component={AgriMaterial}/>
@@ -138,6 +155,11 @@ ReactDOM.render(
       <Route path ="/Users/Const" component={Const}/>
       <Route path ="/Users/Agri" component={Agri}/>
       <Route path ="/Users/Other" component={Other}/>
+
+      {/* Upload */}
+      {/* <Route path ="Upload/FileUpload" component={FileUpload}/>
+      <Route path ="Upload/Message" component={Message}/>
+      <Route path ="Upload/Progress" component={Progress}/> */}
 
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>

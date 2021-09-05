@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 
 import Navbarsignup from "components/Navbars/Navbarsignup";
 import Footer from "components/Footers/Footer.js";
+import { useTranslation } from "react-i18next";
 
 export default function Landing() {
+  const {t,i18}= useTranslation()
   return (
     <>
       <Navbarsignup transparent />
@@ -31,6 +33,7 @@ export default function Landing() {
                   <h1 className="text-white font-semibold text-5xl">
                       MEET YOUR GS
                   </h1>
+                  
                   <br/>
                   <h3 className="text-white font-semibold text-2xl">
                      UDAPALATHA GRAMA NILADHARI WASAMA
@@ -334,3 +337,4 @@ export default function Landing() {
     </>
   );
 }
+

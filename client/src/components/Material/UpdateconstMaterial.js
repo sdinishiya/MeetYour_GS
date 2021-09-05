@@ -13,7 +13,7 @@ import MaterialHeader from "components/Material/MaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function AddconstMaterial() {
+export default function UpdateconstMaterial() {
     const [getmaterial,setgetmaterial] = useState ([])
     const [addeddate,setaddeddate] = useState("");
     const [materialid,setmaterialid] = useState("");
@@ -21,13 +21,15 @@ export default function AddconstMaterial() {
     const [description,setdescription] = useState("");
     const [quantity,setquantity] = useState("");
     
-    const history = useHistory();
+    // const history = useHistory();
     // const [materialList,setmaterialList] = useState([]);
+    const aa = window.location.pathname.substring(21, 25);
 
-    const add_Materials = (e)=>{
-      e.preventDefault();
+
+    const ConstUpdate = (materialid)=>{
+      // e.preventDefault();
       console.log(materialid);
-       axios.post('http://localhost:3001/create',{
+       axios.put('http://localhost:3001/constupdate',{
         addeddate:addeddate,
         materialid:materialid,
         materialname:materialname,
@@ -36,15 +38,24 @@ export default function AddconstMaterial() {
          
         }).then(()=>{
            console.log("success");
-           history.push("/ConstMaterial");
+          //  history.push("/UpdateconstMaterial");
          });
     };
   
   useEffect(() => {
     const fetchData = async () => {
-        const response = await axios.get('http://localhost:3001/materialname', {});
-        setgetmaterial(response.data);
-        console.log(response.data);
+        const response = await axios.get('http://localhost:3001/getconst', {
+          params: {
+            aa: aa,
+          }
+    
+        });
+        setgetmaterial(response.data[0]);
+        // setaddeddate(response.data[0].addeddate);
+        // setmaterialname(response.data[0].materialname);
+        // setdescription(response.data[0].description);
+        // setquantity(response.data[0].quantity);
+        // console.log(response.data);
     };
     fetchData();
 }, []);
@@ -76,7 +87,7 @@ const mystyle = {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
-              <Link to="/AddnewconstMaterial">
+                <Link to="/AddnewconstMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -111,10 +122,11 @@ const mystyle = {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        ADD CONSTRUCTION MATERIAL
+                        UPDATE CONSTRUCTION MATERIAL
                     </h1>
                     
                     <div className="relative w-full mb-3 mt-8">
+                    
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Date
                       </label>
@@ -133,11 +145,14 @@ const mystyle = {
                                 native
                                 onChange={(event) => { setmaterialid(event.target.value); }}
                                 style={mystyle.search} >
+
+                                <option Value={getmaterial.materialname}>{getmaterial.materialname}</option>
+
                                                
-                                <option aria-label="None" value="" />
-                                {getmaterial.map((record) => (
+                                {/* <option aria-label="None" value="" /> */}
+                                {/* {getmaterial.map((record) => (
                                     <option Value={record.materialid}>{record.materialname}</option>
-                                ))}
+                                ))} */}
                             </Select>
                         </FormControl><br /> 
                       
@@ -156,7 +171,7 @@ const mystyle = {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Quantity
+                        Quantity 
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
@@ -168,12 +183,14 @@ const mystyle = {
                     <box>
                     <div className="text-center mt-6">
                       {/* <button type="submit" onClick={add_fund} id="submitBtn"style={mystyle.submitBtn}> Add</button> */}
+                      <Link to = '/ConstMaterial'>
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={add_Materials}>
-                          ADD 
+                        onClick={ConstUpdate}>
+                          UPDATE 
                       </button>
+                      </Link>
                       <Link to = '/ConstMaterial'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

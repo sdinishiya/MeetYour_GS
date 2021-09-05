@@ -77,7 +77,7 @@ const mystyle = {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
             <div className="w-full lg:w-10/12 px-4">
-                <Link to="/AddnewagriMaterial">
+            <Link to="/AddnewagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -92,7 +92,13 @@ const mystyle = {
                 <Link to="/AgriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Added Material    
+                          View Added Material
+                  </button> 
+                </Link>
+                <Link to="/SupplyagriMaterial">
+                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                          type="submit" >
+                          Supply Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedagriMaterial">

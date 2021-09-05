@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+// const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
 // const path = require('path');
@@ -21,6 +22,7 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+// app.use(fileUpload());
 
 //var req = require("./node_modules/req/node_modules/request");
 const db = mysql.createConnection({
@@ -130,6 +132,36 @@ app.get('/materialname', (req, res) => {
 
     })
 })
+
+app.put('/constupdate' , (req,res) => {
+    const addeddate = req.body.addeddate;
+    const materialid = req.body.materialid;
+    const materialname = req.body.materialname;
+    const description = req.body.description;
+    const quantity = req.body.quantity;
+
+    db.query("UPDATE constsmaterial SET addeddate = ? , materialid = ? , materialname = ?, description = ?, quantity = ? WHERE materialid= ?" ,
+    [addeddate,materialid,materialname,description,quantity],(err,result)=>{ 
+        if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    
+    })
+
+})
+
+app.get('/getconst',(req,res)=>{
+    db.query("SELECT c.*,n.materialname FROM newconstmaterial n JOIN constsmaterial c ON n.materialid = c.materialid ", [req.query.aa],(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
 
 // app.get('/supplymaterialname', (req, res) => {
 //     db.query('SELECT materialid,materialname FROM constsmaterial ', (err, result) => {
@@ -795,3 +827,22 @@ app.get('/noticeview',(req,res)=>{
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
+
+
+// Upload Endpoint
+// app.post('/upload', (req, res) => {
+//     if (req.files === null) {
+//       return res.status(400).json({ msg: 'No file uploaded' });
+//     }
+  
+//     const file = req.files.file;
+  
+//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
+//       if (err) {    
+//         console.error(err);
+//         return res.status(500).send(err);
+//       }
+  
+//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+//     });
+//   });
