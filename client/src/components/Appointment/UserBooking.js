@@ -1,66 +1,82 @@
-import React from "react";
-import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 
 // components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
-import AppointHeader from "components/Appointment/AppointHeader.js";
+import Navbarloglanding from "components/Navbars/Navbarlanding.js";
+import UserHeader from "components/Headers/UserHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function Schedule() {
-    const [appID,setID] = useState("");
-    const [gsname,setName] = useState("");
-    const [date,setDate] = useState("");
-    const [startTime,setStartTime] = useState("");
-    const [endTime,setEndTime] = useState("");
-    const [description,setDescription] = useState("");
-    const history  = useHistory();
+export default function UserBooking() {
+    const { availID } = useParams();
 
-    const schedule = ()=>{
-      console.log(appID);
+    const [gettopic,setgettopic] = useState ([])
+    // const [topicID,settopicID] = useState("");
 
-      const d1 = new Date();
-      const d2 = new Date(date);
-      if (d2.getTime() < d1.getTime()) {
-        alert("Date must be greater than today");
-        return;
-      }
+    const [nic, setNic] = useState("");
+    const [name, setName] = useState("");
+    const [home_no, setHome_no] = useState("");
+    const [address, setAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [topic, settopic] = useState("");
+    const [book_status, setNewbook_status] = useState("Pending");
+    const [newavailID, setavailID] = useState(" ");
 
-      // var startTime = new String(startTime);
-      // var endTime = new String(endTime);
-      // var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
-      // if(parseInt(endTime) > parseInt(startTime )){
-      // alert("End time is greater");
-      // }
+    const AddBook = ()=>{
+      console.log(availID);
 
-
-       axios.post('http://localhost:3001/schedule',{
-        gsname:gsname,
-        date:date,
-        startTime: startTime,
-        endTime:endTime,
-        description:description,
+       axios.post('http://localhost:3001/add-booking',{
+        nic: nic,
+        name: name,
+        home_no: home_no,
+        address: address,
+        phone: phone,
+        email: email,
+        topic: topic,
+        book_status:book_status,
+        availID: availID,
 
         }).then(()=>{
            console.log("success");
-           //history.push("/Appointment/viewScheduled");
+           alert(" Appointment Booked Successfully ");
+          //  history.push("/ViewScheduled");
          });
     };
+
+//dropdown
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/booktopics', {
+            
+        });
+        setgettopic(response.data);
+        console.log(response.data);
+    };
+    fetchData();
+}, []);
+
+const mystyle = {
+    
+  formControl: {
+    minWidth: '454px',
+  },
+};
+
   return (
     <>
     
   <main>
-  <Sidebar />
-    <div className="relative md:ml-64 bg-blueGray-100">
-      <AdminNavbar />
+    <Navbarloglanding />
       {/* Header */}
-      <AppointHeader />
+      <UserHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
-        <br /> <br /> <br /> <br /> 
+        <br />  
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
@@ -68,67 +84,118 @@ export default function Schedule() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        SCHEDULE APPOINTMENT AVAILABILITY
+                        MAKE APPOINTMENT BOOKINGS 
                     </h1>
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        GS Name
+                        NIC
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="gsname" onChange={(event)=>{setName(event.target.value);}} 
+                        name="gsname" 
+                        onChange={(event) => {
+                          setNic(event.target.value);
+                        }}
                         required
-                        placeholder="GS Name"/>
+                        placeholder="NIC*"/>
                     </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Date
+                        Villager Name
                       </label>
-                      <input type="date"
+                      <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="date" onChange={(event)=>{setDate(event.target.value);}} 
+                        name="name" 
+                        onChange={(event) => {
+                          setName(event.target.value);
+                        }}
                         required
-                        placeholder="Date"/>
+                        placeholder="Name*"/>
                     </div>
+
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Start Time
+                        Home No./ Home Name
                       </label>
-                      <input type="time"
-                        name="startTime" onChange={(event)=>{setStartTime(event.target.value);}} 
-                        required
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
-                    </div>
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        End Time
-                      </label>
-                      <input type="time"
-                        name="endTime" onChange={(event)=>{setEndTime(event.target.value);}} 
-                        required
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"/>
+                      <input type="text"
+                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                         name="home_no"
+                         onChange={(event) => {
+                           setHome_no(event.target.value);
+                         }}
+                         required
+                         placeholder="House No. / House Name*"
+                        />
                     </div>
                     
-                    <div className="relative w-full mb-3">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" >
-                        Message
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Address
                       </label>
-                      <textarea
-                        rows="4"
-                        cols="80"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        name="description" onChange={(event)=>{setDescription(event.target.value);}} 
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="address"
+                        onChange={(event) => {
+                          setAddress(event.target.value);
+                        }}
                         required
-                        placeholder="Type a message..."
-                      />
+                        placeholder="Address"/>
                     </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Contact 
+                      </label>
+                      <input type="int"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="phone"
+                        onChange={(event) => {
+                          setPhone(event.target.value);
+                        }}
+                        required
+                        placeholder="Contact No.*"/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        E-mail 
+                      </label>
+                      <input type="text"
+                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                         name="email"
+                         onChange={(event) => {
+                          setEmail(event.target.value);
+                         }}
+                         required
+                         placeholder="E-mail Address"
+                        />
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                    <labe className="block uppercase text-blueGray-600 text-xs font-bold mb-2"> Topic </labe> 
+                    <FormControl className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
+                           <Select
+                               native
+                               onChange={(event) => {settopic(event.target.value); }}
+                               style={mystyle.search} >
+                                    
+                               <option aria-label="None" value="" />
+                               {gettopic.map((record) => (
+                                   <option Value={record.ID}>{record.topic}</option>
+                               ))}
+
+                           </Select>
+                       </FormControl><br /> 
+                    </div>
+
                     <box>
                     <div className="text-center mt-6">
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={schedule}
-                      > Schedule 
+                        onClick={AddBook}
+                      > Book 
                       </button>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -138,6 +205,7 @@ export default function Schedule() {
                       </button>
                     </div>
                     </box>
+
                   </div>
                 </div>
               </div>
@@ -149,7 +217,7 @@ export default function Schedule() {
         <FooterAdmin />
         </section>
         
-        </div>
+
       </main>
       
     </>

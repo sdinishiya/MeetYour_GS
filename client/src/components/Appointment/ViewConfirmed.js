@@ -17,10 +17,25 @@ export default function ViewRequests() {
 
     const [viewList,setviewList]=useState([])
     useEffect(()=>{
-      axios.get("http://localhost:3001/requestView").then((response)=>{
+      axios.get("http://localhost:3001/confirmbook").then((response)=>{
           setviewList(response.data)
       })
     },[])
+
+    // cancel
+    const [cancel, setcancel] = useState("Cancelled");
+    const cancelReq = (appID) => {
+      axios
+        .put("http://localhost:3001/cancel-book", {
+          status: cancel,
+          appID: appID,
+        })
+
+        .then((response) => {
+          console.log(appID);
+        });
+      alert(" Appointment Request Cancelled ");
+    };
 
   return (
     <>
@@ -44,7 +59,7 @@ export default function ViewRequests() {
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                            Appointment Requests From Villagers
+                            Confrmed Appointment Details
                           </h3>
                         </div>
                       </div>
@@ -64,6 +79,9 @@ export default function ViewRequests() {
                               Time
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                              GS Name
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Villager NIC
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -76,13 +94,10 @@ export default function ViewRequests() {
                               Email
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Description
+                              Message 
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              
-                            </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              
+                              Cancel 
                             </th>
                           </tr>
                         </thead>
@@ -104,6 +119,9 @@ export default function ViewRequests() {
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {record.startTime} - {record.endTime}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {record.gsname}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {record.nic}
@@ -132,11 +150,13 @@ export default function ViewRequests() {
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <Link to="/ViewRequests">
                                 <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                      type="submit" >
-                                      Decline
+                                      type="submit" 
+                                      onClick={() => cancelReq(record.appID)}>  {" "}
+                                      Cancel Appointment
                                 </button>
                               </Link>  
                             </td>
+
                           </tr>
                             )
                             })}

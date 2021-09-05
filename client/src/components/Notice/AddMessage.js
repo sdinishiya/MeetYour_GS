@@ -10,8 +10,8 @@ import NoticeHeader from "components/Notice/NoticeHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
-export default function AddNotice() {
-    const [noticeID,setID] = useState("");
+export default function AddMessage() {
+    const [smsID,setID] = useState("");
     const [topic,setTopic] = useState("");
     const [description,setDescription] = useState("");
     const [uploadDate,setUploadDate] = useState("");
@@ -19,8 +19,8 @@ export default function AddNotice() {
     const [status,setStatus] = useState("");
     const history  = useHistory();
 
-    const noticeadd = ()=>{
-      console.log(noticeID);
+    const messageadd = ()=>{
+      console.log(smsID);
 
       const d1 = new Date(uploadDate);
       const d2 = new Date(expDate);
@@ -29,7 +29,7 @@ export default function AddNotice() {
         return;
       }
 
-       axios.post('http://localhost:3001/addnotice',{
+       axios.post('http://localhost:3001/addsms',{
         topic:topic,
         description:description,
         uploadDate: uploadDate,
@@ -41,8 +41,8 @@ export default function AddNotice() {
 
          });
 
-         alert("Notice added successfully ");
-        history.push("/noticeView");
+         alert("Added successfully ");
+        history.push("/MessageView");
     };
   return (
     <>
@@ -63,7 +63,7 @@ export default function AddNotice() {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        ADD NEW NOTICES 
+                        ADD NEW GENERAL SMS MESSAGE
                     </h1>
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -77,7 +77,7 @@ export default function AddNotice() {
                     </div>
                     <div className="relative w-full mb-3">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2" >
-                        Message
+                        SMS Message Body
                       </label>
                       <textarea
                         rows="4"
@@ -85,7 +85,7 @@ export default function AddNotice() {
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         name="description" onChange={(event)=>{setDescription(event.target.value);}} 
                         required
-                        placeholder="Type a message to notify..."
+                        placeholder="Type a message to send SMS...."
                       />
                     </div>
                     <div className="relative w-full mb-3 mt-8">
@@ -99,7 +99,7 @@ export default function AddNotice() {
                     </div>
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Expiry Date
+                        Deadline Date
                       </label>
                       <input type="date"
                         name="expDate" onChange={(event)=>{setExpDate(event.target.value);}} 
@@ -112,10 +112,9 @@ export default function AddNotice() {
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
-                        onClick={noticeadd}
+                        onClick={messageadd}
                       > Add 
                       </button>
-                    
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"

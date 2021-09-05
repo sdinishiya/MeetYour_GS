@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2021 at 07:31 PM
+-- Generation Time: Sep 01, 2021 at 06:27 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.8
 
@@ -73,8 +73,10 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`appID`, `gsname`, `date`, `startTime`, `endTime`, `description`, `nic`, `name`, `home_no`, `address`, `phone`, `email`, `des`, `status`, `book_status`) VALUES
-(1, 'Dineshiya', '2021-08-29', '10:00:00', '11:05:00', 'Generic appointments', '912345678V', 'Namal Perera', '159', 'Gampola road, kandy', 712345678, 'namal@gmail.com', 'birth certificate daetails', 'Pending', '1'),
-(6, 'Dineshiya', '2021-08-29', '05:01:20', '09:00:00', 'Pensioner details checked', '', '', '', '', NULL, '', '', 'Pending', '0');
+(1, 'Dineshiya', '2021-08-29', '10:00:00', '11:05:00', 'Generic appointments', '912345678V', 'Namal Perera', '159', 'Gampola', 712345678, 'namal@gmail.com', 'birth certificate details', 'Comfirmed', '1'),
+(6, 'Dineshiya', '2021-08-29', '05:01:20', '09:00:00', 'Pensioner details checked', '912345678V', 'Perera', '15', 'Gampola', 712345678, 'namal@gmail.com', 'pension', 'Cancelled', '1'),
+(8, 'Dineshiya', '2021-08-31', '14:30:00', '15:30:00', 'Can be anything', '912345678V', 'Namal Perera', '36', 'Gampola', 712345678, 'namal@gmail.com', 'Donation details', 'Confirmed', '1'),
+(9, 'Dineshiya', '2021-09-01', '08:30:00', '09:30:00', 'Electricity details', '912345678V', 'Perera', '69', 'Gampola', 712345678, 'namal@gmail.com', 'birth certificate daetails', 'pending', '1');
 
 -- --------------------------------------------------------
 
@@ -250,18 +252,21 @@ INSERT INTO `newconstmaterial` (`materialid`, `materialname`) VALUES
 CREATE TABLE `notice` (
   `noticeID` int(11) NOT NULL,
   `topic` varchar(20) NOT NULL,
-  `description` varchar(50) NOT NULL,
+  `description` varchar(400) NOT NULL,
   `uploadDate` date NOT NULL,
   `expDate` date NOT NULL,
-  `active_status` varchar(10) NOT NULL DEFAULT 'Active'
+  `status` varchar(10) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notice`
 --
 
-INSERT INTO `notice` (`noticeID`, `topic`, `description`, `uploadDate`, `expDate`, `active_status`) VALUES
-(1, 'Company Meeting ', 'This is for those above 60 years', '2021-08-28', '2021-08-30', 'Active');
+INSERT INTO `notice` (`noticeID`, `topic`, `description`, `uploadDate`, `expDate`, `status`) VALUES
+(4, 'Sahana malla', 'All villagers having income below Rs.10,000 per month can get the Sahana Malla from the GS office', '2021-09-01', '2021-09-10', 'Active'),
+(5, 'Pension details', 'villagers eligible to get pension from the 15th June 2021 can get forms from the GS', '2021-08-31', '2021-09-07', 'Active'),
+(6, 'Vaccination details ', 'All villagers above 30 can get vaccinated at the Central ground from the 1st of August 2021', '2021-07-31', '2021-12-31', 'Inactive'),
+(7, 'Vaccination details ', 'All staff should get vaccinated soon', '2021-08-31', '2021-12-31', 'Inactive');
 
 -- --------------------------------------------------------
 
@@ -284,6 +289,26 @@ CREATE TABLE `othermaterial` (
 INSERT INTO `othermaterial` (`addeddate`, `materialid`, `materialname`, `description`, `quantity`) VALUES
 ('2021-08-19 00:00:00', 1, 'Dry Rations', '', '150 Packages'),
 ('2021-08-24 00:00:00', 2, 'Dry Rations', '', '150 Packages');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `people`
+--
+
+CREATE TABLE `people` (
+  `RegID` varchar(100) NOT NULL,
+  `fname` text NOT NULL,
+  `lname` text NOT NULL,
+  `NIC` varchar(12) NOT NULL,
+  `DOB` date NOT NULL,
+  `home_no` varchar(50) NOT NULL,
+  `address` varchar(500) NOT NULL,
+  `phone` int(10) NOT NULL,
+  `type` text NOT NULL DEFAULT 'tenant',
+  `status` varchar(25) NOT NULL DEFAULT 'live',
+  `income_status` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -317,6 +342,28 @@ CREATE TABLE `query` (
   `response` varchar(200) NOT NULL,
   `genmessage` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms`
+--
+
+CREATE TABLE `sms` (
+  `smsID` int(11) NOT NULL,
+  `topic` varchar(20) NOT NULL,
+  `description` varchar(400) NOT NULL,
+  `uploadDate` date NOT NULL,
+  `expDate` date NOT NULL,
+  `status` varchar(10) NOT NULL DEFAULT 'Not-Sent'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sms`
+--
+
+INSERT INTO `sms` (`smsID`, `topic`, `description`, `uploadDate`, `expDate`, `status`) VALUES
+(1, 'Vaccination details ', 'All above 60 are expected to come ', '2021-09-01', '2021-09-04', 'Not-Sent');
 
 -- --------------------------------------------------------
 
@@ -413,6 +460,12 @@ ALTER TABLE `othermaterial`
   ADD PRIMARY KEY (`materialid`);
 
 --
+-- Indexes for table `people`
+--
+ALTER TABLE `people`
+  ADD PRIMARY KEY (`RegID`);
+
+--
 -- Indexes for table `projects`
 --
 ALTER TABLE `projects`
@@ -423,6 +476,12 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `query`
   ADD PRIMARY KEY (`queryID`);
+
+--
+-- Indexes for table `sms`
+--
+ALTER TABLE `sms`
+  ADD PRIMARY KEY (`smsID`);
 
 --
 -- Indexes for table `user`
@@ -444,7 +503,7 @@ ALTER TABLE `agrimaterial`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `appID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -480,7 +539,7 @@ ALTER TABLE `newconstmaterial`
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `noticeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `othermaterial`
@@ -499,6 +558,12 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `query`
   MODIFY `queryID` int(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sms`
+--
+ALTER TABLE `sms`
+  MODIFY `smsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`

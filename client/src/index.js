@@ -20,17 +20,32 @@ import Schedule from "components/Appointment/schedule.js";
 import UserView from "components/Appointment/UserView.js";
 import ViewRequests from "components/Appointment/ViewRequests.js";
 import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
+import UserBooking from "components/Appointment/UserBooking";
+
 
 
 //Notice 
 import AddNotice from "components/Notice/AddNotice.js";
 import NoticeTable from "components/Notice/noticeView.js";
+import AllNotice from "components/Notice/AllNoticeView.js";
+
+//SMSmessage
+import AddMessage from "components/Notice/AddMessage.js";
+import MessageView from "components/Notice/MessageView.js";
+import AllMessageView from "components/Notice/AllMessageView.js";
+
 
 //FINANCE
 //Petty Cash
 import Receive from "components/Finance/CashReceive.js";
 import Expense from "components/Finance/AddExpenses.js";
-import PettyCash from "components/Finance/ViewPettycash"; 
+import PettyCash from "components/Finance/ViewPettycash.js"; 
+
+//Forum
+import AddForum from "components/Forum/AddForum.js";
+import ForumTable from "components/Forum/ForumView.js";
+import ForumView from "components/Pages/Formpage.js";
+import AddNewForum from "components/Forum/AddNewForum.js"
 
 //Fund
 import Fund from "components/Finance/ViewFund"; 
@@ -65,6 +80,8 @@ import OtherMaterial from "components/Material/OtherMaterial";
 import AddnewotherMaterial from "components/Material/AddnewotherMaterial";
 import AddotherMaterial from "components/Material/AddotherMaterial";
 import SupplyotherMaterial from "components/Material/SupplyotherMaterial";
+//import ForumTable from "components/Forum/ForumView";
+
 import ViewSupplyOther from "components/Material/ViewSuppliedotherMaterial";
 
 //Users(Material)
@@ -104,19 +121,34 @@ ReactDOM.render(
       {/* Appointment  */}
       <Route path="/ViewScheduled"  component={ViewScheduled} />
       <Route path="/schedule"  component={Schedule} />
-      <Route path="/UserView"  component={UserView} />
       <Route path="/ViewRequests"  component={ViewRequests} />
       <Route path="/ViewConfirmed"  component={ViewConfirmed} />
+      <Route path="/UserView"  component={UserView} />
+      <Route path="/UserBooking"  component={UserBooking} />
+      
+      
 
       {/* Notices */}
       <Route path="/AddNotice"  component={AddNotice} />
       <Route path="/noticeView"  component={NoticeTable} />
+      <Route path="/AllNoticeView"  component={AllNotice} />
+      {/* sms */}
+      <Route path="/AddMessage"  component={AddMessage} />
+      <Route path="/MessageView"  component={MessageView} />
+      <Route path="/AllMessageView"  component={AllMessageView} />
+      
 
       {/* FINANCE */}
       {/* Petty Cash */}
       <Route path="/CashReceive" component={Receive}/>
       <Route path="/AddExpenses" component={Expense}/>
       <Route path="/ViewPettycash" component={PettyCash}/>
+
+      {/* Forum */}
+      <Route path="/AddForum" component={AddForum}/>
+      <Route path="/AddNewForum" component={AddNewForum}/>
+      <Route path="/forumView" component={ForumTable}/>
+      <Route path="/Forumpage" component={ForumView}/>
 
       {/* Fund */}
       <Route path="/ViewFund" component={Fund}/>
@@ -160,6 +192,7 @@ ReactDOM.render(
       {/* <Route path ="Upload/FileUpload" component={FileUpload}/>
       <Route path ="Upload/Message" component={Message}/>
       <Route path ="Upload/Progress" component={Progress}/> */}
+      {/* people */}
 
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>

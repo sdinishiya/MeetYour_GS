@@ -16,7 +16,7 @@ export default function AddNotice() {
     const [description,setDescription] = useState("");
     const [uploadDate,setUploadDate] = useState("");
     const [expDate,setExpDate] = useState("");
-    const [status,setStatus] = useState("");
+    const [active_status,setStatus] = useState("");
     const history  = useHistory();
 
     const noticeadd = ()=>{
@@ -34,15 +34,15 @@ export default function AddNotice() {
         description:description,
         uploadDate: uploadDate,
         expDate:expDate,
-        status:status,
+        active_status:active_status,
 
         }).then(()=>{
            console.log("success");
 
          });
 
-         alert("Notice added successfully ");
-        history.push("/noticeView");
+         alert(" Added successfully ");
+        history.push("/Notice/noticeView");
     };
   return (
     <>
@@ -115,7 +115,6 @@ export default function AddNotice() {
                         onClick={noticeadd}
                       > Add 
                       </button>
-                    
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"

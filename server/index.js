@@ -28,7 +28,7 @@ app.use(cors());
 const db = mysql.createConnection({
 	user: "root",
 	host: "localhost",
-	password: "",
+	password: "root",
 	database: "meetyourgs",
 });
 
@@ -590,6 +590,7 @@ app.post('/fundallocatecreate',(req,res)=>{
 });
 
 
+//APPOINTMENTS
 //schedule
 app.post('/schedule',(req,res)=>{
     console.log(req.body)
@@ -597,10 +598,11 @@ app.post('/schedule',(req,res)=>{
     const date = req.body.date;
     const startTime = req.body.startTime;
     const endTime = req.body.endTime;
+    const maxCount = req.body.maxCount;
     const description = req.body.description;
 
-    db.query("INSERT INTO appointment (gsname,date,startTime,endTime,description) VALUES (?,?,?,?,?)",
-    [gsname,date,startTime,endTime,description],(err,result)=>{
+    db.query("INSERT INTO availability (gsname,date,startTime,endTime,maxCount,description) VALUES (?,?,?,?,?,?)",
+    [gsname,date,startTime,endTime,maxCount,description],(err,result)=>{
         if(err){
             console.log(err);
         } else{
@@ -608,20 +610,10 @@ app.post('/schedule',(req,res)=>{
         }
     })  
 });
+
 //gsview
 app.get('/viewSchedule',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description,status FROM appointment ",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
-        
-    });
-});
-//userview
-app.get('/book',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description FROM appointment WHERE book_status = 0",(err,result,) => {
+    db.query("SELECT *, TIMEDIFF( endTime, startTime) AS Duration FROM availability ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -631,7 +623,19 @@ app.get('/book',(req,res)=>{
     });
 });
 
-//addbooking //appointview
+//userview
+app.get('/userView',(req,res)=>{
+    db.query("SELECT *, TIMEDIFF( endTime, startTime) AS Duration FROM availability ",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+//RequestView
 app.get('/requestView',(req,res)=>{
     db.query("SELECT * FROM appointment WHERE status='pending' AND book_status = 1 ",(err,result,) => {
         if(err) {
@@ -641,8 +645,9 @@ app.get('/requestView',(req,res)=>{
 	  }     
     });
 });
-app.get('/appdetails',(req,res)=>{
-    db.query("SELECT nic,name,home_no,address,phone,email,des FROM appointment",(err,result,) => {
+//dropdown 
+app.get('/booktopics',(req,res)=>{
+    db.query("SELECT topic FROM book_topics",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -650,39 +655,51 @@ app.get('/appdetails',(req,res)=>{
 	  }     
     });
 });
-app.put('/add-app-booking', (req,res) => {
-    const appID = req.body.appID;
+
+app.get('/appdetails',(req,res)=>{
+    db.query("SELECT * FROM availability",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
+
+app.post('/add-booking',(req,res)=>{
+    const bookID = req.body.bookID;
     const nic = req.body.nic;
     const name = req.body.name;
     const home_no = req.body.home_no;
     const address = req.body.address;
     const phone = req.body.phone;
     const email = req.body.email; 
-    const des = req.body.des;
-    console.log("reach")
+    const topic = req.body.topic;
+    const book_status = req.body.book_status;
+    const availID= req.body.availID;
+    console.log("db reach")
     console.log(req.body)
 
-    db.query("UPDATE appointment SET nic=?,name=?,home_no=?,address=?, phone=?,email=?, des=? WHERE appID = ?; ", 
-    [nic,name,home_no,address,phone,email,des, appID], 
-    (err, result) => {
-
-        if (err) {
+    db.query("INSERT INTO bookings (nic,name,home_no,address,phone,email,topic,book_status) VALUES (?,?,?,?,?,?,?,?)",
+    [nic,name,home_no,address,phone,email,topic,book_status],(err,result)=>{
+        if(err){
             console.log(err);
-        } else {
-            res.send(result);
+        } else{
+            res.send("values inserted");
         }
-       }
-    );
-  });
+    })  
+});
+
+
 //accept
 app.put('/accept-book', (req,res) => {
-    const apptID = req.body.appID;
+    const appID = req.body.appID;
     const status = req.body.status;
 
     console.log(req.body)
 
-    db.query("UPDATE appointment SET status=Confirmed WHERE appID = ?; ", 
-    [status, appID], 
+    db.query("UPDATE appointment SET status='Confirmed' WHERE appID = ?; ", 
+    [appID], 
     (err, result) => {
 
         if (err) {
@@ -693,15 +710,16 @@ app.put('/accept-book', (req,res) => {
        }
     );
   });
+
 //decline
 app.put('/decline-book', (req,res) => {
-    const apptID = req.body.appID;
-    const nic = req.body.nic;
+    const appID = req.body.appID;
+    const status = req.body.status;
 
     console.log(req.body)
 
     db.query("UPDATE appointment SET status='Declined' WHERE appID = ?; ", 
-    [status, appID], 
+    [appID], 
     (err, result) => {
 
         if (err) {
@@ -715,7 +733,7 @@ app.put('/decline-book', (req,res) => {
 
 //confirmed appointment
   app.get('/confirmbook',(req,res)=>{
-    db.query("SELECT appID,gsname,date,startTime,endTime,description,name,home_no,address,phone,email,des FROM appointment WHERE status = 'Confirmed' ",(err,result,) => {
+    db.query("SELECT * FROM appointment WHERE status='Confirmed' AND book_status = 1",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -725,6 +743,25 @@ app.put('/decline-book', (req,res) => {
     });
 });
 
+//cancel
+app.put('/cancel-book', (req,res) => {
+    const appID = req.body.appID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE appointment SET status='Cancelled' WHERE appID = ?; ", 
+    [appID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
 
 
 //donations
@@ -800,10 +837,10 @@ app.post('/addnotice',(req,res)=>{
     const description = req.body.description; 
     const uploadDate = req.body.uploadDate;
     const expDate = req.body.expDate; 
-    const active_status = req.body.active_status;  
+    const status = req.body.status;  
 
-    db.query("INSERT INTO notice (topic,description,uploadDate,expDate,active_status) VALUES (?,?,?,?,?)",
-    [topic,description,uploadDate,expDate,active_status],(err,result)=>{
+    db.query("INSERT INTO notice (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
+    [topic,description,uploadDate,expDate],(err,result)=>{
 		if(err){
             console.log(err);
         } else{
@@ -814,7 +851,7 @@ app.post('/addnotice',(req,res)=>{
     
 });
 app.get('/noticeview',(req,res)=>{
-    db.query("SELECT topic,description,uploadDate,expDate,active_status FROM notice",(err,result,) => {
+    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -823,6 +860,164 @@ app.get('/noticeview',(req,res)=>{
         
     });
 });
+app.get('/allnoticeview',(req,res)=>{
+    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+//remove
+app.put('/remove-notice', (req,res) => {
+    const noticeID = req.body.noticeID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE notice SET status='Inactive' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+  //Activate
+app.put('/active-notice', (req,res) => {
+    const noticeID = req.body.noticeID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE notice SET status='Active' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
+  //General Message
+app.post('/addsms',(req,res)=>{
+    console.log(req.body)
+    const smsID = req.body.smsID;
+    const topic = req.body.topic;
+    const description = req.body.description; 
+    const uploadDate = req.body.uploadDate;
+    const expDate = req.body.expDate; 
+    const status = req.body.status;  
+
+    db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
+    [topic,description,uploadDate,expDate],(err,result)=>{
+		if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    
+    })
+    
+});
+app.get('/smsview',(req,res)=>{
+    db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+app.get('/allsmsview',(req,res)=>{
+    db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+//send
+app.put('/send-sms', (req,res) => {
+    const smsID = req.body.smsID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE sms SET status='Sent' WHERE noticeID = ?; ", 
+    [noticeID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
+app.post('/addnewforum' , (req , res)=>{
+    const postid = req.body.postid;
+    const posttext = req.body.posttext;
+    const topic = req.body.topic;
+    const date = req.body.date;
+    const emailid = req.body.emailid;
+    const comments = req.body.comments;
+    
+   db.query("INSERT INTO forumpost (postID,postText,topic,date,emailID,comments) VALUES (?,?,?,?,?,?)",[postid,posttext,topic,date,emailid,comments],(err,result)=>{
+       if(err){
+           console.log(err);
+       }else{
+           res.send("Post inserted");
+       }
+   });
+
+});
+
+app.get('/forumview', (req,res)=>{
+    db.query("SELECT * FROM forumpost ORDER BY date ASC",(err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    });
+});
+
+app.put('/update-forum',(req,res)=>{
+    const reply = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE forumpost SET status='Active' WHERE postID = ?;",
+    [postID],
+    (err,result) => {
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    }
+    );
+});
+
+
+
 
 app.listen(3001, () => {
 	console.log("running on port 3001");

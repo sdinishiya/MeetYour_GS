@@ -61,7 +61,7 @@ const LogDropdown = () => {
         </Link>
 
         <Link
-          to="/Pages/Appointmentpage"
+          to="/UserView"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }>
@@ -77,7 +77,7 @@ const LogDropdown = () => {
         </Link>
 
         <Link
-          to="/Pages/Forumpage"
+          to="/forumView"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }>
