@@ -115,13 +115,13 @@ export default function AddnewconstMaterial() {
                 <Link to="/SupplyconstMaterial">
                     <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                             type="submit" >
-                            Supply Material    
+                            Distrubute Material    
                     </button>
                   </Link>
                   <Link to="/ViewSuppliedconstMaterial">
                     <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                             type="submit" >
-                            View Supplied Material
+                            View Distrubuted Material
                     </button> <br/><br/>
                   </Link>
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">

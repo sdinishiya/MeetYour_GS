@@ -18,6 +18,7 @@ export default function SupplyotherMaterial() {
     const [supplieddate,setsupplieddate] = useState("");
     const [materialid,setmaterialid] = useState("");
     const [materialname,setmaterialname] = useState("");
+    const [name,setname] = useState("");
     const [description,setdescription] = useState("");
     const [quantity,setquantity] = useState("");
     
@@ -31,6 +32,7 @@ export default function SupplyotherMaterial() {
         supplieddate:supplieddate,
         materialid:materialid,
         materialname:materialname,
+        name:name,
         description:description,
         quantity:quantity,
 
@@ -99,13 +101,13 @@ const mystyle = {
                 <Link to="/SupplyotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          Supply Material    
+                          Distrubute Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Supplied Material
+                          View Distrubuted Material
                   </button> <br/><br/>
                 </Link>
               </div>
@@ -113,7 +115,7 @@ const mystyle = {
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold text-center justify-center">
-                        SUPPLY CONSTRUCTION MATERIAL
+                        DISTRIBUTE CONSTRUCTION MATERIAL
                     </h1>
                     
                     <div className="relative w-full mb-3 mt-8">
@@ -147,6 +149,17 @@ const mystyle = {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Beneficiary Name
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Beneficiary Name" onChange={(event)=>{setname(event.target.value);}} 
+                        required
+                        placeholder="Enter Name..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Description
                       </label>
                       <input type="text"
@@ -174,7 +187,7 @@ const mystyle = {
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
                         onClick={other_Materials}>
-                          ADD 
+                          Distrubute 
                       </button>
                       <Link to = '/OtherMaterial'>
                       <button

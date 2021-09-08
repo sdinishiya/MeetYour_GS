@@ -99,13 +99,13 @@ const mystyle = {
                 <Link to="/SupplyagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          Supply Material    
+                          Distrubute Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Supplied Material
+                          View Distributed Material
                   </button> <br/><br/>
                 </Link>
               </div>

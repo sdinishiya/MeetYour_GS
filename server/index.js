@@ -28,7 +28,7 @@ app.use(cors());
 const db = mysql.createConnection({
 	user: "root",
 	host: "localhost",
-	password: "root",
+	password: "",
 	database: "meetyourgs",
 });
 
@@ -330,11 +330,12 @@ app.post('/agrisupply',(req,res)=>{
     const supplieddate = req.body.supplieddate;
     const materialid = req.body.materialid;
     const materialname = req.body.materialname;
+    const name = req.body.name;
     const description = req.body.description;
     const quantity = req.body.quantity;
 
-    db.query("INSERT INTO supplyagrimaterial (supplieddate,materialid,description,quantity) VALUES (?,?,?,?)",
-    [supplieddate,materialid,description,quantity],(err,result)=>{ 
+    db.query("INSERT INTO supplyagrimaterial (supplieddate,materialid,name,description,quantity) VALUES (?,?,?,?)",
+    [supplieddate,materialid,name,description,quantity],(err,result)=>{ 
         if(err){
             console.log(err);
         } else{

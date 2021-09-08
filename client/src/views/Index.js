@@ -8,11 +8,10 @@ import axios from 'axios';
 
 import Navbarsignup from "components/Navbars/Navbarsignup";
 import Footer from "components/Footers/Footer.js";
- import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
-export default function Index() {
+export default function Landing() {
   const {t,i18n}= useTranslation()
-
 
   const [viewList,setviewList]=useState([])
   useEffect(()=>{
@@ -46,13 +45,13 @@ export default function Index() {
                   <h1 className="text-white font-semibold text-5xl">
                       MEET YOUR GS
                   </h1>
-                  {t("welcome_message")}
+                  {/* {t("welcome_message")} */}
                   <br/>
                   <h3 className="text-white font-semibold text-2xl">
-                     UDAPALATHA GRAMA NILADHARI WASAMA
+                     {t("sub_title")}
                   </h3>
                   <p className="mt-4 text-lg text-blueGray-200">
-                      We are the Grama Sevakha Niladhari division of Udapalatha GS wasama under the Kandy Division Secretariate.
+                      {t("sub_title_h3")}
                   </p>
                 </div>
               </div>
@@ -78,76 +77,6 @@ export default function Index() {
             </svg>
           </div>
         </div>
-
-        <section className="pb-20 bg-blueGray-200 -mt-24">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap">
-              <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  
-                </div>
-              </div>
-
-              <div className="w-full md:w-4/12 px-4 text-center">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
-                  <div className="px-4 py-5 flex-auto">
-                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-lightBlue-400">
-                      <i className="fas fa-retweet"></i>
-                    </div>
-                    <h6 className="text-xl font-semibold">Free Revisions</h6>
-                    <p className="mt-2 mb-4 text-blueGray-500">
-                      Keep you user engaged by providing meaningful information.
-                      Remember that by this time, the user is curious.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-             
-            <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
-          </div>
-          <div className="container relative mx-auto">
-            <div className="items-center flex flex-wrap">
-              <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
-                <div className="pr-12">
-                  <h1 className="text-white font-semibold text-5xl">
-                      MEET YOUR GS
-                  </h1>
-                  <br/>
-                  <h3 className="text-white font-semibold text-2xl">
-                     UDAPALATHA GRAMA NILADHARI WASAMA
-                  </h3>
-                  <p className="mt-4 text-lg text-blueGray-200">
-                      We are the Grama Sevakha Niladhari division of Udapalatha GS wasama under the Kandy Division Secretariate.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-            style={{ transform: "translateZ(0)" }}
-          >
-            <svg
-              className="absolute bottom-0 overflow-hidden"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-              version="1.1"
-              viewBox="0 0 2560 100"
-              x="0"
-              y="0"
-            >
-              <polygon
-                className="text-blueGray-200 fill-current"
-                points="2560 0 2560 100 0 100"
-              ></polygon>
-            </svg>
-          </div>
-        </div>
-        </section>
 
         <section className="pb-20 bg-blueGray-200 -mt-24">
           <div className="container mx-auto px-4">
@@ -185,17 +114,20 @@ export default function Index() {
               )
             })}
 
+            </div>
+
+            
+
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
                   <i className="fas fa-file-download text-xl"></i>
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Download official forms online
+                  {t("download")}
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  You can now download all your necessary documents and forms online without having to go to GS office. 
-                  Isn’t it time saving?
+                  {t("download_body")}
                 </p>
                 {/* <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-600">
                   The kit comes with three pre-built pages to help you get
@@ -204,7 +136,7 @@ export default function Index() {
                   JavaScript.
                 </p> */}
                 <Link to="/Pages/Formpage" className="font-bold text-blueGray-700 mt-8">
-                  Click to Download Forms
+                  {t("click")}
                 </Link>
               </div>
 
@@ -228,17 +160,15 @@ export default function Index() {
                       ></polygon>
                     </svg>
                     <h4 className="text-xl font-bold text-white">
-                      Forms
+                      {t("forms")}
                     </h4>
                     <p className="text-md font-light mt-2 text-white">
-                      You can now download all your necessary documents and forms online without having to go to GS office. 
-                      Isn’t it time saving?
+                      {t("download_body")}
                     </p>
                   </blockquote>
                 </div>
               </Link>
             </div>
-          </div>
           </div>
         </section>
 
@@ -282,11 +212,10 @@ export default function Index() {
                         </polygon>
                     </svg>
                     <h4 className="text-xl font-bold text-white">
-                      Project Details
+                      {t("project")}
                     </h4>
                     <p className="text-md font-light mt-2 text-white">
-                      Take a look at the projects that are happening in your neighbourhood. 
-                      There is so much that we can do as a community to help each other out for the welfare of everyone.
+                      {t("project_details")}
                     </p>
                   </blockquote>
                 </Link>   
@@ -296,10 +225,9 @@ export default function Index() {
                   {/* <div className="text-lightBlue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-lightBlue-300">
                     <i className="fas fa-rocket text-xl"></i>
                   </div> */}
-                  <h3 className="text-3xl font-semibold">Project Details</h3>
+                  <h3 className="text-3xl font-semibold">{t("project")}</h3>
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                    Take a look at the projects that are happening in your neighbourhood. 
-                    There is so much that we can do as a community to help each other out for the welfare of everyone. 
+                    {t("project_details")}
                   </p>
 
                   <ul className="list-none mt-6">
@@ -312,7 +240,7 @@ export default function Index() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Past Projects
+                          {t("past")}
                           </h4>
                         </div>
                       </Link>
@@ -326,7 +254,7 @@ export default function Index() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Current projects
+                          {t("current")}
                           </h4>
                         </div>
                       </Link>
@@ -340,7 +268,7 @@ export default function Index() {
                         </div>
                         <div>
                           <h4 className="text-blueGray-500">
-                            Projects Planned in the Future
+                            {t("future")}
                           </h4>
                         </div>
                       </Link>
@@ -360,14 +288,13 @@ export default function Index() {
                   <i className="fas fa-file-download text-xl"></i>
                 </div> */}
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Resource and material Distribution details
+                  {t("resource_details")}
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
-                  In need of resource materials for your on-going projects or inventions? 
-                  We are here to provide and facilitate your small scale businesses.
+                  {t("resource_details_body")}
                 </p>
                 <Link to="/Pages/Resoursepage" className="font-bold text-blueGray-700 mt-8">
-                  Click to View & Request Resources
+                  {t("click_resource")}
                 </Link>
               </div>
 
@@ -391,11 +318,10 @@ export default function Index() {
                         </polygon>
                     </svg>
                     <h4 className="text-xl font-bold text-white">
-                      Resources
+                     {t("resource")}
                     </h4>
                     <p className="text-md font-light mt-2 text-white">
-                      In need of resource materials for your on-going projects or inventions? 
-                      We are here to provide and facilitate your small scale businesses.  
+                     {t("resource_details_body")} 
                     </p>
                   </blockquote>
                 </Link> 

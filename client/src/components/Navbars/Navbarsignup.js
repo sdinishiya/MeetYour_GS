@@ -54,9 +54,7 @@ export default function Navbarsignup(props) {
               </li>
             </ul> */}
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <li className="flex items-center">
-              <Languagesdropdown />
-              </li>
+            
               {/* <li className="flex items-center">
                 <button onClick={()=>changeLanguage("en")}> English </button>
                 <button onClick={()=>changeLanguage("ta")}> Tamil </button>
@@ -65,19 +63,21 @@ export default function Navbarsignup(props) {
               <li className="flex items-center">
               <Link
                  to="/auth/login" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
-                   LOGIN
+                   {t("login")}
              </Link>
               </li>
               
               <li className="flex items-center">
               <Link
                  to="/auth/register" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
-                   SIGN-UP
+                   {t("signup")}
              </Link>
               </li>
+        
+              <li className="flex items-center lg:mr-1 lg:mb-0 ml-3 mb-3">
+              <Languagesdropdown />
+              </li>
 
-             
-              
               {/* <Link
           to="/profile"
           className={
