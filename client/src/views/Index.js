@@ -103,7 +103,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">{record.topic} </h6>
                     <p className="mt-2 mb-4 text-black">
-                      Posted: {year + month + day} | Deadline : {year1 + month1 + day1}
+                        Deadline : {year1 + month1 + day1} | Posted: {year + month + day} 
                     </p>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       {record.description}
@@ -135,12 +135,12 @@ export default function Landing() {
                   good to go. Just make sure you enable them first via
                   JavaScript.
                 </p> */}
-                <Link to="/Pages/Formpage" className="font-bold text-blueGray-700 mt-8">
-                  {t("click")}
+                <Link to="/UserFormView" className="font-bold text-blueGray-700 mt-8">
+                  Click to Download Forms
                 </Link>
               </div>
 
-              <Link to="/Pages/Formpage" className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <Link to="/UserFormView" className="w-full md:w-4/12 px-4 mr-auto ml-auto">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
                   <img
                     alt="..."
