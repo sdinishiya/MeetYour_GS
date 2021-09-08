@@ -96,14 +96,8 @@ export default function MessageView() {
                               Deadline Date  
                           </th>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                              Status  
-                          </th>
-                          {/* <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                                
-                          </th> */}
-                          {/* <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                                
-                          </th> */}
+                          </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -121,12 +115,12 @@ export default function MessageView() {
 
                             return(
                               <tr>
-                              <th className ="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                              <th className ="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 <span className ={ "ml-3 font-bold " + "text-blueGray-600"}>
                                   {notice.topic}
                                 </span>
                               </th>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <td className="border-t-0  px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {notice.description}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -135,32 +129,8 @@ export default function MessageView() {
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {year1 + month1 + day1}
                               </td>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {notice.status}
-                              </td>
-                              {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                <TableDropdown />
-                              </td> */}
-
-                              {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/EditNotice">
-                                  <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                        type="submit" 
-                                        >  {" "}         
-                                        Edit
-                                  </button>
-                                </Link> 
-
-                              </td>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/noticeView">
-                                <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                      type="submit" 
-                                      onClick={() => sendSMS(notice.smsID)}>  {" "}  
-                                     Send
-                                </button>
-                              </Link>
-                              </td> */}
+                              
+                              
                             </tr>
                             )
                             })}

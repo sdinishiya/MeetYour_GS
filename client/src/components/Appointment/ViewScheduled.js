@@ -75,9 +75,6 @@ export default function ViewScheduled() {
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                                Booked slots
                             </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Status
-                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -106,7 +103,7 @@ export default function ViewScheduled() {
                                  {viewApp.Duration}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {viewApp.currentCount}/{viewApp.maxCount}
+                                {viewApp.currentCount} Out of {viewApp.maxCount}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                  {viewApp.availStatus}

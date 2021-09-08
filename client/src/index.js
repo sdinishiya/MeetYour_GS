@@ -22,7 +22,11 @@ import ViewRequests from "components/Appointment/ViewRequests.js";
 import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
 import UserBooking from "components/Appointment/UserBooking";
 
-
+//Forms
+import AddForm from "components/FormTemplate/AddForms.js";
+import FormTemplateView from "components/FormTemplate/FormTemplateView.js";
+import ActiveForms from "components/FormTemplate/ActiveForms.js"; 
+import UserFormView from "components/FormTemplate/UserFormView.js"; 
 
 //Notice 
 import AddNotice from "components/Notice/AddNotice.js";
@@ -124,8 +128,13 @@ ReactDOM.render(
       <Route path="/ViewRequests"  component={ViewRequests} />
       <Route path="/ViewConfirmed"  component={ViewConfirmed} />
       <Route path="/UserView"  component={UserView} />
-      <Route path="/UserBooking"  component={UserBooking} />
+      <Route path="/UserBooking/:availID"  component={UserBooking} />
       
+      {/* FormTemplate */}
+      <Route path="/AddForms"  component={AddForm} />
+      <Route path="/FormTemplateView"  component={FormTemplateView} />
+      <Route path="/ActiveForms"  component={ActiveForms} />
+      <Route path="/UserFormView"  component={UserFormView} />
       
 
       {/* Notices */}

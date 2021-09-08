@@ -13,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function UserBooking() {
     const { availID } = useParams();
-
+  console.log(availID);
     const [gettopic,setgettopic] = useState ([])
     // const [topicID,settopicID] = useState("");
 
@@ -25,7 +25,7 @@ export default function UserBooking() {
     const [email, setEmail] = useState("");
     const [topic, settopic] = useState("");
     const [book_status, setNewbook_status] = useState("Pending");
-    const [newavailID, setavailID] = useState(" ");
+    
 
     const AddBook = ()=>{
       console.log(availID);
@@ -57,6 +57,7 @@ export default function UserBooking() {
         setgettopic(response.data);
         console.log(response.data);
     };
+    
     fetchData();
 }, []);
 

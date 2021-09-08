@@ -103,7 +103,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">{record.topic} </h6>
                     <p className="mt-2 mb-4 text-black">
-                      Posted: {year + month + day} | Deadline : {year1 + month1 + day1}
+                    Deadline : {year1 + month1 + day1} | Posted: {year + month + day} 
                     </p>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       {record.description}

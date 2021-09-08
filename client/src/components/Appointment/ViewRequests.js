@@ -24,30 +24,30 @@ export default function ViewRequests() {
 
     // accept
     const [newstatus, setnewstatus] = useState("Confirmed");
-    const Accept = (appID) => {
+    const Accept = (bookID) => {
       axios
         .put("http://localhost:3001/accept-book", {
           status: newstatus,
-          appID: appID,
+          bookID: bookID,
         })
 
         .then((response) => {
-          console.log(appID);
+          console.log(bookID);
         });
       alert(" Appointment Request Accepted ");
     };
 
       // decline
       const [decline, setdecline] = useState("Declined");
-      const declineReq = (appID) => {
+      const declineReq = (bookID) => {
         axios
           .put("http://localhost:3001/decline-book", {
             status: decline,
-            appID: appID,
+            bookID: bookID,
           })
   
           .then((response) => {
-            console.log(appID);
+            console.log(bookID);
           });
         alert(" Appointment Request Delclined ");
       };
@@ -100,6 +100,9 @@ export default function ViewRequests() {
                               Villager NIC
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                              Villager Name
+                            </th>
+                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Address
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -109,7 +112,7 @@ export default function ViewRequests() {
                               Email
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Description
+                              Topic
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               
@@ -130,7 +133,7 @@ export default function ViewRequests() {
                             return(
                           <tr>
                             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                                 {record.appID} 
+                                 {record.bookID} 
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {year + month + day}
@@ -142,6 +145,9 @@ export default function ViewRequests() {
                                 {record.nic}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                {record.name}
+                            </td>
+                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {record.home_no}, {record.address}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -151,13 +157,13 @@ export default function ViewRequests() {
                                 {record.email}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.des}
+                                {record.topic}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <Link to="/ViewRequests">
                                 <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                       type="submit" 
-                                      onClick={() => Accept(record.appID)}>  {" "}         
+                                      onClick={() => Accept(record.bookID)}>  {" "}         
                                       Accept
                                 </button>
                               </Link> 
@@ -166,7 +172,7 @@ export default function ViewRequests() {
                             <Link to="/ViewRequests">
                                 <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                       type="submit" 
-                                      onClick={() => declineReq(record.appID)}>  {" "}  
+                                      onClick={() => declineReq(record.bookID)}>  {" "}  
                                       Decline
                                 </button>
                               </Link>  

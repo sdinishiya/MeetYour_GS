@@ -413,6 +413,7 @@ app.post('/createnewother',(req,res)=>{
     })
     
 });
+
 app.get('/newothermaterial',(req,res)=>{
     db.query("SELECT * FROM newothermaterial",(err,result,) => {
         if(err) {
@@ -443,6 +444,7 @@ app.post('/othersupply',(req,res)=>{
     })
     
 });
+
 app.get('/othersupply',(req,res)=>{
     db.query("SELECT c.*,n.materialname FROM newothermaterial n JOIN supplyotheraterial c ON n.materialid = c.materialid order by supplieddate ASC",(err,result,) => {
         if(err) {
@@ -453,8 +455,6 @@ app.get('/othersupply',(req,res)=>{
         
     });
 });
-
-
 
 //Donation
 app.post('/donationcreate',(req,res)=>{
@@ -490,7 +490,6 @@ app.get('/donationview',(req,res)=>{
     });
 });
 
-
 // income
 app.post('/financecreate',(req,res)=>{
     console.log(req.body)
@@ -511,6 +510,7 @@ app.post('/financecreate',(req,res)=>{
     })
     
 });
+
 app.get('/transaction',(req,res)=>{
     db.query("SELECT * FROM finance order by transectionID ASC" ,(err,result,) => {
         if(err) {
@@ -636,16 +636,6 @@ app.get('/userView',(req,res)=>{
     });
 });
 
-//RequestView
-app.get('/requestView',(req,res)=>{
-    db.query("SELECT * FROM appointment WHERE status='pending' AND book_status = 1 ",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  }     
-    });
-});
 //dropdown 
 app.get('/booktopics',(req,res)=>{
     db.query("SELECT topic FROM book_topics",(err,result,) => {
@@ -666,7 +656,7 @@ app.get('/appdetails',(req,res)=>{
 	  }     
     });
 });
-
+//userAdd
 app.post('/add-booking',(req,res)=>{
     const bookID = req.body.bookID;
     const nic = req.body.nic;
@@ -681,8 +671,8 @@ app.post('/add-booking',(req,res)=>{
     console.log("db reach")
     console.log(req.body)
 
-    db.query("INSERT INTO bookings (nic,name,home_no,address,phone,email,topic,book_status) VALUES (?,?,?,?,?,?,?,?)",
-    [nic,name,home_no,address,phone,email,topic,book_status],(err,result)=>{
+    db.query("INSERT INTO bookings (nic,name,home_no,address,phone,email,topic,book_status,availID) VALUES (?,?,?,?,?,?,?,?,?)",
+    [nic,name,home_no,address,phone,email,topic,book_status,availID],(err,result)=>{
         if(err){
             console.log(err);
         } else{
@@ -691,16 +681,26 @@ app.post('/add-booking',(req,res)=>{
     })  
 });
 
+//RequestView
+app.get('/requestView',(req,res)=>{
+    db.query("SELECT b.*, a.date, a.startTime, a.endTime FROM bookings b JOIN availability a ON b.availID= a.availID WHERE book_status='Pending'  ",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
 
 //accept
 app.put('/accept-book', (req,res) => {
-    const appID = req.body.appID;
-    const status = req.body.status;
+    const bookID = req.body.bookID;
+    const book_status = req.body.book_status;
 
     console.log(req.body)
 
-    db.query("UPDATE appointment SET status='Confirmed' WHERE appID = ?; ", 
-    [appID], 
+    db.query("UPDATE bookings SET book_status='Confirmed' WHERE bookID = ?; ", 
+    [bookID], 
     (err, result) => {
 
         if (err) {
@@ -714,13 +714,13 @@ app.put('/accept-book', (req,res) => {
 
 //decline
 app.put('/decline-book', (req,res) => {
-    const appID = req.body.appID;
-    const status = req.body.status;
+    const bookID = req.body.bookID;
+    const book_status = req.body.book_status;
 
     console.log(req.body)
 
-    db.query("UPDATE appointment SET status='Declined' WHERE appID = ?; ", 
-    [appID], 
+    db.query("UPDATE bookings SET book_status='Declined' WHERE bookID = ?; ", 
+    [bookID], 
     (err, result) => {
 
         if (err) {
@@ -733,26 +733,25 @@ app.put('/decline-book', (req,res) => {
   });
 
 //confirmed appointment
-  app.get('/confirmbook',(req,res)=>{
-    db.query("SELECT * FROM appointment WHERE status='Confirmed' AND book_status = 1",(err,result,) => {
+app.get('/confirmView',(req,res)=>{
+    db.query("SELECT b.*, a.gsname, a.date, a.startTime, a.endTime FROM bookings b JOIN availability a ON b.availID= a.availID WHERE book_status='Confirmed'  ",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
         res.send(result)
-	  } 
-        
+	  }     
     });
 });
 
 //cancel
 app.put('/cancel-book', (req,res) => {
-    const appID = req.body.appID;
-    const status = req.body.status;
+    const bookID = req.body.bookID;
+    const book_status = req.body.book_status;
 
     console.log(req.body)
 
-    db.query("UPDATE appointment SET status='Cancelled' WHERE appID = ?; ", 
-    [appID], 
+    db.query("UPDATE bookings SET book_status='Cancelled' WHERE bookID = ?; ", 
+    [bookID], 
     (err, result) => {
 
         if (err) {
@@ -851,8 +850,9 @@ app.post('/addnotice',(req,res)=>{
     })
     
 });
+
 app.get('/noticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY uploadDate ASC",(err,result,) => {
+    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY expDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -862,7 +862,7 @@ app.get('/noticeview',(req,res)=>{
     });
 });
 app.get('/allnoticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY uploadDate ASC",(err,result,) => {
+    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY expDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
 	  } else {
@@ -890,7 +890,7 @@ app.put('/remove-notice', (req,res) => {
        }
     );
   });
-  //Activate
+//Activate
 app.put('/active-notice', (req,res) => {
     const noticeID = req.body.noticeID;
     const status = req.body.status;
@@ -959,8 +959,8 @@ app.put('/send-sms', (req,res) => {
 
     console.log(req.body)
 
-    db.query("UPDATE sms SET status='Sent' WHERE noticeID = ?; ", 
-    [noticeID], 
+    db.query("UPDATE sms SET status='Sent' WHERE smsID = ?; ", 
+    [smsID], 
     (err, result) => {
 
         if (err) {
@@ -971,6 +971,7 @@ app.put('/send-sms', (req,res) => {
        }
     );
   });
+
 
 app.post('/addnewforum' , (req , res)=>{
     const postid = req.body.postid;
@@ -1017,6 +1018,137 @@ app.put('/update-forum',(req,res)=>{
     );
 });
 
+//formTemplates
+app.post('/add-form' , (req , res)=>{
+    const formid = req.body.formid;
+    const formTopic = req.body.formTopic;
+    const file = req.body.file; //'image' in Home.ejs form input name
+    const UploadDate = req.body.UploadDate;
+    const expDate = req.body.expDate;
+    const description = req.body.description;
+
+    
+   db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
+   [formTopic,file,UploadDate,expDate,description],(err,result)=>{
+       if(err){
+           console.log(err);
+       }else{
+           res.send("Data Added");
+       }
+   });
+
+});
+
+app.get('/formView',(req,res)=>{
+    db.query("SELECT * FROM formtemplate ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+app.get('/activeForm',(req,res)=>{
+    db.query("SELECT * FROM formtemplate WHERE status='Active' ORDER BY expDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+//De-activate
+app.put('/remove-forms', (req,res) => {
+    const formID = req.body.formID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE formtemplate SET status='Inactive' WHERE formID = ?; ", 
+    [formID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
+//Activate
+app.put('/activate-form', (req,res) => {
+    const formID = req.body.formID;
+    const status = req.body.status;
+
+    console.log(req.body)
+
+    db.query("UPDATE formtemplate SET status='Active' WHERE formID = ?; ", 
+    [formID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+
+
+
+// app.post("/add-form", (req, res) => {
+//      if (!req.files) {
+//              res.send("No file upload")
+//         } else {
+            
+//             const formid = req.body.formid;
+//             const formTopic = req.body.formTopic;
+//             var file = req.files.image //'image' in Home.ejs form input name
+//             const UploadDate = req.body.UploadDate;
+//             const expDate = req.body.expDate;
+//             const description = req.body.description;
+//             const status = req.body.status;
+            
+//             //for image upload
+//        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif") {
+//                 var imageName = file.name
+
+//                 console.log(imageName)
+//                 var uuidname = uuid.v1(); //used for unique file name
+//                 var imgsrc = 'http://127.0.0.1:3000/images/' + uuidname + file.name
+
+   	        // var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
+
+//             db.query(insertData, [imgsrc], (err, result) => {
+//                      if (err) throw err
+//                     file.mv('public/images/' + uuidname + file.name)
+//                     res.send("Data successfully save")
+//                })
+//            }
+//              // for any file like pdf,docs etc. upload
+//              else {
+//   	            var fileName = file.name;
+//                 console.log(fileName);
+//                 var uuidname = uuid.v1(); // for unique file name
+//                 var filesrc = 'http://127.0.0.1:3000/docs/' + uuidname + file.name
+
+//                 var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
+
+//             db.query(insertData, [filesrc], (err, result) => {
+//             if (err) throw err
+//                 file.mv('public/docs/' + uuidname + file.name)
+// 	                 res.send("Data successfully save")
+//                 })
+//            }
+//    	     }
+//  })
 
 
 

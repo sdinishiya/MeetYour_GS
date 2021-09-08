@@ -9,21 +9,39 @@ import props from 'prop-types';
 // components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import NoticeHeader from "components/Notice/NoticeHeader.js";
+import FormHeader from "components/FormTemplate/FormHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
+import CardTable from "components/Cards/CardTable.js";
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function NoticeTable() {
+export default function FormTemplateView() {
 
-  const [notices,setnotices]=useState([])
+  const [forms,setforms]=useState([])
 
 
   useEffect(()=>{
-    axios.get("http://localhost:3001/noticeview").then((response)=>{
-        setnotices(response.data)
+    axios.get("http://localhost:3001/formView").then((response)=>{
+        setforms(response.data)
     })
   },[])
+
+   // activate
+   const [newstatus, setnewstatus] = useState("Active");
+   const Activate = (formID) => {
+     axios
+       .put("http://localhost:3001/activate-form", {
+         status: newstatus,
+         formID: formID,
+       })
+
+       .then((response) => {
+         console.log(formID);
+       });
+     alert(" Form Status Activated ");
+   };
+
+
   return (
     <>
     
@@ -32,7 +50,7 @@ export default function NoticeTable() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <AdminNavbar />
       {/* Header */}
-      <NoticeHeader />
+      <FormHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br />
@@ -46,7 +64,7 @@ export default function NoticeTable() {
                       <div className="flex flex-wrap items-center">
                         <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                           <h3 className="font-semibold text-base text-blueGray-700">
-                              Notice Details Table
+                             Form Template Detail Table
                           </h3>
                         </div>
                         {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
@@ -60,12 +78,17 @@ export default function NoticeTable() {
                       </div>
                     </div>
                     <div className="block w-full overflow-x-auto">
-                      {/* Projects table */}
                       <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                           <tr>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                              Notice Topic   
+                              Form ID Number   
+                          </th>
+                          <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
+                                
+                          </th>
+                          <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
+                              Form Topic    
                           </th>
                           <th className={ "px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
                               Description  
@@ -88,13 +111,13 @@ export default function NoticeTable() {
                           </tr>
                         </thead>
                         <tbody>
-                        {notices.map((notice)=>{
-                            const dt = new Date(notice.uploadDate);
+                        {forms.map((form)=>{
+                            const dt = new Date(form.UploadDate);
                             const year = dt.getFullYear() + '/';
                             const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
                             const day = ('0' + dt.getDate()).slice(-2);
 
-                            const dp = new Date(notice.expDate);
+                            const dp = new Date(form.expDate);
                             const year1 = dp.getFullYear() + '/';
                             const month1 = ('0' + (dp.getMonth() + 1)).slice(-2) + '/';
                             const day1 = ('0' + dp.getDate()).slice(-2);
@@ -102,13 +125,26 @@ export default function NoticeTable() {
 
                             return(
                               <tr>
-                              <th className ="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                                <th className ="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
                                 <span className ={ "ml-3 font-bold " + "text-blueGray-600"}>
-                                  {notice.topic}
+                                  {form.formID}
                                 </span>
+                                
+                                
                               </th>
+                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap">
+                                    <img
+                                      src={require("assets/forms/pdf.png").default}
+                                      alt="..."
+                                      className="w-10 h-10 border-1 border-blueGray-50 "
+                                    ></img>
+                              </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {notice.description}
+                              {form.formTopic}
+                              </td>
+                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                     {/* {form.file}  */}
+                                     {form.description}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {year + month + day}
@@ -117,28 +153,23 @@ export default function NoticeTable() {
                                   {year1 + month1 + day1}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                  {notice.active_status}
+                                  {form.status}
                               </td>
                               {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
                                 <TableDropdown />
                               </td> */}
+
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/EditNotice">
-                                  <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                        type="submit" 
-                                        >  {" "}         
-                                        Edit
-                                  </button>
-                                </Link> 
-                              </td>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/noticeView">
-                                  <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                        type="submit" >
-                                        Remove
-                                  </button>
-                                </Link>  
-                              </td>
+                              {(form.status!="Active") ? <Link to="/FormTemplateView">
+                                <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                      type="submit" 
+                                      onClick={() => Activate(form.formID)} >  {" "}  
+                                     Activate
+                                </button>
+                              </Link> : ""
+                              }
+                            </td>
+                              
                             </tr>
                             )
                             })}
@@ -150,6 +181,9 @@ export default function NoticeTable() {
               </div>
             </div>
           
+          <div>
+            {/* <CardTable /> */}
+          </div>
         </section>
         
         </div>
