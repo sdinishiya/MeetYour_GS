@@ -62,6 +62,7 @@ import CardPageVisitsCheck from "components/Cards/CardPageVisitsCheck.js";
 //Donation
 import Donation from "components/Finance/ViewDonation";
 import AddDonation from "components/Finance/AddDonation";
+import Donate2 from "components/Donation/donate2";
 
 //MATERIAL
 //Const Material
@@ -168,6 +169,9 @@ ReactDOM.render(
       {/* Donation */}
       <Route path="/ViewDonation" component={Donation}/>
       <Route path="/AddDonation" component={AddDonation}/>
+      <Route path="/donate2" component={Donate2}/>
+
+
       {/* <Route path="/viewwdonation" component={ViewDonation}/> */}
       {/* Material */}
       {/* Const Material */}

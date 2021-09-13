@@ -30,6 +30,8 @@ const db = mysql.createConnection({
 	host: "localhost",
 	password: "",
 	database: "meetyourgs",
+    // port: "3308"
+
 });
 
 db.connect((err)=>{
@@ -457,37 +459,65 @@ app.get('/othersupply',(req,res)=>{
 });
 
 //Donation
-app.post('/donationcreate',(req,res)=>{
-    console.log(req.body)
-    const date = req.body.date;
-    const donorID = req.body.donorID;
-    const donorName = req.body.donorName;
-    const address = req.body.address;
-    const phone = req.body.phone;
-    const email = req.body.email;
-    const description = req.body.description;
-    const amount = req.body.amount;
+// app.post('/donationcreate',(req,res)=>{
+//     console.log(req.body)
+//     const date = req.body.date;
+//     const donorID = req.body.donorID;
+//     const donorName = req.body.donorName;
+//     const address = req.body.address;
+//     const phone = req.body.phone;
+//     const email = req.body.email;
+//     const description = req.body.description;
+//     const amount = req.body.amount;
 
-    db.query("INSERT INTO donation (date,donorName,address,phone,email,description,amount) VALUES (?,?,?,?,?,?,?)",
-    [date,donorName,address,phone,email,description,amount],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
-        }
+//     db.query("INSERT INTO donation (date,donorName,address,phone,email,description,amount) VALUES (?,?,?,?,?,?,?)",
+//     [date,donorName,address,phone,email,description,amount],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("values inserted");
+//         }
     
-    })
+//     })
     
-});
-app.get('/donationview',(req,res)=>{
-    db.query("SELECT * FROM donation order by donorID ASC" ,(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+// });
+// app.get('/donationview',(req,res)=>{
+//     db.query("SELECT * FROM donation order by donorID ASC" ,(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
+//     });
+// });
+
+app.post('/add_donation', (req, res)=> {
+
+	const first_name = req.body.first_name
+	const last_name = req.body.last_name
+	const donation_amt = req.body.donation_amt
+	const address1 = req.body.address1
+	const address2 = req.body.address2
+	const city = req.body.city
+	const country = req.body.country
+	const phoneno = req.body.phoneno
+	const email = req.body.email
+ 
+	console.log (donation_amt);
+	
+	db.query
+	("INSERT INTO donations (first_name, last_name, donation_amt, address1, address2, city, country, phoneno, email) VALUES (?,?,?,?,?,?,?,?,?)", 
+	[first_name, last_name, donation_amt, address1, address2, city, country, phoneno, email], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, { response: 'Donation done Sucessfully!!' });
+		}
+	})	
 });
 
 // income
