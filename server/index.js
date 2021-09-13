@@ -1186,6 +1186,7 @@ app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
+<<<<<<< Updated upstream
 
 // Upload Endpoint
 // app.post('/upload', (req, res) => {
@@ -1204,3 +1205,56 @@ app.listen(3001, () => {
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
+=======
+//register villager
+app.post('/RegisterVillager',(req,res)=>{
+    console.log(req.body)
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+
+    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    })  
+});
+//view villagers
+pp.get('/ViewVillager',(req,res)=>{
+    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
+app.put('/add-app-booking', (req,res) => {
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+    console.log("reach")
+    console.log(req.body)
+
+    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });
+>>>>>>> Stashed changes
