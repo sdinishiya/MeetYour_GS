@@ -21,6 +21,8 @@ import UserView from "components/Appointment/UserView.js";
 import ViewRequests from "components/Appointment/ViewRequests.js";
 import ViewConfirmed from "components/Appointment/ViewConfirmed.js";
 import UserBooking from "components/Appointment/UserBooking";
+import DocumentDetails from "components/Appointment/DocumentDetails";
+
 
 //Forms
 import AddForm from "components/FormTemplate/AddForms.js";
@@ -130,6 +132,8 @@ ReactDOM.render(
       <Route path="/ViewConfirmed"  component={ViewConfirmed} />
       <Route path="/UserView"  component={UserView} />
       <Route path="/UserBooking/:availID"  component={UserBooking} />
+      <Route path="/DocumentDetails"  component={DocumentDetails} />
+      
       
       {/* FormTemplate */}
       <Route path="/AddForms"  component={AddForm} />

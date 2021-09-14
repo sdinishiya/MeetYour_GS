@@ -25,6 +25,7 @@ export default function UserBooking() {
     const [email, setEmail] = useState("");
     const [topic, settopic] = useState("");
     const [book_status, setNewbook_status] = useState("Pending");
+    const history  = useHistory();
     
 
     const AddBook = ()=>{
@@ -44,7 +45,7 @@ export default function UserBooking() {
         }).then(()=>{
            console.log("success");
            alert(" Appointment Booked Successfully ");
-          //  history.push("/ViewScheduled");
+          history.push("/DocumentDetails");
          });
     };
 

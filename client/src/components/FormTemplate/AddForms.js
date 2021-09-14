@@ -43,6 +43,7 @@ export default function AddForm() {
 
          });
 
+
          alert(" Added Successfully ");
         history.push("/FormTemplate/AddForms");
     };
@@ -101,7 +102,7 @@ export default function AddForm() {
                       </label>
                       <input type="file"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 "
-                        name="topic" onChange={(event)=>{setfile(event.target.value);}} 
+                        name="sampleFile" onChange={(event)=>{setfile(event.target.files[0]);}} 
                         required />
                     </div>
                     <div className="relative w-full mb-3">

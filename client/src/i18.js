@@ -17,7 +17,6 @@ const resources = {
     ta : {translation:Tamil},
     sn : {translation:Sinhala},
 
-
 }
 
 i18n

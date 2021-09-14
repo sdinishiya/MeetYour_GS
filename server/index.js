@@ -2,27 +2,22 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
-// const fileUpload = require('express-fileupload');
-
-// const { response } = require('express');
-// const path = require('path');
-// const { name } = require('ejs');
-const bodyParser =  require('body-parser')
-// const ejs = require ('ejs');
-// const socketio = require('socket.io')
-// const { response } = require('express');
-// const app = express();
-// const path = require('path');
-// const { name } = require('ejs');
-// const bodyParser =  require('body-parser')
-// app.use(express.json());
-// app.use(cors());
-const saltRounds = 10;
+const bodyParser =  require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-// app.use(fileUpload());
+
+
+// const path = require('path');
+// const { name } = require('ejs');
+// const ejs = require ('ejs');
+// const socketio = require('socket.io')
+// const { response } = require('express');
+
+const saltRounds = 10;
+
 
 //var req = require("./node_modules/req/node_modules/request");
 const db = mysql.createConnection({
@@ -666,6 +661,19 @@ app.get('/userView',(req,res)=>{
     });
 });
 
+//detailsview
+app.get('/detailsView',(req,res)=>{
+    db.query("SELECT * FROM book_topics ",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+
 //dropdown 
 app.get('/booktopics',(req,res)=>{
     db.query("SELECT topic FROM book_topics",(err,result,) => {
@@ -1049,6 +1057,8 @@ app.put('/update-forum',(req,res)=>{
 });
 
 //formTemplates
+app.use(fileUpload({useTempFiles:true, tempFileDir:"tmp"}));
+
 app.post('/add-form' , (req , res)=>{
     const formid = req.body.formid;
     const formTopic = req.body.formTopic;
@@ -1057,6 +1067,25 @@ app.post('/add-form' , (req , res)=>{
     const expDate = req.body.expDate;
     const description = req.body.description;
 
+console.log(file);
+  
+let sampleFile;
+let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/client/public/forms/' + sampleFile.name;
+  
+  console.log(__dirname);
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+   console.log(err);
+  });
     
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
    [formTopic,file,UploadDate,expDate,description],(err,result)=>{
@@ -1068,6 +1097,8 @@ app.post('/add-form' , (req , res)=>{
    });
 
 });
+
+
 
 app.get('/formView',(req,res)=>{
     db.query("SELECT * FROM formtemplate ORDER BY uploadDate ASC",(err,result,) => {
@@ -1133,79 +1164,38 @@ app.put('/activate-form', (req,res) => {
 
 
 
-// app.post("/add-form", (req, res) => {
-//      if (!req.files) {
-//              res.send("No file upload")
-//         } else {
-            
-//             const formid = req.body.formid;
-//             const formTopic = req.body.formTopic;
-//             var file = req.files.image //'image' in Home.ejs form input name
-//             const UploadDate = req.body.UploadDate;
-//             const expDate = req.body.expDate;
-//             const description = req.body.description;
-//             const status = req.body.status;
-            
-//             //for image upload
-//        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif") {
-//                 var imageName = file.name
-
-//                 console.log(imageName)
-//                 var uuidname = uuid.v1(); //used for unique file name
-//                 var imgsrc = 'http://127.0.0.1:3000/images/' + uuidname + file.name
-
-   	        // var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [imgsrc], (err, result) => {
-//                      if (err) throw err
-//                     file.mv('public/images/' + uuidname + file.name)
-//                     res.send("Data successfully save")
-//                })
-//            }
-//              // for any file like pdf,docs etc. upload
-//              else {
-//   	            var fileName = file.name;
-//                 console.log(fileName);
-//                 var uuidname = uuid.v1(); // for unique file name
-//                 var filesrc = 'http://127.0.0.1:3000/docs/' + uuidname + file.name
-
-//                 var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [filesrc], (err, result) => {
-//             if (err) throw err
-//                 file.mv('public/docs/' + uuidname + file.name)
-// 	                 res.send("Data successfully save")
-//                 })
-//            }
-//    	     }
-//  })
 
 
 
-app.listen(3001, () => {
-	console.log("running on port 3001");
-});
 
-<<<<<<< Updated upstream
 
-// Upload Endpoint
-// app.post('/upload', (req, res) => {
-//     if (req.files === null) {
-//       return res.status(400).json({ msg: 'No file uploaded' });
-//     }
+//sms sending
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const client = require('twilio')(accountSid, authToken);
+
+// client.messages
+//   .create({
+//      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+//      from: '+15017122661',
+//      to: '+15558675310'
+//    })
+//   .then(message => console.log(message.sid));
+
+
+// app.post('/sms', (req, res) => {
+//     const twiml = new MessagingResponse();
   
-//     const file = req.files.file;
+//     twiml.message('The Robots are coming! Head for the hills!');
   
-//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
-//       if (err) {    
-//         console.error(err);
-//         return res.status(500).send(err);
-//       }
+//     res.writeHead(200, {'Content-Type': 'text/xml'});
+//     res.end(twiml.toString());
+//   });
   
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
-=======
+
 //register villager
 app.post('/RegisterVillager',(req,res)=>{
     console.log(req.body)
@@ -1257,4 +1247,12 @@ app.put('/add-app-booking', (req,res) => {
        }
     );
   });
->>>>>>> Stashed changes
+
+//   http.createServer(app).listen(1337, () => {
+//     console.log('Express server listening on port 1337');
+//   });
+
+
+app.listen(3001, () => {
+	console.log("running on port 3001");
+});
