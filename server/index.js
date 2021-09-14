@@ -1016,9 +1016,7 @@ app.post('/add-form' , (req , res)=>{
   console.log(req.body);
   console.log(req.files);
 
-<<<<<<< Updated upstream
 
-=======
 let sampleFile;
 let uploadPath;
 
@@ -1041,7 +1039,6 @@ let uploadPath;
   });
 
 
->>>>>>> Stashed changes
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
    [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
@@ -1170,7 +1167,6 @@ app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
-<<<<<<< Updated upstream
 
 // Upload Endpoint
 // app.post('/upload', (req, res) => {
@@ -1189,7 +1185,7 @@ app.listen(3001, () => {
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
-=======
+
 //register villager
 app.post('/RegisterVillager',(req,res)=>{
     console.log(req.body)
@@ -1241,4 +1237,3 @@ app.put('/add-app-booking', (req,res) => {
        }
     );
   });
->>>>>>> Stashed changes
