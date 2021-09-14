@@ -1050,16 +1050,46 @@ app.put('/update-forum',(req,res)=>{
 
 //formTemplates
 app.post('/add-form' , (req , res)=>{
-    const formid = req.body.formid;
-    const formTopic = req.body.formTopic;
-    const file = req.body.file; //'image' in Home.ejs form input name
-    const UploadDate = req.body.UploadDate;
-    const expDate = req.body.expDate;
-    const description = req.body.description;
+    const formdata = JSON.parse(req.body.data);
+    const formid = formdata.formid;
+    const formTopic = formdata.formTopic;
+    // const file = formdata.file; //'image' in Home.ejs form input name
+    const UploadDate = formdata.UploadDate;
+    const expDate = formdata.expDate;
+    const description = formdata.description;
 
+
+  console.log(req.body);
+  console.log(req.files);
+
+<<<<<<< Updated upstream
     
+=======
+let sampleFile;
+let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  console.log(__dirname);
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const randomfilenum = Math.floor(Math.random()*1000000);
+  sampleFile = req.files.file;
+  const newfilename = randomfilenum.toString() +sampleFile.name;
+
+  uploadPath = __dirname + '/public/forms/' + newfilename
+  
+  
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+   console.log(err);
+  });
+
+
+>>>>>>> Stashed changes
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
-   [formTopic,file,UploadDate,expDate,description],(err,result)=>{
+   [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
            console.log(err);
        }else{
@@ -1226,7 +1256,7 @@ app.post('/RegisterVillager',(req,res)=>{
     })  
 });
 //view villagers
-pp.get('/ViewVillager',(req,res)=>{
+app.get('/ViewVillager',(req,res)=>{
     db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
         if(err) {
 		console.log(err)
