@@ -2,6 +2,9 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+const httpStatus = require('http-status');
+const routes = require('./routes')
+const {db} = require('./config/db.config')
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -22,80 +25,31 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(routes);
 // app.use(fileUpload());
 
 //var req = require("./node_modules/req/node_modules/request");
-const db = mysql.createConnection({
-	user: "root",
-	host: "localhost",
-	password: "",
-	database: "meetyourgs",
-    // port: "3308"
+// const db = mysql.createConnection({
+// 	user: "root",
+// 	host: "localhost",
+// 	password: "",
+// 	database: "meetyourgs",
+//     // port: "3308"
+//
+// });
+//
+// db.connect((err)=>{
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         console.log('Database Connected...');
+//     }
+// });
 
-});
 
-db.connect((err)=>{
-    if(err) 
-    {
-        console.log(err);
-    }
-    else
-    {
-        console.log('Database Connected...');
-    }
-});
-
-
-app.post('/sign-up', (req, res)=> {
-
-	const fullname = req.body.fullname
-	const address = req.body.address
-	const nic = req.body.nic
-	const telephone = req.body.telephone
-	const email = req.body.email
-	const password = req.body.password
- 
-	bcrypt.hash(password,saltRounds, (err,hash) => {
-
-		if(err){
-			console.log(err);
-		}
-	db.query
-	("INSERT INTO signup (fullname, address, nic, telephone, email, password) VALUES (?,?,?,?,?,?)", 
-	[fullname, address, nic, telephone, email, hash], 
-	(err, result)=> {
-		console.log(err);
-	})	
-	})
-	
-});
-app.post('/login', (req, res) => {
-
-	const email = req.body.email
-	const password = req.body.password
-
-	db.query
-	("SELECT * signup WHERE email = ?;", 
-	email, 
-	(err, result)=> {
-
-		if(err){
-			res.send({err: err})
-		}
-			if (result.length > 0) {
-				bcrypt.compare(password, result[0].password, (error, response)=>{
-					if(response){
-						res.send(result)
-					}else{
-						res.send({message:"Wrong username/password combination!"})
-					}
-				})
-			}else{
-				res.send({message:"User doesn't exist"});
-			}
-		}
-	);
-});
 // constsmaterial
 app.post('/create',(req,res)=>{
     console.log(req.body)
@@ -1186,8 +1140,6 @@ app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
-<<<<<<< Updated upstream
-
 // Upload Endpoint
 // app.post('/upload', (req, res) => {
 //     if (req.files === null) {
@@ -1205,56 +1157,55 @@ app.listen(3001, () => {
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
-=======
 //register villager
-app.post('/RegisterVillager',(req,res)=>{
-    console.log(req.body)
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
-
-    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
-        }
-    })  
-});
-//view villagers
-pp.get('/ViewVillager',(req,res)=>{
-    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  }     
-    });
-});
-app.put('/add-app-booking', (req,res) => {
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
-    console.log("reach")
-    console.log(req.body)
-
-    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
-    (err, result) => {
-
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-  });
->>>>>>> Stashed changes
+// app.post('/RegisterVillager',(req,res)=>{
+//     console.log(req.body)
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
+//
+//     db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("values inserted");
+//         }
+//     })
+// });
+// //view villagers
+// db.get('/ViewVillager',(req,res)=>{
+//     db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  }
+//     });
+// });
+//
+// app.put('/add-app-booking', (req,res) => {
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
+//     console.log("reach")
+//     console.log(req.body)
+//
+//     db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ",
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID],
+//     (err, result) => {
+//
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+//   });
