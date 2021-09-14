@@ -1,28 +1,64 @@
-import React, { useContext, useState} from "react";
-import axios from "axios";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
-import { AccountContext } from "./accountContext";
+import { axiosInstance, BACKEND_API} from "axios/AxiosInstance";
+import { useSnackbar } from 'notistack';
+import { useDispatch } from "react-redux";
+import {loginUser} from "../../store/action/authAction";
+import { useHistory } from "react-router";
+import {NAVIGATION_ROUTES} from "../../navigation/constant/NavigationRoutes";
+import {USER_TYPES} from "../../constants/CommonConstants";
 
 export default function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [loginStatus, setLoginStatus] = useState("");
+  const handleLogin = async () => {
+    if (email === "" || password === "") {
+      enqueueSnackbar("Please fill in all fields", {
+        variant: 'warning'
+      });
+      return;
+    }
 
-const login = ()=>{
-  axios.post("http://localhost:3000/auth/login",
-  { email: email,
-  password: password,
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!re.test(email)) {
+      enqueueSnackbar("Please enter valid email", {
+        variant: 'warning'
+      });
+      return;
+    }
 
-}).then((response)=>{
-  if(response.data.message){
-    setLoginStatus(response.data.message);
-  }else{
-    setLoginStatus(response.data.message1);
+    await axiosInstance({
+      method: "POST",
+      url: BACKEND_API.SIGN_IN,
+      data: {
+        email, password
+      }
+    }).then(res => {
+      enqueueSnackbar(res.data.message, {
+        variant: 'success'
+      });
+      dispatch(loginUser(res.data.data));
+      if(res.data.data.userType === USER_TYPES.ADMIN) {
+        history.push(NAVIGATION_ROUTES.dashboard);
+      } else {
+        history.push(NAVIGATION_ROUTES.logLanding)
+      }
+    }).catch((error) => {
+      if (error.response) {
+        enqueueSnackbar(error.response.data.message, {
+          variant: 'error'
+        });
+      } else {
+        enqueueSnackbar("Something went wrong", {
+          variant: 'error'
+        });
+      }
+    });
   }
-})
-}
 
   return (
     <>
@@ -33,39 +69,50 @@ const login = ()=>{
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
                   <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign in with
+                    Sign in with credentials
                   </h6>
                 </div>
-                <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/github.svg").default}
-                    />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/google.svg").default}
-                    />
-                    Google
-                  </button>
-                </div>
+                {/*<div className="btn-wrapper text-center">*/}
+                {/*  <button*/}
+                {/*    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"*/}
+                {/*    type="button"*/}
+                {/*  >*/}
+                {/*    <img*/}
+                {/*      alt="..."*/}
+                {/*      className="w-5 mr-1"*/}
+                {/*      src={require("assets/img/github.svg").default}*/}
+                {/*    />*/}
+                {/*    Admin*/}
+                {/*  </button>*/}
+                {/*  <button*/}
+                {/*    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"*/}
+                {/*    type="button"*/}
+                {/*  >*/}
+                {/*    <img*/}
+                {/*      alt="..."*/}
+                {/*      className="w-5 mr-1"*/}
+                {/*      src={require("assets/img/google.svg").default}*/}
+                {/*    />*/}
+                {/*    Client*/}
+                {/*  </button>*/}
+                {/*  <button*/}
+                {/*      className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"*/}
+                {/*      type="button"*/}
+                {/*  >*/}
+                {/*    <img*/}
+                {/*        alt="..."*/}
+                {/*        className="w-5 mr-1"*/}
+                {/*        src={require("assets/img/google.svg").default}*/}
+                {/*    />*/}
+                {/*    Client*/}
+                {/*  </button>*/}
+                {/*</div>*/}
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-blueGray-400 text-center mb-3 font-bold">
-                  <small>Or sign in with credentials</small>
-                </div>
+                {/*<div className="text-blueGray-400 text-center mb-3 font-bold">*/}
+                {/*  <small>Or sign in with credentials</small>*/}
+                {/*</div>*/}
                 <form>
                   <div className="relative w-full mb-3">
                     <label
@@ -113,7 +160,7 @@ const login = ()=>{
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
-                      onClick={login}
+                      onClick={handleLogin}
                     >
                       Sign In
                     </button>

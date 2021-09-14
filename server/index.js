@@ -2,6 +2,9 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+const httpStatus = require('http-status');
+const routes = require('./routes')
+const {db} = require('./config/db.config')
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -22,80 +25,31 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(routes);
 // app.use(fileUpload());
 
 //var req = require("./node_modules/req/node_modules/request");
-const db = mysql.createConnection({
-	user: "root",
-	host: "localhost",
-	password: "",
-	database: "meetyourgs",
-    // port: "3308"
+// const db = mysql.createConnection({
+// 	user: "root",
+// 	host: "localhost",
+// 	password: "",
+// 	database: "meetyourgs",
+//     // port: "3308"
+//
+// });
+//
+// db.connect((err)=>{
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         console.log('Database Connected...');
+//     }
+// });
 
-});
 
-db.connect((err)=>{
-    if(err) 
-    {
-        console.log(err);
-    }
-    else
-    {
-        console.log('Database Connected...');
-    }
-});
-
-
-app.post('/sign-up', (req, res)=> {
-
-	const fullname = req.body.fullname
-	const address = req.body.address
-	const nic = req.body.nic
-	const telephone = req.body.telephone
-	const email = req.body.email
-	const password = req.body.password
- 
-	bcrypt.hash(password,saltRounds, (err,hash) => {
-
-		if(err){
-			console.log(err);
-		}
-	db.query
-	("INSERT INTO signup (fullname, address, nic, telephone, email, password) VALUES (?,?,?,?,?,?)", 
-	[fullname, address, nic, telephone, email, hash], 
-	(err, result)=> {
-		console.log(err);
-	})	
-	})
-	
-});
-app.post('/login', (req, res) => {
-
-	const email = req.body.email
-	const password = req.body.password
-
-	db.query
-	("SELECT * signup WHERE email = ?;", 
-	email, 
-	(err, result)=> {
-
-		if(err){
-			res.send({err: err})
-		}
-			if (result.length > 0) {
-				bcrypt.compare(password, result[0].password, (error, response)=>{
-					if(response){
-						res.send(result)
-					}else{
-						res.send({message:"Wrong username/password combination!"})
-					}
-				})
-			}else{
-				res.send({message:"User doesn't exist"});
-			}
-		}
-	);
-});
 // constsmaterial
 app.post('/create',(req,res)=>{
     console.log(req.body)
@@ -1062,9 +1016,7 @@ app.post('/add-form' , (req , res)=>{
   console.log(req.body);
   console.log(req.files);
 
-<<<<<<< Updated upstream
-    
-=======
+
 let sampleFile;
 let uploadPath;
 
@@ -1079,15 +1031,14 @@ let uploadPath;
   const newfilename = randomfilenum.toString() +sampleFile.name;
 
   uploadPath = __dirname + '/public/forms/' + newfilename
-  
-  
+
+
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(uploadPath, function(err) {
    console.log(err);
   });
 
 
->>>>>>> Stashed changes
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
    [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
@@ -1216,7 +1167,6 @@ app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
-<<<<<<< Updated upstream
 
 // Upload Endpoint
 // app.post('/upload', (req, res) => {
@@ -1235,7 +1185,7 @@ app.listen(3001, () => {
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
-=======
+
 //register villager
 app.post('/RegisterVillager',(req,res)=>{
     console.log(req.body)
@@ -1287,4 +1237,3 @@ app.put('/add-app-booking', (req,res) => {
        }
     );
   });
->>>>>>> Stashed changes
