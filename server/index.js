@@ -2,6 +2,9 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+const httpStatus = require('http-status');
+const routes = require('./routes')
+const {db} = require('./config/db.config')
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -22,80 +25,31 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(routes);
 // app.use(fileUpload());
 
 //var req = require("./node_modules/req/node_modules/request");
-const db = mysql.createConnection({
-	user: "root",
-	host: "localhost",
-	password: "",
-	database: "meetyourgs",
-    port: "3308",
+// const db = mysql.createConnection({
+// 	user: "root",
+// 	host: "localhost",
+// 	password: "",
+// 	database: "meetyourgs",
+//     // port: "3308"
+//
+// });
+//
+// db.connect((err)=>{
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         console.log('Database Connected...');
+//     }
+// });
 
-});
 
-db.connect((err)=>{
-    if(err) 
-    {
-        console.log(err);
-    }
-    else
-    {
-        console.log('Database Connected...');
-    }
-});
-
-
-app.post('/sign-up', (req, res)=> {
-
-	const fullname = req.body.fullname
-	const address = req.body.address
-	const nic = req.body.nic
-	const telephone = req.body.telephone
-	const email = req.body.email
-	const password = req.body.password
- 
-	bcrypt.hash(password,saltRounds, (err,hash) => {
-
-		if(err){
-			console.log(err);
-		}
-	db.query
-	("INSERT INTO signup (fullname, address, nic, telephone, email, password) VALUES (?,?,?,?,?,?)", 
-	[fullname, address, nic, telephone, email, hash], 
-	(err, result)=> {
-		console.log(err);
-	})	
-	})
-	
-});
-app.post('/login', (req, res) => {
-
-	const email = req.body.email
-	const password = req.body.password
-
-	db.query
-	("SELECT * signup WHERE email = ?;", 
-	email, 
-	(err, result)=> {
-
-		if(err){
-			res.send({err: err})
-		}
-			if (result.length > 0) {
-				bcrypt.compare(password, result[0].password, (error, response)=>{
-					if(response){
-						res.send(result)
-					}else{
-						res.send({message:"Wrong username/password combination!"})
-					}
-				})
-			}else{
-				res.send({message:"User doesn't exist"});
-			}
-		}
-	);
-});
 // constsmaterial
 app.post('/create',(req,res)=>{
     console.log(req.body)
@@ -1050,16 +1004,43 @@ app.put('/update-forum',(req,res)=>{
 
 //formTemplates
 app.post('/add-form' , (req , res)=>{
-    const formid = req.body.formid;
-    const formTopic = req.body.formTopic;
-    const file = req.body.file; //'image' in Home.ejs form input name
-    const UploadDate = req.body.UploadDate;
-    const expDate = req.body.expDate;
-    const description = req.body.description;
+    const formdata = JSON.parse(req.body.data);
+    const formid = formdata.formid;
+    const formTopic = formdata.formTopic;
+    // const file = formdata.file; //'image' in Home.ejs form input name
+    const UploadDate = formdata.UploadDate;
+    const expDate = formdata.expDate;
+    const description = formdata.description;
 
-    
+
+  console.log(req.body);
+  console.log(req.files);
+
+
+let sampleFile;
+let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  console.log(__dirname);
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const randomfilenum = Math.floor(Math.random()*1000000);
+  sampleFile = req.files.file;
+  const newfilename = randomfilenum.toString() +sampleFile.name;
+
+  uploadPath = __dirname + '/public/forms/' + newfilename
+
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+   console.log(err);
+  });
+
+
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
-   [formTopic,file,UploadDate,expDate,description],(err,result)=>{
+   [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
            console.log(err);
        }else{
@@ -1335,3 +1316,55 @@ app.listen(3001, () => {
 //       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
 //     });
 //   });
+
+//register villager
+app.post('/RegisterVillager',(req,res)=>{
+    console.log(req.body)
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+
+    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    })  
+});
+//view villagers
+app.get('/ViewVillager',(req,res)=>{
+    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
+app.put('/add-app-booking', (req,res) => {
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+    console.log("reach")
+    console.log(req.body)
+
+    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+  });

@@ -8,6 +8,7 @@ import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 import App from "App";
 import { useTranslation } from "react-i18next";
 import Languagesdropdown from "components/Dropdowns/Languagesdropdown.js";
+import {NAVIGATION_ROUTES} from "../../navigation/constant/NavigationRoutes";
 
 export default function Navbarsignup(props) {
   const {t,i18n} = useTranslation()
@@ -62,14 +63,14 @@ export default function Navbarsignup(props) {
             
               <li className="flex items-center">
               <Link
-                 to="/auth/login" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
+                 to={NAVIGATION_ROUTES.login} className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
                    {t("login")}
              </Link>
               </li>
               
               <li className="flex items-center">
               <Link
-                 to="/auth/register" className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
+                 to={NAVIGATION_ROUTES.register} className={"bg-white text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"}>
                    {t("signup")}
              </Link>
               </li>

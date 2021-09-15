@@ -13,7 +13,7 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 export default function AddForm() {
     const [formID,setformID] = useState("");
     const [formTopic,setformTopic] = useState("");
-    const [file,setfile] = useState("");
+    const [file,setfile] = useState(null);
     const [UploadDate,setUploadDate] = useState("");
     const [expDate,setExpDate] = useState("");
     const [description,setDescription] = useState("");
@@ -30,15 +30,20 @@ export default function AddForm() {
         return;
       }
 
-       axios.post('http://localhost:3001/add-form',{
+      const formdata= new FormData();
+      const data = {
         formTopic:formTopic,
         file:file,
         UploadDate:UploadDate,
         expDate:expDate,
         description:description,
         status:status,
+        }
+        formdata.append("data", JSON.stringify(data)) 
+        formdata.append("file", file)
 
-        }).then(()=>{
+       axios.post('http://localhost:3001/add-form', formdata
+       ).then(()=>{
            console.log("success");
 
          });
