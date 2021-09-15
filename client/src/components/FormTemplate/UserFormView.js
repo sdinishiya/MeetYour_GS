@@ -17,29 +17,28 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
 export default function UserFormView() {
 
+//view
   const [forms,setforms]=useState([])
-
-
   useEffect(()=>{
     axios.get("http://localhost:3001/activeForm").then((response)=>{
         setforms(response.data)
     })
   },[])
+ //download
+  const [downloadform,setdownloadform]=useState([]);
+      const download = (formID) => {
 
-   // de-activate
-   const [newstatus, setnewstatus] = useState("Active");
-   const remove = (formID) => {
-     axios
-       .put("http://localhost:3001/remove-forms", {
-         status: newstatus,
-         formID: formID,
-       })
+      axios.get("http://localhost:3001/download").then((response)=>{
+          setdownloadform(response.data)
+        })
 
-       .then((response) => {
-         console.log(formID);
-       });
-     alert(" Form Removed From View ");
-   };
+        .then((response) => {
+          
+        });
+      alert(" Form Downloaded Successfully ");
+    };
+      
+       
   return (
     <>
     
@@ -64,14 +63,7 @@ export default function UserFormView() {
                              Form Template Details
                           </h3>
                         </div>
-                        {/* <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                        <Link to="/AddNotice">
-                            <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                  type="submit" >
-                                  Add New Notices
-                            </button> <br /><br />
-                        </Link>
-                        </div> */}
+                      
                       </div>
                     </div>
                     <div className="block w-full overflow-x-auto">
@@ -145,9 +137,15 @@ export default function UserFormView() {
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {year + month + day}
                               </td>
-                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                <TableDropdown />
-                              </td>
+                              <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                              <Link to="/UserFormView">
+                                  <button className="bg-emerald-300 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                        type="submit" 
+                                        onClick={() => download(form.formID)}>  {" "}  
+                                        Download
+                                  </button>
+                                </Link>  
+                            </td>
                             </tr>
                             )
                             })}

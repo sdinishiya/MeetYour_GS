@@ -2,6 +2,11 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+
+const axios = require("axios");
+const TXT_UID= "94711655166";
+const TXT_PW= "9411";
+
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -949,18 +954,39 @@ app.post('/addsms',(req,res)=>{
     const uploadDate = req.body.uploadDate;
     const expDate = req.body.expDate; 
     const status = req.body.status;  
-
+    let initial_result = "";
+    let sending_arr = [];
     db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
     [topic,description,uploadDate,expDate],(err,result)=>{
 		if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
+        res.status(500).send('{"message":"Something WEnt Wrong"}');
+        return result;
         }
+        //  else{
+            
+        //     // res.send("values inserted");
+        //     let requesturl = "https://www.textit.biz/sendmsg?id="+TXT_UID+"&pw="+TXT_PW+"&to=0740131770&text=Hello+World"
+        // }
     
+    }).then(response => {/*  */
+        console.log(response)
+        res.send(response)
     })
+
     
 });
+
+// app.post('/sendsms',(req,res)=>{
+//     console.log(req.body)\
+//     const category = req.body.category;
+//     const to = req.body.description; 
+//     const id = req.body.id;
+//     const pw = req.body.pw;
+    
+//     const text = req.body.topic; 
+
+// });
+
 app.get('/smsview',(req,res)=>{
     db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
@@ -1002,7 +1028,7 @@ app.put('/send-sms', (req,res) => {
     );
   });
 
-
+//forumDiscussion
 app.post('/addnewforum' , (req , res)=>{
     const postid = req.body.postid;
     const posttext = req.body.posttext;
@@ -1053,18 +1079,13 @@ app.post('/add-form' , (req , res)=>{
     const formdata = JSON.parse(req.body.data);
     const formid = formdata.formid;
     const formTopic = formdata.formTopic;
-    // const file = formdata.file; //'image' in Home.ejs form input name
     const UploadDate = formdata.UploadDate;
     const expDate = formdata.expDate;
     const description = formdata.description;
 
-
   console.log(req.body);
   console.log(req.files);
 
-<<<<<<< Updated upstream
-    
-=======
 let sampleFile;
 let uploadPath;
 
@@ -1073,21 +1094,17 @@ let uploadPath;
   }
 
   console.log(__dirname);
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const randomfilenum = Math.floor(Math.random()*1000000);
   sampleFile = req.files.file;
   const newfilename = randomfilenum.toString() +sampleFile.name;
 
   uploadPath = __dirname + '/public/forms/' + newfilename
   
-  
-  // Use the mv() method to place the file somewhere on your server
+  // Use the mv() method to move the file in the server
   sampleFile.mv(uploadPath, function(err) {
    console.log(err);
   });
 
-
->>>>>>> Stashed changes
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
    [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
@@ -1099,6 +1116,26 @@ let uploadPath;
 
 });
 
+//download form
+app.get('/download', function(req, res){
+
+let sampleFile;
+let dwnloadPath;
+
+  const randomfilenum = Math.floor(Math.random()*1000000);
+  sampleFile = req.files.file;
+  const newfilename = randomfilenum.toString() +sampleFile.name;
+
+  dwnloadPath = __dirname + '/public/forms/' + newfilename
+
+    var fileDownload = require('js-file-download');
+    fileDownload(dwnloadPath, 'filename.pdf');
+ 
+    res.download(dwnloadPath, newfilename.pdf); 
+  });
+
+
+//formview
 app.get('/formView',(req,res)=>{
     db.query("SELECT * FROM formtemplate ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
@@ -1163,128 +1200,7 @@ app.put('/activate-form', (req,res) => {
 
 
 
-// app.post("/add-form", (req, res) => {
-//      if (!req.files) {
-//              res.send("No file upload")
-//         } else {
-            
-//             const formid = req.body.formid;
-//             const formTopic = req.body.formTopic;
-//             var file = req.files.image //'image' in Home.ejs form input name
-//             const UploadDate = req.body.UploadDate;
-//             const expDate = req.body.expDate;
-//             const description = req.body.description;
-//             const status = req.body.status;
-            
-//             //for image upload
-//        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif") {
-//                 var imageName = file.name
-
-//                 console.log(imageName)
-//                 var uuidname = uuid.v1(); //used for unique file name
-//                 var imgsrc = 'http://127.0.0.1:3000/images/' + uuidname + file.name
-
-   	        // var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [imgsrc], (err, result) => {
-//                      if (err) throw err
-//                     file.mv('public/images/' + uuidname + file.name)
-//                     res.send("Data successfully save")
-//                })
-//            }
-//              // for any file like pdf,docs etc. upload
-//              else {
-//   	            var fileName = file.name;
-//                 console.log(fileName);
-//                 var uuidname = uuid.v1(); // for unique file name
-//                 var filesrc = 'http://127.0.0.1:3000/docs/' + uuidname + file.name
-
-//                 var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [filesrc], (err, result) => {
-//             if (err) throw err
-//                 file.mv('public/docs/' + uuidname + file.name)
-// 	                 res.send("Data successfully save")
-//                 })
-//            }
-//    	     }
-//  })
-
-
 
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
-
-<<<<<<< Updated upstream
-
-// Upload Endpoint
-// app.post('/upload', (req, res) => {
-//     if (req.files === null) {
-//       return res.status(400).json({ msg: 'No file uploaded' });
-//     }
-  
-//     const file = req.files.file;
-  
-//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
-//       if (err) {    
-//         console.error(err);
-//         return res.status(500).send(err);
-//       }
-  
-//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-//     });
-//   });
-=======
-//register villager
-app.post('/RegisterVillager',(req,res)=>{
-    console.log(req.body)
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
-
-    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
-        }
-    })  
-});
-//view villagers
-app.get('/ViewVillager',(req,res)=>{
-    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  }     
-    });
-});
-app.put('/add-app-booking', (req,res) => {
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
-    console.log("reach")
-    console.log(req.body)
-
-    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
-    (err, result) => {
-
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-  });
->>>>>>> Stashed changes
