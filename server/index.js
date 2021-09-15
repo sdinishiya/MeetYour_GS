@@ -30,7 +30,7 @@ const db = mysql.createConnection({
 	host: "localhost",
 	password: "",
 	database: "meetyourgs",
-    // port: "3308"
+    port: "3308",
 
 });
 
@@ -1131,7 +1131,138 @@ app.put('/activate-form', (req,res) => {
     );
   });
 
+// projects
+app.post('/add_projects', (req, res)=> {
 
+	const type = req.body.type
+	const title = req.body.title
+	const date = req.body.date
+	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
+	const intro = req.body.intro
+	const read_more = req.body.read_more
+ 
+	
+	db.query
+	("INSERT INTO projects (type, title, date, image, intro, read_more) VALUES (?,?,?,?,?,?)", 
+	[type, title, date, image, intro, read_more], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+app.put('/update_project/:id', (req, res)=> {
+	var id=req.params.id;
+	
+	const type = req.body.type
+	const title = req.body.title
+	const date = req.body.date
+	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
+	const intro = req.body.intro
+	const read_more = req.body.read_more
+	db.query
+	("UPDATE projects SET type=?, title=?, date=?, image=?, intro=?, read_more=? where project_id = ?", 
+	[type, title, date, image, intro, read_more,id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.get('/get_future_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["future_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.put('/delete_project/:id', (req, res)=> {
+	var id=req.params.id;
+	db.query
+	("UPDATE projects SET status='inactive' where project_id = ?", 
+	[id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.get('/getproject/:id', (req, res)=> {
+	var id=req.params.id;
+	db.query
+	("SELECT * from projects where project_id = ?", 
+	[id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+
+app.get('/get_present_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["present_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+app.get('/get_past_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["past_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
 
 // app.post("/add-form", (req, res) => {
 //      if (!req.files) {

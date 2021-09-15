@@ -94,10 +94,19 @@ import Const from "components/Material/Users/Const.js";
 import Agri from "components/Material/Users/Agri.js";
 import Other from "components/Material/Users/Other.js";
 
+
+
 import './i18';
 
 import App from 'App.js';
 // import Register from "components/Votors/RegisterVillager.js";
+
+// Projects
+import PresentProject from "components/Projects/PresentProjects";
+import FutureProject from "components/Projects/FutureProject";
+import PastProject from "components/Projects/PastProject";
+import AddProjects from "components/Projects/AddProjects";
+import EditProjects from "components/Projects/EditProject";
 
 
 
@@ -210,6 +219,15 @@ ReactDOM.render(
 
       <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>
       {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
+
+      {/* Projects */}
+      <Route path="/PresentProjects" component={PresentProject}/>
+      <Route path="/FutureProject" component={FutureProject}/>
+      <Route path="/PastProject" component={PastProject}/>
+      <Route path="/AddProjects" component={AddProjects}/>
+      <Route path="/EditProject" component={EditProjects}/>
+
+
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

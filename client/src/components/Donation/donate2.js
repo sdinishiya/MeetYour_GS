@@ -11,8 +11,8 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Donate1 from './donate1';
-import Donate3 from './donate3';
-import Donate4 from './donate4';
+// import Donate3 from './donate3';
+// import Donate4 from './donate4';
 
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import DonationNavbar from "components/Navbars/Users/DonationNavbar.js";
@@ -55,16 +55,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Donor Details', 'Payment details', 'Review your Donation!'];
+// const steps = ['Donor Details', 'Payment details', 'Review your Donation!'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
       return <Donate1 />;
-    case 1:
-      return <Donate3 />;
-    case 2:
-      return <Donate4 />;
+    // case 1:
+    //   return <Donate3 />;
+    // case 2:
+    //   return <Donate4 />;
     default:
       throw new Error('Unknown step');
   }
@@ -92,60 +92,15 @@ export default function Donate2() {
           <Typography component="h1" variant="h4" align="center">
             Make Donations
           </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+
           <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your Donation.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your Donation ID is #2001539. We have received your donation, and will
-                  send you an update on more details.
-                </Typography>
-              </React.Fragment>
-            ) : (
+
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className="text-center mt-6">
-                      {activeStep !== 0 && (
-                        <button
-                        className="bg-gray-40 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit"
-                        onClick={handleBack}>
-                          Back 
-                      </button>
-                      )}
-                      <button
-                        className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="submit"
-                        onClick={handleNext}>
-                          {activeStep === steps.length - 1 ? 'Donate' : 'Next'} 
-                      </button>
-                  </div>
-                {/* <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Donate' : 'Next'}
-                  </Button>
-                </div> */}
+                </div>
               </React.Fragment>
-            )}
+            
           </React.Fragment>
         </Paper>
         

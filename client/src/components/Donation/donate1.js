@@ -65,16 +65,16 @@ export default function Donate1() {
       })
       .catch(function (error) {
           // handle error
-        //  alert("error!!!!");
+          // alert("error!!!!");
           // alert(error.response.data.response);
       })
   }
 
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      {/* <Typography variant="h6" gutterBottom>
         Make Donation
-      </Typography>
+      </Typography> */}
     <form method="post" action="https://sandbox.payhere.lk/pay/checkout" 
     >
     <input type="hidden" name="merchant_id" value="1218494" />  
@@ -85,6 +85,7 @@ export default function Donate1() {
     <input type="hidden" name="order_id" value="ItemNo12345" />
     <input type="hidden" name="items" value="Door bell wireless" />
     <input type="hidden" name="currency" value="LKR" />
+
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -195,16 +196,14 @@ export default function Donate1() {
           />
         </Grid>
       </Grid>
-      <Button type="submit"
-                    variant="contained"
-                    color="primary"
-                    // onClick={handleNext}
-                    className={classes.button}
-                    onClick={submit}
-                  >
-                    {"Next"}
-                  </Button>
-      </form>
+      <br/>
+       <button
+          className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+          type="submit"
+          onClick={submit}>
+            {"Next"}
+       </button>
+    </form>
     
     </React.Fragment>
   );
