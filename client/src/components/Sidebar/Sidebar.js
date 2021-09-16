@@ -234,7 +234,7 @@ export default function Sidebar() {
                       ? "text-emerald-500 hover:text-emerald-500"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="/PresentProjects"
                 >
                   <i
                     className={

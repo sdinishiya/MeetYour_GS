@@ -62,6 +62,8 @@ import CardPageVisitsCheck from "components/Cards/CardPageVisitsCheck.js";
 //Donation
 import Donation from "components/Finance/ViewDonation";
 import AddDonation from "components/Finance/AddDonation";
+ 
+
 
 //MATERIAL
 //Const Material
@@ -97,9 +99,6 @@ import './i18';
 
 import App from 'App.js';
 // import Register from "components/Votors/RegisterVillager.js";
-
-
-
 
 ReactDOM.render(
  
@@ -168,6 +167,8 @@ ReactDOM.render(
       {/* Donation */}
       <Route path="/ViewDonation" component={Donation}/>
       <Route path="/AddDonation" component={AddDonation}/>
+    
+
       {/* <Route path="/viewwdonation" component={ViewDonation}/> */}
       {/* Material */}
       {/* Const Material */}
@@ -176,7 +177,7 @@ ReactDOM.render(
       <Route path="/AddconstMaterial" component={AddconstMaterial}/>
       <Route path="/SupplyconstMaterial" component={SupplyconstMaterial}/>
       <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst}/>
-      <Route path="/UpdateconstMaterial/:materialid" component={UpdateconstMaterial}/>
+      <Route path="/UpdateconstMaterial" component={UpdateconstMaterial}/>
 
       {/* Agri Material */}
       <Route path="/AgriMaterial" component={AgriMaterial}/>

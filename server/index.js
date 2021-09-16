@@ -27,9 +27,10 @@ app.use(cors());
 //var req = require("./node_modules/req/node_modules/request");
 const db = mysql.createConnection({
 	user: "root",
-	host: "localhost",
-	password: "",
+	host: "meetyourgs.cuccptxfkks6.us-east-2.rds.amazonaws.com",
+	password: "meetyourgs",
 	database: "meetyourgs",
+    
 });
 
 db.connect((err)=>{
@@ -133,15 +134,15 @@ app.get('/materialname', (req, res) => {
     })
 })
 
-app.put('/constupdate' , (req,res) => {
+app.put('/constupdate/:id' , (req,res) => {
     const addeddate = req.body.addeddate;
     const materialid = req.body.materialid;
     const materialname = req.body.materialname;
     const description = req.body.description;
     const quantity = req.body.quantity;
 
-    db.query("UPDATE constsmaterial SET addeddate = ? , materialid = ? , materialname = ?, description = ?, quantity = ? WHERE materialid= ?" ,
-    [addeddate,materialid,materialname,description,quantity],(err,result)=>{ 
+    db.query("UPDATE constsmaterial SET addeddate = ? , , materialname = ?, description = ?, quantity = ? WHERE materialid= ?" ,
+    [addeddate,materialname,description,quantity],(err,result)=>{ 
         if(err){
             console.log(err);
         } else{
@@ -851,26 +852,27 @@ app.post('/addnotice',(req,res)=>{
     
 });
 
-app.get('/noticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY expDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+// app.get('/noticeview',(req,res)=>{
+//     db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY expDate ASC",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
-});
-app.get('/allnoticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY expDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+//     });
+// });
+// app.get('/allnoticeview',(req,res)=>{
+//     db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY expDate ASC",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
-});
+//     });
+// });
+
 //remove
 app.put('/remove-notice', (req,res) => {
     const noticeID = req.body.noticeID;
@@ -1103,74 +1105,8 @@ app.put('/activate-form', (req,res) => {
 
 
 
-// app.post("/add-form", (req, res) => {
-//      if (!req.files) {
-//              res.send("No file upload")
-//         } else {
-            
-//             const formid = req.body.formid;
-//             const formTopic = req.body.formTopic;
-//             var file = req.files.image //'image' in Home.ejs form input name
-//             const UploadDate = req.body.UploadDate;
-//             const expDate = req.body.expDate;
-//             const description = req.body.description;
-//             const status = req.body.status;
-            
-//             //for image upload
-//        if (file.mimetype == "image/jpeg" || file.mimetype == "image/png" || file.mimetype == "image/gif") {
-//                 var imageName = file.name
-
-//                 console.log(imageName)
-//                 var uuidname = uuid.v1(); //used for unique file name
-//                 var imgsrc = 'http://127.0.0.1:3000/images/' + uuidname + file.name
-
-   	        // var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [imgsrc], (err, result) => {
-//                      if (err) throw err
-//                     file.mv('public/images/' + uuidname + file.name)
-//                     res.send("Data successfully save")
-//                })
-//            }
-//              // for any file like pdf,docs etc. upload
-//              else {
-//   	            var fileName = file.name;
-//                 console.log(fileName);
-//                 var uuidname = uuid.v1(); // for unique file name
-//                 var filesrc = 'http://127.0.0.1:3000/docs/' + uuidname + file.name
-
-//                 var insertData = "INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)"
-
-//             db.query(insertData, [filesrc], (err, result) => {
-//             if (err) throw err
-//                 file.mv('public/docs/' + uuidname + file.name)
-// 	                 res.send("Data successfully save")
-//                 })
-//            }
-//    	     }
-//  })
-
-
 
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
-
-// Upload Endpoint
-// app.post('/upload', (req, res) => {
-//     if (req.files === null) {
-//       return res.status(400).json({ msg: 'No file uploaded' });
-//     }
-  
-//     const file = req.files.file;
-  
-//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
-//       if (err) {    
-//         console.error(err);
-//         return res.status(500).send(err);
-//       }
-  
-//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-//     });
-//   });
