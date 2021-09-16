@@ -6,13 +6,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PresentProject1 from 'assets/img/PresentProject1.jpg' ; 
-import ProjectReviewCard1 from 'components/Projects/Cards/PresentProjects_admin';
+import UserProjectReviewCard from 'components/Projects/Cards/UserPresentProjects_admin';
 
 // components
 import FutureProjectNavbar from "components/Navbars/Users/Project/FutureProjectNavbar.js";
-import ProjectHeader from "components/Projects/ProjectHeader.js";
+import ProjectUserHeader from "components/Projects/Users/UserHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-export default function FutureProject() {
+export default function UserFutureProject() {
   const classes = useStyles();
   const [viewList,setviewList]=useState([])
   const [future, setfuture] = useState([]);
@@ -66,25 +66,17 @@ function getfuture(){
     <>
     
   <main>
-    <Sidebar/>
-    <div className="relative md:ml-64 bg-blueGray-100">
+    {/* <div className="relative md:ml-64 bg-blueGray-100"> */}
       <FutureProjectNavbar />
       {/* Header */}
-      <ProjectHeader />
+      <ProjectUserHeader />
       <section className="pb-18 relative block bg-white">
-        <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
-        <br/><br/><br/>
+      <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
+        <br /> <br /> <br /> <br /> 
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-12/12 px-4">
-                <Link to="/AddProjects">
-                  <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                          type="submit" >
-                          Add Project
-                  </button> 
-                </Link>
-                <br/> <br/>
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">
@@ -98,7 +90,7 @@ function getfuture(){
                             <br/>
                              <Grid container spacing={5} className="m-5">
                               {future.map(project=> <Grid item xs={12} lg={4}>
-                                <ProjectReviewCard1 edit={edit} setedit={setedit} title={project.title} id={project.project_id} subheader={project.date} image={PresentProject1} description={project.intro}
+                                <UserProjectReviewCard edit={edit} setedit={setedit} title={project.title} id={project.project_id} subheader={project.date} image={PresentProject1} description={project.intro}
                                       hovertitle='Build a School'/>
                                   </Grid>
                                )}
@@ -114,7 +106,7 @@ function getfuture(){
         </div>
         <FooterAdmin />
       </section> 
-      </div> 
+      {/* </div>  */}
     </main> 
   </>
   );

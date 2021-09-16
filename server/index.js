@@ -28,14 +28,14 @@ app.use(cors());
 app.use(routes);
 // app.use(fileUpload());
 
-//var req = require("./node_modules/req/node_modules/request");
+// var req = require("./node_modules/req/node_modules/request");
 // const db = mysql.createConnection({
 // 	user: "root",
 // 	host: "localhost",
 // 	password: "",
 // 	database: "meetyourgs",
-//     // port: "3308"
-//
+//     port: "3308",
+
 // });
 //
 // db.connect((err)=>{

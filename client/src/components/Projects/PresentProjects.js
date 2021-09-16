@@ -9,8 +9,8 @@ import PresentProject1 from 'assets/img/PresentProject1.jpg' ;
 import ProjectReviewCard1 from 'components/Projects/Cards/PresentProjects_admin';
 
 // components
-import ProjectNavbar from "components/Navbars/Users/Project/ProjectNavbar.js";
-import ProjectUserHeader from "components/Projects/Users/UserHeader.js";
+import PresentProjectNavbar from "components/Navbars/Users/Project/PresentProjectNavbar.js";
+import ProjectHeader from "components/Projects/ProjectHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
@@ -68,9 +68,9 @@ function getpresent(){
   <main>
     <Sidebar/>
     <div className="relative md:ml-64 bg-blueGray-100">
-      <ProjectNavbar />
+      <PresentProjectNavbar />
       {/* Header */}
-      <ProjectUserHeader />
+      <ProjectHeader />
       <section className="pb-18 relative block bg-white">
         <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br/><br/><br/>

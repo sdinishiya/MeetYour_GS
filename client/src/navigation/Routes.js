@@ -63,6 +63,18 @@ import UserFormView from "../components/FormTemplate/UserFormView";
 import Donate2 from "../components/Donation/donate2";
 import UpdateconstMaterial from "../components/Material/UpdateconstMaterial";
 
+// Projects
+import PresentProject from "components/Projects/PresentProjects";
+import FutureProject from "components/Projects/FutureProject";
+import PastProject from "components/Projects/PastProject";
+import AddProjects from "components/Projects/AddProjects";
+import EditProjects from "components/Projects/EditProject";
+// Users
+import UserFutureProject from "components/Projects/Users/UserFutureProject";
+import UserPresentProject from "components/Projects/Users/UserPresentProject";
+import UserPastProject from "components/Projects/Users/UserPastProject";
+
+
 const Routes = () => {
     return(
         <BrowserRouter>
@@ -157,6 +169,17 @@ const Routes = () => {
                 <AuthRoute path ="/Users/Agri" component={Agri}/>
                 <AuthRoute path ="/Users/Other" component={Other}/>
 
+                {/* Projects */}
+                <Route path="/PresentProjects" component={PresentProject}/>
+                    <Route path="/FutureProject" component={FutureProject}/>
+                    <Route path="/PastProject" component={PastProject}/>
+                    <Route path="/AddProjects" component={AddProjects}/>
+                    <Route path="/EditProject" component={EditProjects}/>
+                {/* Users */}
+                    <Route path="/UserFutureProject" component={UserFutureProject}/>
+                    <Route path="/UserPresentProject" component={UserPresentProject}/>
+                    <Route path="/UserPastProject" component={UserPastProject}/>
+
                 {/* people */}
 
 
@@ -166,5 +189,8 @@ const Routes = () => {
         </BrowserRouter>
     )
 }
+
+
+
 
 export default Routes;

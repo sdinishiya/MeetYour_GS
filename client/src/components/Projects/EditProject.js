@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 
 // components
 import ProjectNavbar from "components/Navbars/Users/Project/ProjectNavbar.js";
-import ProjectUserHeader from "components/Projects/Users/UserHeader.js";
+import ProjectHeader from "components/Projects/ProjectHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
@@ -118,7 +118,7 @@ export default function EditProjects() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <ProjectNavbar />
       {/* Header */}
-      <ProjectUserHeader />
+      <ProjectHeader />
       <section className="pb-18 relative block bg-white">
 
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">

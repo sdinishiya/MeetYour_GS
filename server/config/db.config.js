@@ -7,6 +7,8 @@ const pool = mysql2.createPool({
     host: "localhost",
     password: '',
     database: "meetyourgs",
+    // port: "3308",
+
 })
 
 const db = mysql.createConnection({
@@ -14,6 +16,7 @@ const db = mysql.createConnection({
     host: "localhost",
     password: '',
     database: "meetyourgs",
+    // port: "3308",
 });
 
 db.connect(function(err) {
