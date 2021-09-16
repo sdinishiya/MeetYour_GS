@@ -39,7 +39,7 @@ import AllMessageView from "components/Notice/AllMessageView.js";
 //Petty Cash
 import Receive from "components/Finance/CashReceive.js";
 import Expense from "components/Finance/AddExpenses.js";
-import PettyCash from "components/Finance/ViewPettycash.js"; 
+import PettyCash from "components/Finance/ViewPettycash.js";
 
 //Forum
 import AddForum from "components/Forum/AddForum.js";
@@ -47,8 +47,22 @@ import ForumTable from "components/Forum/ForumView.js";
 import ForumView from "components/Pages/Formpage.js";
 import AddNewForum from "components/Forum/AddNewForum.js"
 
+//Project
+import AddProject from "components/Projects/AddProject.js";
+
+import ProjectTable from "components/Projects/ProjectView.js";
+import ProjectView from "components/Pages/Projectpage.js";
+
+import ProjectFutureTable from "components/Projects/ProjectFutureView.js";
+import ProjectFutureView from "components/Pages/ProjectFuturepage.js";
+
+import ProjectPastTable from "components/Projects/ProjectPastView.js";
+import ProjectPastView from "components/Pages/ProjectPastpage.js";
+
+import AddNewProject from "components/Projects/AddNewProject.js"
+
 //Fund
-import Fund from "components/Finance/ViewFund"; 
+import Fund from "components/Finance/ViewFund";
 import ReceivedFund from "components/Finance/AddReceivedfund.js";
 import AllocateFund from "components/Finance/AllocateFund.js";
 
@@ -98,17 +112,17 @@ import App from 'App.js';
 
 
 ReactDOM.render(
- 
+
 
   <BrowserRouter>
     <Switch>
 
-{/* 
+      {/* 
       <Route path="/RegisterVillager" component={Register} /> */}
-        
+
       {/* <App /> */}
       {/* add routes with layouts */}
-      <Route path="/admin" component={Admin} />          
+      <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
       <Route path="/landing" exact component={Landing} />
@@ -117,76 +131,89 @@ ReactDOM.render(
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       {/* <Redirect from="*" to="/" /> */}
-      
+
       {/* Appointment  */}
-      <Route path="/ViewScheduled"  component={ViewScheduled} />
-      <Route path="/schedule"  component={Schedule} />
-      <Route path="/ViewRequests"  component={ViewRequests} />
-      <Route path="/ViewConfirmed"  component={ViewConfirmed} />
-      <Route path="/UserView"  component={UserView} />
-      <Route path="/UserBooking"  component={UserBooking} />
-      
-      
+      <Route path="/ViewScheduled" component={ViewScheduled} />
+      <Route path="/schedule" component={Schedule} />
+      <Route path="/ViewRequests" component={ViewRequests} />
+      <Route path="/ViewConfirmed" component={ViewConfirmed} />
+      <Route path="/UserView" component={UserView} />
+      <Route path="/UserBooking" component={UserBooking} />
+
+
 
       {/* Notices */}
-      <Route path="/AddNotice"  component={AddNotice} />
-      <Route path="/noticeView"  component={NoticeTable} />
-      <Route path="/AllNoticeView"  component={AllNotice} />
+      <Route path="/AddNotice" component={AddNotice} />
+      <Route path="/noticeView" component={NoticeTable} />
+      <Route path="/AllNoticeView" component={AllNotice} />
       {/* sms */}
-      <Route path="/AddMessage"  component={AddMessage} />
-      <Route path="/MessageView"  component={MessageView} />
-      <Route path="/AllMessageView"  component={AllMessageView} />
-      
+      <Route path="/AddMessage" component={AddMessage} />
+      <Route path="/MessageView" component={MessageView} />
+      <Route path="/AllMessageView" component={AllMessageView} />
+
 
       {/* FINANCE */}
       {/* Petty Cash */}
-      <Route path="/CashReceive" component={Receive}/>
-      <Route path="/AddExpenses" component={Expense}/>
-      <Route path="/ViewPettycash" component={PettyCash}/>
+      <Route path="/CashReceive" component={Receive} />
+      <Route path="/AddExpenses" component={Expense} />
+      <Route path="/ViewPettycash" component={PettyCash} />
 
       {/* Forum */}
-      <Route path="/AddForum" component={AddForum}/>
-      <Route path="/AddNewForum" component={AddNewForum}/>
-      <Route path="/forumView" component={ForumTable}/>
-      <Route path="/Forumpage" component={ForumView}/>
+      <Route path="/AddForum" component={AddForum} />
+      <Route path="/AddNewForum" component={AddNewForum} />
+      <Route path="/forumView" component={ForumTable} />
+      <Route path="/Forumpage" component={ForumView} />
+
+      {/* Project */}
+      <Route path="/AddProject" component={AddProject} />
+      <Route path="/AddNewProject" component={AddNewProject} />
+
+      <Route path="/projectView" component={ProjectTable} />
+      <Route path="/Projectpage" component={ProjectView} />
+
+      <Route path="/projectFutureView" component={ProjectFutureTable} />
+      {/* <Route path="/ProjectFuturepage" component={ProjectFutureView} /> */}
+      
+      <Route path="/projectPastView" component={ProjectPastTable} />
+      {/* <Route path="/ProjectPastpage" component={ProjectPastView} /> */}
 
       {/* Fund */}
-      <Route path="/ViewFund" component={Fund}/>
-      <Route path="/AddReceivedfund" component={ReceivedFund}/>
-      <Route path="/AllocateFund" component={AllocateFund}/>
+      <Route path="/ViewFund" component={Fund} />
+      <Route path="/AddReceivedfund" component={ReceivedFund} />
+      <Route path="/AllocateFund" component={AllocateFund} />
       {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
 
       {/* Donation */}
-      <Route path="/ViewDonation" component={Donation}/>
-      <Route path="/AddDonation" component={AddDonation}/>
+      <Route path="/ViewDonation" component={Donation} />
+      <Route path="/AddDonation" component={AddDonation} />
       {/* <Route path="/viewwdonation" component={ViewDonation}/> */}
       {/* Material */}
       {/* Const Material */}
-      <Route path="/ConstMaterial" component={ConstMaterial}/>
-      <Route path="/AddnewconstMaterial" component={AddnewconstMaterial}/>
-      <Route path="/AddconstMaterial" component={AddconstMaterial}/>
-      <Route path="/SupplyconstMaterial" component={SupplyconstMaterial}/>
-      <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst}/>
-      <Route path="/UpdateconstMaterial/:materialid" component={UpdateconstMaterial}/>
+      <Route path="/ConstMaterial" component={ConstMaterial} />
+      <Route path="/AddnewconstMaterial" component={AddnewconstMaterial} />
+      <Route path="/AddconstMaterial" component={AddconstMaterial} />
+      <Route path="/SupplyconstMaterial" component={SupplyconstMaterial} />
+      <Route path="/ViewSuppliedconstMaterial" component={ViewSupplyConst} />
+      <Route path="/UpdateconstMaterial/:materialid" component={UpdateconstMaterial} />
 
       {/* Agri Material */}
-      <Route path="/AgriMaterial" component={AgriMaterial}/>
-      <Route path="/AddnewagriMaterial" component={AddnewagriMaterial}/>
-      <Route path="/AddagriMaterial" component={AddagriMaterial}/>
-      <Route path="/SupplyagriMaterial" component={SupplyagriMaterial}/>
-      <Route path="/ViewSuppliedagriMaterial" component={ViewSupplyAgri}/>
+      <Route path="/AgriMaterial" component={AgriMaterial} />
+      <Route path="/AddnewagriMaterial" component={AddnewagriMaterial} />
+      <Route path="/AddagriMaterial" component={AddagriMaterial} />
+      <Route path="/SupplyagriMaterial" component={SupplyagriMaterial} />
+      <Route path="/ViewSuppliedagriMaterial" component={ViewSupplyAgri} />
 
       {/* Other Material */}
-      <Route path="/OtherMaterial" component={OtherMaterial}/>
-      <Route path="/AddnewotherMaterial" component={AddnewotherMaterial}/>
-      <Route path="/AddotherMaterial" component={AddotherMaterial}/>
-      <Route path="/SupplyotherMaterial" component={SupplyotherMaterial}/>
-      <Route path="/ViewSuppliedotherMaterial" component={ViewSupplyOther}/>
+      <Route path="/OtherMaterial" component={OtherMaterial} />
+      <Route path="/AddnewotherMaterial" component={AddnewotherMaterial} />
+      <Route path="/AddotherMaterial" component={AddotherMaterial} />
+      <Route path="/SupplyotherMaterial" component={SupplyotherMaterial} />
+      <Route path="/ViewSuppliedotherMaterial" component={ViewSupplyOther} />
 
       {/* Users(Material) */}
-      <Route path ="/Users/Const" component={Const}/>
-      <Route path ="/Users/Agri" component={Agri}/>
-      <Route path ="/Users/Other" component={Other}/>
+      <Route path="/Users/Const" component={Const} />
+      <Route path="/Users/Agri" component={Agri} />
+      <Route path="/Users/Other" component={Other} />
 
       {/* Upload */}
       {/* <Route path ="Upload/FileUpload" component={FileUpload}/>
@@ -195,7 +222,7 @@ ReactDOM.render(
       {/* people */}
 
 
-      <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>
+      <Route path="/CardPageVisitsCheck" component={CardPageVisitsCheck} />
       {/* <Route path="/CardPageVisits" component={CardPageVisits}/> */}
     </Switch>
   </BrowserRouter>,

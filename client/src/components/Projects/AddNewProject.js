@@ -11,11 +11,11 @@ import props from 'prop-types';
 // components
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function ForumTable({ color }) {
+export default function ProjectTable({ color }) {
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [forums, setforums] = useState([]);
-  const [forumID, setID] = useState("");
+  const [projects, setprojects] = useState([]);
+  const [projectID, setID] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
   const [uploadDate, setUploadDate] = useState("");
@@ -26,15 +26,15 @@ export default function ForumTable({ color }) {
 
 
   useEffect(() => {
-    axios.get("http://localhost:3001/forumview").then((response) => {
-      setforums(response.data)
+    axios.get("http://localhost:3001/projectview").then((response) => {
+      setprojects(response.data)
     })
   }, [])
 
-  const forumadd = () => {
-    console.log(forumID);
+  const projectadd = () => {
+    console.log(projectID);
 
-    axios.post('http://localhost:3001/addnewforum', {
+    axios.post('http://localhost:3001/addnewproject', {
       topic: topic,
       description: description,
       uploadDate: uploadDate,
@@ -47,7 +47,7 @@ export default function ForumTable({ color }) {
     });
 
     alert(" Added successfully ");
-    history.push("/ForumView");
+    history.push("/ProjectView");
   };
 
   return (
@@ -60,16 +60,16 @@ export default function ForumTable({ color }) {
         <div className="container px-6 mx-auto">
           <div className="flex flex-wrap">
             <div className="w-1/3 px-6">
-              <Link to="/AddNewForum">
+              <Link to="/AddNewProject">
                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
-                  Add New Forums
+                  Add New Project
                 </button>
               </Link>
-              <Link to="/ForumView">
+              <Link to="/ProjectView">
                 <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
-                  View Forums
+                  View Project
                 </button> <br /><br />
               </Link>
             </div>
@@ -129,7 +129,7 @@ export default function ForumTable({ color }) {
               <button
                 className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="submit"
-                onClick={forumadd}
+                onClick={projectadd}
               > Add
               </button>
               <button
