@@ -2,6 +2,9 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+const httpStatus = require('http-status');
+const routes = require('./routes')
+const {db} = require('./config/db.config')
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -22,79 +25,31 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(routes);
 // app.use(fileUpload());
 
-//var req = require("./node_modules/req/node_modules/request");
-const db = mysql.createConnection({
-	user: "root",
-	host: "meetyourgs.cuccptxfkks6.us-east-2.rds.amazonaws.com",
-	password: "meetyourgs",
-	database: "meetyourgs",
-    
-});
+// var req = require("./node_modules/req/node_modules/request");
+// const db = mysql.createConnection({
+// 	user: "root",
+// 	host: "localhost",
+// 	password: "",
+// 	database: "meetyourgs",
+//     port: "3308",
 
-db.connect((err)=>{
-    if(err) 
-    {
-        console.log(err);
-    }
-    else
-    {
-        console.log('Database Connected...');
-    }
-});
+// });
+//
+// db.connect((err)=>{
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         console.log('Database Connected...');
+//     }
+// });
 
 
-app.post('/sign-up', (req, res)=> {
-
-	const fullname = req.body.fullname
-	const address = req.body.address
-	const nic = req.body.nic
-	const telephone = req.body.telephone
-	const email = req.body.email
-	const password = req.body.password
- 
-	bcrypt.hash(password,saltRounds, (err,hash) => {
-
-		if(err){
-			console.log(err);
-		}
-	db.query
-	("INSERT INTO signup (fullname, address, nic, telephone, email, password) VALUES (?,?,?,?,?,?)", 
-	[fullname, address, nic, telephone, email, hash], 
-	(err, result)=> {
-		console.log(err);
-	})	
-	})
-	
-});
-app.post('/login', (req, res) => {
-
-	const email = req.body.email
-	const password = req.body.password
-
-	db.query
-	("SELECT * signup WHERE email = ?;", 
-	email, 
-	(err, result)=> {
-
-		if(err){
-			res.send({err: err})
-		}
-			if (result.length > 0) {
-				bcrypt.compare(password, result[0].password, (error, response)=>{
-					if(response){
-						res.send(result)
-					}else{
-						res.send({message:"Wrong username/password combination!"})
-					}
-				})
-			}else{
-				res.send({message:"User doesn't exist"});
-			}
-		}
-	);
-});
 // constsmaterial
 app.post('/create',(req,res)=>{
     console.log(req.body)
@@ -458,37 +413,65 @@ app.get('/othersupply',(req,res)=>{
 });
 
 //Donation
-app.post('/donationcreate',(req,res)=>{
-    console.log(req.body)
-    const date = req.body.date;
-    const donorID = req.body.donorID;
-    const donorName = req.body.donorName;
-    const address = req.body.address;
-    const phone = req.body.phone;
-    const email = req.body.email;
-    const description = req.body.description;
-    const amount = req.body.amount;
+// app.post('/donationcreate',(req,res)=>{
+//     console.log(req.body)
+//     const date = req.body.date;
+//     const donorID = req.body.donorID;
+//     const donorName = req.body.donorName;
+//     const address = req.body.address;
+//     const phone = req.body.phone;
+//     const email = req.body.email;
+//     const description = req.body.description;
+//     const amount = req.body.amount;
 
-    db.query("INSERT INTO donation (date,donorName,address,phone,email,description,amount) VALUES (?,?,?,?,?,?,?)",
-    [date,donorName,address,phone,email,description,amount],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
-        }
+//     db.query("INSERT INTO donation (date,donorName,address,phone,email,description,amount) VALUES (?,?,?,?,?,?,?)",
+//     [date,donorName,address,phone,email,description,amount],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("values inserted");
+//         }
     
-    })
+//     })
     
-});
-app.get('/donationview',(req,res)=>{
-    db.query("SELECT * FROM donation order by donorID ASC" ,(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+// });
+// app.get('/donationview',(req,res)=>{
+//     db.query("SELECT * FROM donation order by donorID ASC" ,(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
+//     });
+// });
+
+app.post('/add_donation', (req, res)=> {
+
+	const first_name = req.body.first_name
+	const last_name = req.body.last_name
+	const donation_amt = req.body.donation_amt
+	const address1 = req.body.address1
+	const address2 = req.body.address2
+	const city = req.body.city
+	const country = req.body.country
+	const phoneno = req.body.phoneno
+	const email = req.body.email
+ 
+	console.log (donation_amt);
+	
+	db.query
+	("INSERT INTO donations (first_name, last_name, donation_amt, address1, address2, city, country, phoneno, email) VALUES (?,?,?,?,?,?,?,?,?)", 
+	[first_name, last_name, donation_amt, address1, address2, city, country, phoneno, email], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, { response: 'Donation done Sucessfully!!' });
+		}
+	})	
 });
 
 // income
@@ -1022,16 +1005,43 @@ app.put('/update-forum',(req,res)=>{
 
 //formTemplates
 app.post('/add-form' , (req , res)=>{
-    const formid = req.body.formid;
-    const formTopic = req.body.formTopic;
-    const file = req.body.file; //'image' in Home.ejs form input name
-    const UploadDate = req.body.UploadDate;
-    const expDate = req.body.expDate;
-    const description = req.body.description;
+    const formdata = JSON.parse(req.body.data);
+    const formid = formdata.formid;
+    const formTopic = formdata.formTopic;
+    // const file = formdata.file; //'image' in Home.ejs form input name
+    const UploadDate = formdata.UploadDate;
+    const expDate = formdata.expDate;
+    const description = formdata.description;
 
-    
+
+  console.log(req.body);
+  console.log(req.files);
+
+
+let sampleFile;
+let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  console.log(__dirname);
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const randomfilenum = Math.floor(Math.random()*1000000);
+  sampleFile = req.files.file;
+  const newfilename = randomfilenum.toString() +sampleFile.name;
+
+  uploadPath = __dirname + '/public/forms/' + newfilename
+
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+   console.log(err);
+  });
+
+
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
-   [formTopic,file,UploadDate,expDate,description],(err,result)=>{
+   [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
        if(err){
            console.log(err);
        }else{
@@ -1103,10 +1113,211 @@ app.put('/activate-form', (req,res) => {
     );
   });
 
+// projects
+app.post('/add_projects', (req, res)=> {
 
+	const type = req.body.type
+	const title = req.body.title
+	const date = req.body.date
+	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
+	const intro = req.body.intro
+	const read_more = req.body.read_more
+ 
+	
+	db.query
+	("INSERT INTO projects (type, title, date, image, intro, read_more) VALUES (?,?,?,?,?,?)", 
+	[type, title, date, image, intro, read_more], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+app.put('/update_project/:id', (req, res)=> {
+	var id=req.params.id;
+	
+	const type = req.body.type
+	const title = req.body.title
+	const date = req.body.date
+	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
+	const intro = req.body.intro
+	const read_more = req.body.read_more
+	db.query
+	("UPDATE projects SET type=?, title=?, date=?, image=?, intro=?, read_more=? where project_id = ?", 
+	[type, title, date, image, intro, read_more,id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.get('/get_future_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["future_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.put('/delete_project/:id', (req, res)=> {
+	var id=req.params.id;
+	db.query
+	("UPDATE projects SET status='inactive' where project_id = ?", 
+	[id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+app.get('/getproject/:id', (req, res)=> {
+	var id=req.params.id;
+	db.query
+	("SELECT * from projects where project_id = ?", 
+	[id], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+
+
+app.get('/get_present_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["present_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
+app.get('/get_past_projects', (req, res)=> {
+
+	db.query
+	("SELECT * FROM projects where type = ? and status='active'", 
+	["past_project"], 
+	(err, result)=> {
+		if(err){
+			console.log(err);
+			res.send(400, { response: 'Data Error ' });
+		}
+		else{
+			res.send(200, result);
+			// res.send(200, { response: 'Project added Sucessfully!!' });
+		}
+	})	
+});
 
 
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
 
+
+// Upload Endpoint
+// app.post('/upload', (req, res) => {
+//     if (req.files === null) {
+//       return res.status(400).json({ msg: 'No file uploaded' });
+//     }
+  
+//     const file = req.files.file;
+  
+//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
+//       if (err) {    
+//         console.error(err);
+//         return res.status(500).send(err);
+//       }
+  
+//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+//     });
+//   });
+
+//register villager
+app.post('/RegisterVillager',(req,res)=>{
+    console.log(req.body)
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+
+    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+        if(err){
+            console.log(err);
+        } else{
+            res.send("values inserted");
+        }
+    })  
+});
+//view villagers
+app.get('/ViewVillager',(req,res)=>{
+    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  }     
+    });
+});
+app.put('/add-app-booking', (req,res) => {
+    const villagerID = req.body.villagerID;
+    const villagerName = req.body.villagerName;
+    const villagerTel = req.body.villagerTel;
+    const villagerNIC = req.body.villagerNIC;
+    const villagerAdd = req.body.villagerAdd;
+    const villagerEmail = req.body.villagerEmail;
+    console.log("reach")
+    console.log(req.body)
+
+    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
+    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
+    (err, result) => {
+
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(result);
+        }
+       }
+    );
+});
