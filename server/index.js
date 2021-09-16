@@ -943,8 +943,8 @@ app.get('/allsmsview',(req,res)=>{
 //send
 app.post('/send-sms', (req, res) => {
     console.log(req.body)
-    const MID = "1357"
-    const SID = "94771655198"
+    const MID = "11111"
+    const SID = "943454353198"
     const to_number = req.body.to;
     const message = req.body.message;
 
