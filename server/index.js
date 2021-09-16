@@ -4,6 +4,7 @@ const cors = require("cors");
 const bcrypt = require('bcrypt');
 const httpStatus = require('http-status');
 const routes = require('./routes')
+const axios = require("axios")
 const {db} = require('./config/db.config')
 // const fileUpload = require('express-fileupload');
 
@@ -898,34 +899,36 @@ app.put('/active-notice', (req,res) => {
   //General Message
 app.post('/addsms',(req,res)=>{
     console.log(req.body)
-    const smsID = req.body.smsID;
     const topic = req.body.topic;
-    const description = req.body.description; 
+    const description = req.body.description;
     const uploadDate = req.body.uploadDate;
-    const expDate = req.body.expDate; 
-    const status = req.body.status;  
+    const expDate = req.body.expDate;
+    const status= "Not-Sent"
 
-    db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
-    [topic,description,uploadDate,expDate],(err,result)=>{
+    db.query("INSERT INTO sms (topic,description,uploadDate,expDate,status) VALUES (?,?,?,?,?)",
+    [topic,description,uploadDate,expDate,status],(err,result)=>{
 		if(err){
             console.log(err);
+            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
         } else{
-            res.send("values inserted");
+            res.send("{'message': 'success'}");
         }
-    
     })
-    
 });
+
 app.get('/smsview',(req,res)=>{
     db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
 		console.log(err)
+        res.status(500).send(JSON.parse("{'status': 'Failed'}"));
 	  } else {
         res.send(result)
 	  } 
         
     });
 });
+
+
 app.get('/allsmsview',(req,res)=>{
     db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
@@ -938,24 +941,50 @@ app.get('/allsmsview',(req,res)=>{
 });
 
 //send
-app.put('/send-sms', (req,res) => {
-    const smsID = req.body.smsID;
-    const status = req.body.status;
-
+app.post('/send-sms', (req, res) => {
     console.log(req.body)
+    const MID = "1357"
+    const SID = "94771655198"
+    const to_number = req.body.to;
+    const message = req.body.message;
 
-    db.query("UPDATE sms SET status='Sent' WHERE smsID = ?; ", 
-    [smsID], 
-    (err, result) => {
-
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
+    axios.post("https://www.textit.biz/sendmsg", null, {
+        params: {
+            id: SID,
+            pw: MID,
+            to: to_number,
+            text: message
         }
-       }
-    );
-  });
+    }).then(response => {
+        if (response.statusText === "OK") {
+            let resp = {
+                status: "success",
+                data: response.data
+            }
+            res.status(200).send(JSON.parse(resp))
+        }
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+    })
+
+});
+
+app.get('/get-booking-data',(req,res)=>{
+    const filter = req.query.filter;
+
+    db.query("SELECT phone FROM bookings WHERE book_status = ?",[filter],(err,result,) => {
+        if(err) {
+            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+	  } else {
+          let tmp = [];
+          result.forEach(entry => {
+            tmp.push(entry.phone)
+          })
+        res.status(200).send(tmp)
+	  } 
+    });
+});
 
 
 app.post('/addnewforum' , (req , res)=>{
