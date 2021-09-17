@@ -2,10 +2,18 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
+
 const httpStatus = require('http-status');
 const routes = require('./routes')
 const axios = require("axios")
 const {db} = require('./config/db.config')
+
+
+const axios = require("axios");
+const TXT_UID= "94711655166";
+const TXT_PW= "9411";
+
+
 // const fileUpload = require('express-fileupload');
 
 // const { response } = require('express');
@@ -899,7 +907,7 @@ app.put('/active-notice', (req,res) => {
   //General Message
 
 
-
+//forumDiscussion
 app.post('/addnewforum' , (req , res)=>{
     const postid = req.body.postid;
     const posttext = req.body.posttext;
@@ -950,15 +958,12 @@ app.post('/add-form' , (req , res)=>{
     const formdata = JSON.parse(req.body.data);
     const formid = formdata.formid;
     const formTopic = formdata.formTopic;
-    // const file = formdata.file; //'image' in Home.ejs form input name
     const UploadDate = formdata.UploadDate;
     const expDate = formdata.expDate;
     const description = formdata.description;
 
-
   console.log(req.body);
   console.log(req.files);
-
 
 let sampleFile;
 let uploadPath;
@@ -968,15 +973,16 @@ let uploadPath;
   }
 
   console.log(__dirname);
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const randomfilenum = Math.floor(Math.random()*1000000);
   sampleFile = req.files.file;
   const newfilename = randomfilenum.toString() +sampleFile.name;
 
   uploadPath = __dirname + '/public/forms/' + newfilename
 
-
   // Use the mv() method to place the file somewhere on your server
+  
+  // Use the mv() method to move the file in the server
+
   sampleFile.mv(uploadPath, function(err) {
    console.log(err);
   });
@@ -993,6 +999,26 @@ let uploadPath;
 
 });
 
+//download form
+app.get('/download', function(req, res){
+
+let sampleFile;
+let dwnloadPath;
+
+  const randomfilenum = Math.floor(Math.random()*1000000);
+  sampleFile = req.files.file;
+  const newfilename = randomfilenum.toString() +sampleFile.name;
+
+  dwnloadPath = __dirname + '/public/forms/' + newfilename
+
+    var fileDownload = require('js-file-download');
+    fileDownload(dwnloadPath, 'filename.pdf');
+ 
+    res.download(dwnloadPath, newfilename.pdf); 
+  });
+
+
+//formview
 app.get('/formView',(req,res)=>{
     db.query("SELECT * FROM formtemplate ORDER BY uploadDate ASC",(err,result,) => {
         if(err) {
@@ -1054,6 +1080,7 @@ app.put('/activate-form', (req,res) => {
        }
     );
   });
+
 
 app.listen(3001, () => {
 	console.log("running on port 3001");
@@ -1129,3 +1156,4 @@ app.listen(3001, () => {
 //        }
 //     );
 // });
+
