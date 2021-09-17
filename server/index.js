@@ -3,9 +3,16 @@ const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require('bcrypt');
 
+const httpStatus = require('http-status');
+const routes = require('./routes')
+const axios = require("axios")
+const {db} = require('./config/db.config')
+
+
 const axios = require("axios");
 const TXT_UID= "94711655166";
 const TXT_PW= "9411";
+
 
 // const fileUpload = require('express-fileupload');
 
@@ -27,80 +34,31 @@ const saltRounds = 10;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(routes);
 // app.use(fileUpload());
 
-//var req = require("./node_modules/req/node_modules/request");
-const db = mysql.createConnection({
-	user: "root",
-	host: "localhost",
-	password: "",
-	database: "meetyourgs",
-    // port: "3308"
+// var req = require("./node_modules/req/node_modules/request");
+// const db = mysql.createConnection({
+// 	user: "root",
+// 	host: "localhost",
+// 	password: "",
+// 	database: "meetyourgs",
+//     port: "3308",
 
-});
+// });
+//
+// db.connect((err)=>{
+//     if(err)
+//     {
+//         console.log(err);
+//     }
+//     else
+//     {
+//         console.log('Database Connected...');
+//     }
+// });
 
-db.connect((err)=>{
-    if(err) 
-    {
-        console.log(err);
-    }
-    else
-    {
-        console.log('Database Connected...');
-    }
-});
 
-
-app.post('/sign-up', (req, res)=> {
-
-	const fullname = req.body.fullname
-	const address = req.body.address
-	const nic = req.body.nic
-	const telephone = req.body.telephone
-	const email = req.body.email
-	const password = req.body.password
- 
-	bcrypt.hash(password,saltRounds, (err,hash) => {
-
-		if(err){
-			console.log(err);
-		}
-	db.query
-	("INSERT INTO signup (fullname, address, nic, telephone, email, password) VALUES (?,?,?,?,?,?)", 
-	[fullname, address, nic, telephone, email, hash], 
-	(err, result)=> {
-		console.log(err);
-	})	
-	})
-	
-});
-app.post('/login', (req, res) => {
-
-	const email = req.body.email
-	const password = req.body.password
-
-	db.query
-	("SELECT * signup WHERE email = ?;", 
-	email, 
-	(err, result)=> {
-
-		if(err){
-			res.send({err: err})
-		}
-			if (result.length > 0) {
-				bcrypt.compare(password, result[0].password, (error, response)=>{
-					if(response){
-						res.send(result)
-					}else{
-						res.send({message:"Wrong username/password combination!"})
-					}
-				})
-			}else{
-				res.send({message:"User doesn't exist"});
-			}
-		}
-	);
-});
 // constsmaterial
 app.post('/create',(req,res)=>{
     console.log(req.body)
@@ -140,15 +98,15 @@ app.get('/materialname', (req, res) => {
     })
 })
 
-app.put('/constupdate' , (req,res) => {
+app.put('/constupdate/:id' , (req,res) => {
     const addeddate = req.body.addeddate;
     const materialid = req.body.materialid;
     const materialname = req.body.materialname;
     const description = req.body.description;
     const quantity = req.body.quantity;
 
-    db.query("UPDATE constsmaterial SET addeddate = ? , materialid = ? , materialname = ?, description = ?, quantity = ? WHERE materialid= ?" ,
-    [addeddate,materialid,materialname,description,quantity],(err,result)=>{ 
+    db.query("UPDATE constsmaterial SET addeddate = ? , , materialname = ?, description = ?, quantity = ? WHERE materialid= ?" ,
+    [addeddate,materialname,description,quantity],(err,result)=>{ 
         if(err){
             console.log(err);
         } else{
@@ -886,26 +844,27 @@ app.post('/addnotice',(req,res)=>{
     
 });
 
-app.get('/noticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY expDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+// app.get('/noticeview',(req,res)=>{
+//     db.query("SELECT * FROM notice WHERE status = 'Active' ORDER BY expDate ASC",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
-});
-app.get('/allnoticeview',(req,res)=>{
-    db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY expDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
+//     });
+// });
+// app.get('/allnoticeview',(req,res)=>{
+//     db.query("SELECT * FROM notice WHERE status = 'Inactive' ORDER BY expDate ASC",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  } 
         
-    });
-});
+//     });
+// });
+
 //remove
 app.put('/remove-notice', (req,res) => {
     const noticeID = req.body.noticeID;
@@ -946,87 +905,7 @@ app.put('/active-notice', (req,res) => {
   });
 
   //General Message
-app.post('/addsms',(req,res)=>{
-    console.log(req.body)
-    const smsID = req.body.smsID;
-    const topic = req.body.topic;
-    const description = req.body.description; 
-    const uploadDate = req.body.uploadDate;
-    const expDate = req.body.expDate; 
-    const status = req.body.status;  
-    let initial_result = "";
-    let sending_arr = [];
-    db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
-    [topic,description,uploadDate,expDate],(err,result)=>{
-		if(err){
-        res.status(500).send('{"message":"Something WEnt Wrong"}');
-        return result;
-        }
-        //  else{
-            
-        //     // res.send("values inserted");
-        //     let requesturl = "https://www.textit.biz/sendmsg?id="+TXT_UID+"&pw="+TXT_PW+"&to=0740131770&text=Hello+World"
-        // }
-    
-    }).then(response => {/*  */
-        console.log(response)
-        res.send(response)
-    })
 
-    
-});
-
-// app.post('/sendsms',(req,res)=>{
-//     console.log(req.body)\
-//     const category = req.body.category;
-//     const to = req.body.description; 
-//     const id = req.body.id;
-//     const pw = req.body.pw;
-    
-//     const text = req.body.topic; 
-
-// });
-
-app.get('/smsview',(req,res)=>{
-    db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
-        
-    });
-});
-app.get('/allsmsview',(req,res)=>{
-    db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
-        
-    });
-});
-
-//send
-app.put('/send-sms', (req,res) => {
-    const smsID = req.body.smsID;
-    const status = req.body.status;
-
-    console.log(req.body)
-
-    db.query("UPDATE sms SET status='Sent' WHERE smsID = ?; ", 
-    [smsID], 
-    (err, result) => {
-
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-  });
 
 //forumDiscussion
 app.post('/addnewforum' , (req , res)=>{
@@ -1099,11 +978,15 @@ let uploadPath;
   const newfilename = randomfilenum.toString() +sampleFile.name;
 
   uploadPath = __dirname + '/public/forms/' + newfilename
+
+  // Use the mv() method to place the file somewhere on your server
   
   // Use the mv() method to move the file in the server
+
   sampleFile.mv(uploadPath, function(err) {
    console.log(err);
   });
+
 
    db.query("INSERT INTO formtemplate (formTopic,file,UploadDate,expDate,description) VALUES (?,?,?,?,?)",
    [formTopic,newfilename,UploadDate,expDate,description],(err,result)=>{
@@ -1199,8 +1082,78 @@ app.put('/activate-form', (req,res) => {
   });
 
 
-
-
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
+
+
+// Upload Endpoint
+// app.post('/upload', (req, res) => {
+//     if (req.files === null) {
+//       return res.status(400).json({ msg: 'No file uploaded' });
+//     }
+  
+//     const file = req.files.file;
+  
+//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
+//       if (err) {    
+//         console.error(err);
+//         return res.status(500).send(err);
+//       }
+  
+//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+//     });
+//   });
+
+//register villager
+// app.post('/RegisterVillager',(req,res)=>{
+//     console.log(req.body)
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
+
+//     db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("values inserted");
+//         }
+//     })  
+// });
+// //view villagers
+// app.get('/ViewVillager',(req,res)=>{
+//     db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  }     
+//     });
+// });
+// app.put('/add-app-booking', (req,res) => {
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
+//     console.log("reach")
+//     console.log(req.body)
+
+//     db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
+//     (err, result) => {
+
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+// });
+

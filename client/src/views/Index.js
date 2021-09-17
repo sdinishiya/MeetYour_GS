@@ -260,7 +260,7 @@ export default function Landing() {
                       </Link>
                     </li>
                     <li className="py-2">
-                      <Link to="/Pages/Projectpage" className="font-bold flex items-center">
+                      <Link to="/UserFutureProject" className="font-bold flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-lightBlue-600 bg-lightBlue-200 mr-3">
                             <i className="far fa-paper-plane"></i>

@@ -416,14 +416,14 @@ export default function LogLanding() {
                   Interested in our projects and our community? 
                   Lend a helping hand for the small scale businesses and new inventions by making a generous donation.  
                 </p>
-                <Link to="/Pages/Donationpage" className="font-bold text-blueGray-700 mt-8">
+                <Link to="/donate2" className="font-bold text-blueGray-700 mt-8">
                   Click to Make Donation
                 </Link>
               </div>
 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
                 <br/><br/><br/>
-              <Link to="/pages/Donationpage" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+              <Link to="/donate2" className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
                 <img
                   alt="..."
                   className="max-w-full rounded-lg"
