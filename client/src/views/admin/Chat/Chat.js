@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 
 export const Chat = () => {
 
-    const projectId = "3c0a086f-ebac-4ee0-9459-ea389f5f06c4";
+    const projectId = "83edbfe4-df5e-4b60-b2fb-6e3809e25c89";
     const user = useSelector((state) => state.authReducer);
 
     return(
