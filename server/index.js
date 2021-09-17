@@ -897,94 +897,7 @@ app.put('/active-notice', (req,res) => {
   });
 
   //General Message
-app.post('/addsms',(req,res)=>{
-    console.log(req.body)
-    const topic = req.body.topic;
-    const description = req.body.description;
-    const uploadDate = req.body.uploadDate;
-    const expDate = req.body.expDate;
-    const status= "Not-Sent"
 
-    db.query("INSERT INTO sms (topic,description,uploadDate,expDate,status) VALUES (?,?,?,?,?)",
-    [topic,description,uploadDate,expDate,status],(err,result)=>{
-		if(err){
-            console.log(err);
-            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
-        } else{
-            res.send("{'message': 'success'}");
-        }
-    })
-});
-
-app.get('/smsview',(req,res)=>{
-    db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-        res.status(500).send(JSON.parse("{'status': 'Failed'}"));
-	  } else {
-        res.send(result)
-	  } 
-        
-    });
-});
-
-
-app.get('/allsmsview',(req,res)=>{
-    db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  } 
-        
-    });
-});
-
-//send
-app.post('/send-sms', (req, res) => {
-    console.log(req.body)
-    const MID = "11111"
-    const SID = "943454353198"
-    const to_number = req.body.to;
-    const message = req.body.message;
-
-    axios.post("https://www.textit.biz/sendmsg", null, {
-        params: {
-            id: SID,
-            pw: MID,
-            to: to_number,
-            text: message
-        }
-    }).then(response => {
-        if (response.statusText === "OK") {
-            let resp = {
-                status: "success",
-                data: response.data
-            }
-            res.status(200).send(JSON.parse(resp))
-        }
-    }).catch(err => {
-        console.log(err);
-        res.status(500).send(JSON.parse("{'status': 'Failed'}"));
-    })
-
-});
-
-app.get('/get-booking-data',(req,res)=>{
-    const filter = req.query.filter;
-
-    db.query("SELECT phone FROM bookings WHERE book_status = ?",[filter],(err,result,) => {
-        if(err) {
-            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
-	  } else {
-          let tmp = [];
-          result.forEach(entry => {
-            tmp.push(entry.phone)
-          })
-        res.status(200).send(tmp)
-	  } 
-    });
-});
 
 
 app.post('/addnewforum' , (req , res)=>{
@@ -1142,140 +1055,6 @@ app.put('/activate-form', (req,res) => {
     );
   });
 
-// projects
-app.post('/add_projects', (req, res)=> {
-
-	const type = req.body.type
-	const title = req.body.title
-	const date = req.body.date
-	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
-	const intro = req.body.intro
-	const read_more = req.body.read_more
- 
-	
-	db.query
-	("INSERT INTO projects (type, title, date, image, intro, read_more) VALUES (?,?,?,?,?,?)", 
-	[type, title, date, image, intro, read_more], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-app.put('/update_project/:id', (req, res)=> {
-	var id=req.params.id;
-	
-	const type = req.body.type
-	const title = req.body.title
-	const date = req.body.date
-	const image = "https://i.ytimg.com/vi/vS2erx7P_kA/maxresdefault.jpg"
-	const intro = req.body.intro
-	const read_more = req.body.read_more
-	db.query
-	("UPDATE projects SET type=?, title=?, date=?, image=?, intro=?, read_more=? where project_id = ?", 
-	[type, title, date, image, intro, read_more,id], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-
-app.get('/get_future_projects', (req, res)=> {
-
-	db.query
-	("SELECT * FROM projects where type = ? and status='active'", 
-	["future_project"], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-
-app.put('/delete_project/:id', (req, res)=> {
-	var id=req.params.id;
-	db.query
-	("UPDATE projects SET status='inactive' where project_id = ?", 
-	[id], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-
-app.get('/getproject/:id', (req, res)=> {
-	var id=req.params.id;
-	db.query
-	("SELECT * from projects where project_id = ?", 
-	[id], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-
-
-app.get('/get_present_projects', (req, res)=> {
-
-	db.query
-	("SELECT * FROM projects where type = ? and status='active'", 
-	["present_project"], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-app.get('/get_past_projects', (req, res)=> {
-
-	db.query
-	("SELECT * FROM projects where type = ? and status='active'", 
-	["past_project"], 
-	(err, result)=> {
-		if(err){
-			console.log(err);
-			res.send(400, { response: 'Data Error ' });
-		}
-		else{
-			res.send(200, result);
-			// res.send(200, { response: 'Project added Sucessfully!!' });
-		}
-	})	
-});
-
-
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
@@ -1300,53 +1079,53 @@ app.listen(3001, () => {
 //   });
 
 //register villager
-app.post('/RegisterVillager',(req,res)=>{
-    console.log(req.body)
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
+// app.post('/RegisterVillager',(req,res)=>{
+//     console.log(req.body)
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
 
-    db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
-        if(err){
-            console.log(err);
-        } else{
-            res.send("values inserted");
-        }
-    })  
-});
-//view villagers
-app.get('/ViewVillager',(req,res)=>{
-    db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
-        if(err) {
-		console.log(err)
-	  } else {
-        res.send(result)
-	  }     
-    });
-});
-app.put('/add-app-booking', (req,res) => {
-    const villagerID = req.body.villagerID;
-    const villagerName = req.body.villagerName;
-    const villagerTel = req.body.villagerTel;
-    const villagerNIC = req.body.villagerNIC;
-    const villagerAdd = req.body.villagerAdd;
-    const villagerEmail = req.body.villagerEmail;
-    console.log("reach")
-    console.log(req.body)
+//     db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
+//         if(err){
+//             console.log(err);
+//         } else{
+//             res.send("values inserted");
+//         }
+//     })  
+// });
+// //view villagers
+// app.get('/ViewVillager',(req,res)=>{
+//     db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+// 	  } else {
+//         res.send(result)
+// 	  }     
+//     });
+// });
+// app.put('/add-app-booking', (req,res) => {
+//     const villagerID = req.body.villagerID;
+//     const villagerName = req.body.villagerName;
+//     const villagerTel = req.body.villagerTel;
+//     const villagerNIC = req.body.villagerNIC;
+//     const villagerAdd = req.body.villagerAdd;
+//     const villagerEmail = req.body.villagerEmail;
+//     console.log("reach")
+//     console.log(req.body)
 
-    db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
-    [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
-    (err, result) => {
+//     db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
+//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
+//     (err, result) => {
 
-        if (err) {
-            console.log(err);
-        } else {
-            res.send(result);
-        }
-       }
-    );
-});
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+// });
