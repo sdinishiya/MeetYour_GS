@@ -85,8 +85,8 @@ const Routes = () => {
                 <ProtectedRoute path={NAVIGATION_ROUTES.auth} component={Auth} />
                 {/* add routes without layouts */}
                 <Route path={NAVIGATION_ROUTES.landing} exact component={Landing} />
-                <AuthRoute path={NAVIGATION_ROUTES.login} exact component={LogLanding} />
-                <AuthRoute path={NAVIGATION_ROUTES.logLanding} exact component={Profile} />
+                <AuthRoute path={NAVIGATION_ROUTES.logLanding} exact component={LogLanding} />
+                <AuthRoute path={NAVIGATION_ROUTES.Guestprofile} exact component={Profile} />
                 {/*<AuthRoute path={NAVIGATION_ROUTES.complaints} exact component={ComplaintsController} />*/}
                 <Route path="/" exact component={Landing} />
                 {/* add redirect for first page */}
