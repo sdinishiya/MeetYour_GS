@@ -1,29 +1,38 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
+import { PropTypes, props } from "prop-types";
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Navbarloglanding from "components/Navbars/Navbarlanding";
 import UserHeader from "components/Headers/UserHeader.js";
 import axios from 'axios';
-import props from 'prop-types';
+//import Box from '@mui/material/Box';
+//import TreeView from '@mui/lab/TreeView';
+//import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+//import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+//import TreeItem from '@mui/lab/TreeItem';
+//import TrapFocus from '@mui/material/Unstable_TrapFocus';
 
 // components
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
+import { SettingsPowerRounded } from "@material-ui/icons";
 
 export default function ForumTable({ color }) {
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [forums, setforums] = useState([]);
   const [forumID, setID] = useState("");
   const [topic, setTopic] = useState("");
   const [description, setDescription] = useState("");
   const [uploadDate, setUploadDate] = useState("");
   const [confirm, setConfirm] = useState("");
   const [active_status, setStatus] = useState("");
+
+  const [open, setOpen] = React.useState(false);
+
   const history = useHistory();
   // const classes = useStyles();
 
+  const [forums, setforums] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3001/forumview").then((response) => {
@@ -53,10 +62,10 @@ export default function ForumTable({ color }) {
   return (
     <>
 
-    <Navbarloglanding transparent />
+      <Navbarloglanding transparent />
 
       <UserHeader />
-      
+
       <section>
 
         <div className="container px-6 mx-auto">
@@ -165,29 +174,61 @@ export default function ForumTable({ color }) {
 
             <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+                {forums.map((viewApp) => {
+                  <blockquote className="relative p-8 mb-4">
 
-                <blockquote className="relative p-8 mb-4">
+                    <h4 className="text-xl font-bold text-white">
+                      {viewApp.topic}
+                    </h4>
+                    <p className="text-md font-light mt-2 text-white">
+                      {viewApp.message}
+                    </p>
+                    <br /><button onClick={() => SettingsPowerRounded(true)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        Reply
+                      </button>
+                    {/* <box>
+                      {open && (
+                        <TrapFocus open>
+                          <Box tabIndex={-1} sx={{ mt: 1, p: 1 }}>
+                            <label>
+                              Enter your comment : <input type="text" />
+                            </label>
+                            <br />
+                            <button type="button" onClick={() => setOpen(false)}>
+                              Close
+                            </button>
+                          </Box>
+                        </TrapFocus>
+                      )}
+                    </box> */}
 
-                  <h4 className="text-xl font-bold text-white">
-                    Topic 1
-                  </h4>
-                  <p className="text-md font-light mt-2 text-white">
-                    In need of resource materials for your on-going projects or inventions?
-                    We are here to provide and facilitate your small scale businesses.
-                  </p>
-                  <br />
-                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Reply
-                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Report
-                  </button>
-                </blockquote>
+
+                    <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                      Report
+                    </button>
+
+                    {/* <TreeView aria-label="comments" defaultCollapseIcon={<ExpandMoreIcon />} defaultExpandIcon={<ChevronRightIcon />}
+                      sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                    >
+                      <TreeItem nodeId="1" label="Comments">
+                        <TreeItem nodeId="2" label="Comments" />
+                      </TreeItem>
+                    </TreeView> */}
+
+                  </blockquote>
+
+                })
+
+
+                }
+
+
 
               </div>
 
             </div>
 
-            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+            {/* <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
 
                 <blockquote className="relative p-8 mb-4">
@@ -233,7 +274,7 @@ export default function ForumTable({ color }) {
 
               </div>
 
-            </div>
+            </div> */}
           </div>
         </div>
       </section>

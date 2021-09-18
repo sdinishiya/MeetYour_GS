@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
 import Navbarloglanding from "components/Navbars/Navbarlanding";
 import UserHeader from "components/Headers/UserHeader.js";
 import axios from 'axios';
@@ -43,11 +43,10 @@ export default function ForumTable({ color }) {
 
     }).then(() => {
       console.log("success");
+      alert("Message is sent");
+      history.push("/ForumView");
 
     });
-
-    alert(" Added successfully ");
-    history.push("/ForumView");
   };
 
   return (

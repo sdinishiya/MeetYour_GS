@@ -104,17 +104,17 @@ export default function Index() {
               </div>
 
              
-            <span
+            {/* <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
+            ></span> */}
           </div>
-          <div className="container relative mx-auto">
+          {/* <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                      MEET YOUR GS
+                      MEET YOUR GS2
                   </h1>
                   <br/>
                   <h3 className="text-white font-semibold text-2xl">
@@ -126,7 +126,7 @@ export default function Index() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
             style={{ transform: "translateZ(0)" }}

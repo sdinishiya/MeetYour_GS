@@ -26,10 +26,11 @@ app.use(cors());
 
 //var req = require("./node_modules/req/node_modules/request");
 const db = mysql.createConnection({
-	user: "root",
-	host: "localhost",
-	password: "root",
+	user: "admin",
+	host: "mysql-50185-0.cloudclusters.net",
+	password: "Transformers3",
 	database: "meetyourgs",
+    port: "18589"
 });
 
 db.connect((err)=>{
