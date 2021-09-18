@@ -1,23 +1,39 @@
 const mysql = require('mysql');
 const mysql2 = require('mysql2');
 
-// create the pool
-const pool = mysql2.createPool({
-    user: "root",
-    host: "localhost",
-    password: '',
-    database: "meetyourgs",
-    // port: "3308",
-
-})
-
 const db = mysql.createConnection({
-    user: "root",
-    host: "localhost",
-    password: '',
+    user: "admin",
+    host: "mysql-50744-0.cloudclusters.net",
+    password: 'rIFIsJCa',
     database: "meetyourgs",
-    // port: "3308",
+    port: "17158"
 });
+
+const pool = mysql2.createPool({
+    user: "admin",
+    host: "mysql-50744-0.cloudclusters.net",
+    password: 'rIFIsJCa',
+    database: "meetyourgs",
+    port: "17158"
+});
+
+// create the pool
+// const pool = mysql2.createPool({
+//     user: "root",
+//     host: "localhost",
+//     password: '',
+//     database: "meetyourgs",
+//     // port: "3308",
+
+// })
+
+// const db = mysql.createConnection({
+//     user: "root",
+//     host: "localhost",
+//     password: '',
+//     database: "meetyourgs",
+//     // port: "3308",
+// });
 
 db.connect(function(err) {
     if (err) {
