@@ -1011,22 +1011,21 @@ let uploadPath;
 });
 
 //download form
-app.get('/download', function(req, res){
+// app.get('/download', function(req, res){
 
-let sampleFile;
-let dwnloadPath;
+// let sampleFile;
+// let dwnloadPath;
 
-  const randomfilenum = Math.floor(Math.random()*1000000);
-  sampleFile = req.files.file;
-  const newfilename = randomfilenum.toString() +sampleFile.name;
+//   const randomfilenum = Math.floor(Math.random()*1000000);
+//   sampleFile = req.files.file;
+//   const newfilename = randomfilenum.toString() +sampleFile.name;
 
-  dwnloadPath = __dirname + '/public/forms/' + newfilename
+//   dwnloadPath = __dirname + '/public/forms/' + newfilename
 
-    var fileDownload = require('js-file-download');
-    fileDownload(dwnloadPath, 'filename.pdf');
+    
  
-    res.download(dwnloadPath, newfilename.pdf); 
-  });
+//     res.download(dwnloadPath, newfilename.pdf); 
+//   });
 
 
 //formview
@@ -1230,75 +1229,3 @@ app.get('/get_past_projects', (req, res)=> {
 app.listen(3001, () => {
 	console.log("running on port 3001");
 });
-
-
-// Upload Endpoint
-// app.post('/upload', (req, res) => {
-//     if (req.files === null) {
-//       return res.status(400).json({ msg: 'No file uploaded' });
-//     }
-  
-//     const file = req.files.file;
-  
-//     file.mv(`${__dirname}/client/src/assets/img/${file.name}`, err => {
-//       if (err) {    
-//         console.error(err);
-//         return res.status(500).send(err);
-//       }
-  
-//       res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
-//     });
-//   });
-
-//register villager
-// app.post('/RegisterVillager',(req,res)=>{
-//     console.log(req.body)
-//     const villagerID = req.body.villagerID;
-//     const villagerName = req.body.villagerName;
-//     const villagerTel = req.body.villagerTel;
-//     const villagerNIC = req.body.villagerNIC;
-//     const villagerAdd = req.body.villagerAdd;
-//     const villagerEmail = req.body.villagerEmail;
-
-//     db.query("INSERT INTO villager (villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail) VALUES (?,?,?,?,?,?)",
-//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail],(err,result)=>{
-//         if(err){
-//             console.log(err);
-//         } else{
-//             res.send("values inserted");
-//         }
-//     })  
-// });
-// //view villagers
-// app.get('/ViewVillager',(req,res)=>{
-//     db.query("SELECT villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail FROM villager",(err,result,) => {
-//         if(err) {
-// 		console.log(err)
-// 	  } else {
-//         res.send(result)
-// 	  }     
-//     });
-// });
-// app.put('/add-app-booking', (req,res) => {
-//     const villagerID = req.body.villagerID;
-//     const villagerName = req.body.villagerName;
-//     const villagerTel = req.body.villagerTel;
-//     const villagerNIC = req.body.villagerNIC;
-//     const villagerAdd = req.body.villagerAdd;
-//     const villagerEmail = req.body.villagerEmail;
-//     console.log("reach")
-//     console.log(req.body)
-
-//     db.query("UPDATE villager SET villagerID=?,villagerName=?,villagerTel=?,villagerNIC=?, villagerAdd=?,villagerEmail=? WHERE villagerID = ?; ", 
-//     [villagerID,villagerName,villagerTel,villagerNIC,villagerAdd,villagerEmail, villagerID], 
-//     (err, result) => {
-
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             res.send(result);
-//         }
-//        }
-//     );
-// });
-

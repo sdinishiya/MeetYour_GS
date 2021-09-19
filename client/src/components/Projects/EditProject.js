@@ -69,45 +69,21 @@ export default function EditProjects() {
   const [readMore, setreadMore] = useState('');
   const history = useHistory();
 
-  useEffect(() => {
-    const fetchData = async () => {
-        const response = await axios.get('http://localhost:3001/getproject', {
-            params: {
-                id:id,
-            }
-        });
-        // setRow(response.data[0]);
-        settitle(response.data[0].title);
-        setdate(response.data[0].date);
-        setintro(response.data[0].intro);
-        setreadMore(response.data[0].read_more);
-        settype(response.data[0].type);
-        console.log(response.data[0].title);
-    };
-    fetchData();
-}, []);
 
+ useEffect(()=>{
+  axios.get(`http://localhost:3001/getproject/${id}`)
+  .then(function (response) {
+     // handle success
+      settitle(response.data[0].title);
+      setdate(response.data[0].date);
+      setintro(response.data[0].intro);
+      setreadMore(response.data[0].read_more);
+      settype(response.data[0].type);
+      console.log(response.data);
+      console.log(id);
+  })
+ },[])
 
-//  useEffect(()=>{
-//   axios.get(`http://localhost:3001/getproject/${id}`),
-//   {
-//     params: {
-//      id:id,
-//   }
-
-//   }
-//   .then(function (response) {
-
-//       // handle success
-//       // console.log(response.data[0]);
-//       settitle(response.data[0].title);
-//       setdate(response.data[0].date);
-//       setintro(response.data[0].intro);
-//       setreadMore(response.data[0].read_more);
-//       settype(response.data[0].type);
-//       console.log(response.data[0].title);
-//   })
-//  },[])
 
   function submit(event){
     event.preventDefault();
@@ -160,7 +136,7 @@ export default function EditProjects() {
                     </h1>
                      
                     <div className="relative w-full mb-3 mt-8">
-                    <labe className="block uppercase text-blueGray-600 text-xs font-bold mb-2">Project Type</labe> 
+                    <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">Project Type</label> 
                     <FormControl className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" >
                         <Select
                             labelId="demo-controlled-open-select-label"
@@ -186,6 +162,7 @@ export default function EditProjects() {
                         Project Title
                       </label>
                       <input type="text"
+                        value={title}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="Donor Name" onChange={(event)=>{settitle(event.target.value);}} 
                         required
@@ -197,6 +174,7 @@ export default function EditProjects() {
                         Date
                       </label>
                       <input type="date"
+                        value={date}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="Date" onChange={(event)=>{setdate(event.target.value);}} 
                         required
@@ -224,6 +202,7 @@ export default function EditProjects() {
                         Project Introduction
                       </label>
                       <input type="text"
+                        value={intro}
                         className=" multiline maxRows={6} border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="Introduction" onChange={(event)=>{setintro(event.target.value);}} 
                         required
@@ -235,6 +214,7 @@ export default function EditProjects() {
                         Read More
                       </label>
                       <input type="text"
+                        value={readMore}
                         className=" multiline maxRows={6} border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         name="Read More" onChange={(event)=>{setreadMore(event.target.value);}} 
                         required

@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
+
 // components
 import ProjectNavbar from "components/Navbars/Users/Projects/ProjectNavbar.js";
 import ProjectHeader from "components/Projects/ProjectHeader.js";
@@ -65,7 +66,10 @@ export default function AddProjects() {
     const [title, settitle] = useState('');
     const [date, setdate] = useState('');
     const [intro, setintro] = useState('');
+    const [image, setimage] = useState('');
     const [readMore, setreadMore] = useState('');
+    const history = useHistory();
+
   
     function submit(event){
       event.preventDefault();
@@ -73,6 +77,7 @@ export default function AddProjects() {
           "type":type,
           "title":title,
           "date":date,
+          "image":image,
           "intro":intro,
           "read_more":readMore, 
         })
@@ -83,14 +88,15 @@ export default function AddProjects() {
             settitle("");
             setdate("");
             setintro("");
+            image("");
             setreadMore("");
             settype("");
   
         })
         .catch(function (error) {
             // handle error
-            // alert("error!!!!");
-            alert(error.response.data.response);
+            //alert("error!!!!");
+           // alert(error.response.data.response);
         })
         .then(function () {
             // always executed
@@ -165,16 +171,17 @@ export default function AddProjects() {
                     </div>
                         <br/>
                     <div className={classes.root}>
-                        <input
+                    <input
                             accept="image/*"
                             className={classes.input}
                             id="upload-proj-picture"
-                            multiple
-                            type="file"
+                            multiple type="file"
                         />
+                       
                         <label htmlFor="upload-proj-picture">
-                            <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                type="submit" >
+
+                       <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                                >
                                 Upload Project image
                             </button> 
                         </label>
@@ -205,13 +212,16 @@ export default function AddProjects() {
                     <box>
                     <div className="text-center mt-6">
                       {/* <button type="submit" onClick={add_fund} id="submitBtn"style={mystyle.submitBtn}> Add</button> */}
+                      <Link to = '/PresentProjects'>
                       <button
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
                         onClick={submit}>
                           ADD 
                       </button>
-                      <Link to = '/PresentProjects'>
+                      </Link>
+
+                      <Link to = '/AddProjects'>
                       <button
                         className="bg-red-100 text-white active:bg-red-100 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"> 

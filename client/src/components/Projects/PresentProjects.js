@@ -93,13 +93,13 @@ function getpresent(){
                             On Going Projects
                             <br/> <br/>
                           </h3>
-                          <p><h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h3></p> 
+                          <p><h3>Udapalatha Gramasewaka Niladhari office has taken its steps to ensure the welfare of the locality in terms of person wellbeing as well as small scale local business support.
+                            Take a look at the on going projects that are undertaken by the Udapalatha Pradeshiya Wasama.</h3></p> 
                              <br/>
                              <Grid container spacing={2} className="m-5">
                               {present.map(project=> <Grid item xs={12} lg={3}>
                                 <ProjectReviewCard1 edit={edit} setedit={setedit} title={project.title} id={project.project_id} subheader={project.date} image={PresentProject1} description={project.intro}
-                                      hovertitle='Build a School'/>
+                                   readMore={project.read_more} hovertitle={project.title}/> 
                                   </Grid>
                                )}
                              </Grid>
