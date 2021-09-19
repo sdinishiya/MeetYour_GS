@@ -47,9 +47,9 @@ export default function AddForm() {
            console.log("success");
 
          });
-
+         
          alert(" Added Successfully ");
-        history.push("/FormTemplate/AddForms");
+        history.push("/AddForms");
     };
   return (
     <>

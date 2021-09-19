@@ -8,17 +8,10 @@ const routes = require('./routes')
 const axios = require("axios")
 const {db} = require('./config/db.config')
 
-
-//const axios = require("axios");
 const TXT_UID= "94711655166";
 const TXT_PW= "9411";
 
-
-// const fileUpload = require('express-fileupload');
-
-// const { response } = require('express');
-// const path = require('path');
-// const { name } = require('ejs');
+const fileUpload = require('express-fileupload');
 const bodyParser =  require('body-parser')
 // const ejs = require ('ejs');
 // const socketio = require('socket.io')
@@ -820,9 +813,6 @@ app.put('/edit-donations', (req,res) => {
   });
 
 
-
-
-
 //notice
 app.post('/addnotice',(req,res)=>{
     console.log(req.body)
@@ -905,7 +895,167 @@ app.put('/active-notice', (req,res) => {
     );
   });
 
-  //General Message
+
+
+
+//new
+//SMS General Message
+  app.post('/addsms',(req,res)=>{
+    console.log(req.body)
+    const topic = req.body.topic;
+    const description = req.body.description;
+    const uploadDate = req.body.uploadDate;
+    const expDate = req.body.expDate;
+    const status= "Not-Sent"
+
+    db.query("INSERT INTO sms (topic,description,uploadDate,expDate,status) VALUES (?,?,?,?,?)",
+    [topic,description,uploadDate,expDate,status],(err,result)=>{
+		if(err){
+            console.log(err);
+            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+        } else{
+            res.send("{'message': 'success'}");
+        }
+    })
+});
+
+// app.get('/smsview',(req,res)=>{
+//     db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
+//         if(err) {
+// 		console.log(err)
+//         res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+// 	  } else {
+//         res.send(result)
+// 	  } 
+
+//     });
+// });
+
+
+// app.get('/allsmsview',(req,res)=>{
+//     db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
+//         if(err) {
+// 	@@ -938,24 +941,50 @@ app.get('/allsmsview',(req,res)=>{
+// });
+
+//send
+app.post('/send-sms', (req, res) => {
+
+    console.log(req.body)
+    // const MID = "1357"
+    // const SID = "94771655198"
+    const MID = "9411"
+    const SID = "94711655166"
+    const to_number = req.body.to;
+    const message = req.body.message;
+
+    axios.post("https://www.textit.biz/sendmsg", null, {
+        params: {
+            id: SID,
+            pw: MID,
+            to: to_number,
+            text: message
+        }
+    }).then(response => {
+        if (response.statusText === "OK") {
+            let resp = {
+                status: "success",
+                data: response.data
+            }
+            res.status(200).send(JSON.parse(resp))
+        }
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+    })
+
+});
+
+app.get('/get-booking-data',(req,res)=>{
+    const filter = req.query.filter;
+
+    db.query("SELECT phone FROM bookings WHERE book_status = ?",[filter],(err,result,) => {
+        if(err) {
+            res.status(500).send(JSON.parse("{'status': 'Failed'}"));
+	  } else {
+          let tmp = [];
+          result.forEach(entry => {
+            tmp.push(entry.phone)
+          })
+        res.status(200).send(tmp)
+	  } 
+    });
+});
+
+//old
+//General Message
+//   app.post('/addsms',(req,res)=>{
+//     console.log(req.body)
+//     const smsID = req.body.smsID;
+//     const topic = req.body.topic;
+//     const description = req.body.description; 
+//     const uploadDate = req.body.uploadDate;
+//     const expDate = req.body.expDate; 
+//     const status = req.body.status;  
+//     let initial_result = "";
+//     let sending_arr = [];
+//     db.query("INSERT INTO sms (topic,description,uploadDate,expDate) VALUES (?,?,?,?)",
+//     [topic,description,uploadDate,expDate],(err,result)=>{
+// 		if(err){
+//         res.status(500).send('{"message":"Something WEnt Wrong"}');
+//         return result;
+//         }
+//         //  else{
+//         //     res.send("values inserted");
+//         //     let requesturl = "https://www.textit.biz/sendmsg?id="+TXT_UID+"&pw="+TXT_PW+"&to=0740131770&text=Hello+World"
+//         // }
+    
+//     }).then(response => {/*  */
+//         console.log(response)
+//         res.send(response)
+//     })
+// });
+
+app.get('/smsview',(req,res)=>{
+    db.query("SELECT  * FROM sms WHERE status = 'Sent' ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+app.get('/allsmsview',(req,res)=>{
+    db.query("SELECT * FROM sms ORDER BY uploadDate ASC",(err,result,) => {
+        if(err) {
+		console.log(err)
+	  } else {
+        res.send(result)
+	  } 
+        
+    });
+});
+
+//send
+// app.put('/send-sms', (req,res) => {
+//     const smsID = req.body.smsID;
+//     const status = req.body.status;
+
+//     console.log(req.body)
+
+//     db.query("UPDATE sms SET status='Sent' WHERE smsID = ?; ", 
+//     [smsID], 
+//     (err, result) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             res.send(result);
+//         }
+//        }
+//     );
+//   });
+
 
 
 //forumDiscussion
@@ -980,8 +1130,6 @@ let uploadPath;
 
   uploadPath = __dirname + '/public/forms/' + newfilename
 
-  // Use the mv() method to place the file somewhere on your server
-  
   // Use the mv() method to move the file in the server
 
   sampleFile.mv(uploadPath, function(err) {
@@ -1001,22 +1149,23 @@ let uploadPath;
 });
 
 //download form
-// app.get('/download', function(req, res){
-
-// let sampleFile;
-// let dwnloadPath;
-
-//   const randomfilenum = Math.floor(Math.random()*1000000);
-//   sampleFile = req.files.file;
-//   const newfilename = randomfilenum.toString() +sampleFile.name;
-
-//   dwnloadPath = __dirname + '/public/forms/' + newfilename
-
+app.get('/download', function(req, res){
+    const rowID = req.query.id
+    console.log(rowID)
+    const filename = db.query(`SELECT file FROM formtemplate WHERE formID = "${rowID}"`,(err,result)=>{
+    console.log(result[0].file);
     
+    
+        if(err){
+            console.log(err);
+        }else{
+            const filepath = `${__dirname}/public/forms/${result[0].file}`;
+            console.log(filepath);
+            res.download(filepath);
+        }
+    });
  
-//     res.download(dwnloadPath, newfilename.pdf); 
-//   });
-
+  });
 
 //formview
 app.get('/formView',(req,res)=>{

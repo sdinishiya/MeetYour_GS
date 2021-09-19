@@ -14,7 +14,7 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 // import Finance from "views/admin/Finance.js";
-import Notice from "views/admin/Notice.js";
+
 import Forum from "views/admin/Forum.js"
 import {NAVIGATION_ROUTES} from "../navigation/constant/NavigationRoutes";
 import {ComplaintsController} from "../views/admin/Complaints/controller/ComplaintsController";
@@ -34,7 +34,7 @@ export default function Admin() {
             <Route path="/admin/settings" exact component={Settings} />
             <Route path="/admin/tables" exact component={Tables} />
             {/* <Route path="/admin/Finance" exact component={Finance} /> */}
-            <Route path="/admin/Notice" exact component={Notice} />
+            
             <Route path="/admin/Forum" exact component={Forum} />
             {/* <Route path="/Finance/ViewPettycash" exact component={PettyCash} /> */}
             <Route path={NAVIGATION_ROUTES.complaints} exact component={ComplaintsController} />

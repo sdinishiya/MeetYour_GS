@@ -4,30 +4,38 @@ import Auth from "../layouts/Auth";
 import Landing from "../views/Landing";
 import LogLanding from "../views/Loglanding";
 import Profile from "../views/Profile";
+//appointment 
 import ViewScheduled from "../components/Appointment/ViewScheduled";
 import Schedule from "../components/Appointment/schedule";
 import ViewRequests from "../components/Appointment/ViewRequests";
 import ViewConfirmed from "../components/Appointment/ViewConfirmed";
 import UserView from "../components/Appointment/UserView";
 import UserBooking from "../components/Appointment/UserBooking";
+//notice
+import Notice from "views/admin/Notice.js";
 import AddNotice from "../components/Notice/AddNotice";
 import NoticeTable from "../components/Notice/noticeView";
 import AllNotice from "../components/Notice/AllNoticeView";
+//message
 import AddMessage from "../components/Notice/AddMessage";
 import MessageView from "../components/Notice/MessageView";
 import AllMessageView from "../components/Notice/AllMessageView";
+//finance
 import Receive from "../components/Finance/CashReceive";
 import Expense from "../components/Finance/AddExpenses";
 import PettyCash from "../components/Finance/ViewPettycash";
+//forum
 import AddForum from "../components/Forum/AddForum";
 import AddNewForum from "../components/Forum/AddNewForum";
 import ForumTable from "../components/Forum/ForumView";
 import ForumView from "../components/Pages/Formpage";
+//fund
 import Fund from "../components/Finance/ViewFund";
 import ReceivedFund from "../components/Finance/AddReceivedfund";
 import AllocateFund from "../components/Finance/AllocateFund";
 import Donation from "../components/Finance/ViewDonation";
 import AddDonation from "../components/Finance/AddDonation";
+//materials
 import ConstMaterial from "../components/Material/ConstMaterial";
 import AddnewconstMaterial from "../components/Material/AddnewconstMaterial";
 import AddconstMaterial from "../components/Material/AddconstMaterial";
@@ -48,6 +56,7 @@ import Agri from "../components/Material/Users/Agri";
 import Other from "../components/Material/Users/Other";
 import CardPageVisitsCheck from "../components/Cards/CardPageVisitsCheck";
 import React from "react";
+
 import {NAVIGATION_ROUTES} from "./constant/NavigationRoutes";
 import {AuthRoute} from "./route/AuthRoute";
 import {ProtectedRoute} from "./route/ProtectedRoute";
@@ -56,10 +65,12 @@ import {AddPeople} from "../views/admin/People/components/AddPeople";
 import {VotersList} from "../views/admin/People/VotersList";
 import {Chat} from "../views/admin/Chat/Chat";
 import {ComplaintsController} from "../views/admin/Complaints/controller/ComplaintsController";
+//formtemplate
 import AddForm from "../components/FormTemplate/AddForms";
 import FormTemplateView from "../components/FormTemplate/FormTemplateView";
 import ActiveForms from "../components/FormTemplate/ActiveForms";
 import UserFormView from "../components/FormTemplate/UserFormView";
+//donate
 import Donate2 from "../components/Donation/donate2";
 
 
@@ -111,6 +122,7 @@ const Routes = () => {
                 <Route path="/UserFormView"  component={UserFormView} />
 
                 {/* Notices */}
+                <Route path="/admin/Notice" exact component={Notice} />
                 <AuthRoute path="/AddNotice"  component={AddNotice} />
                 <AuthRoute path="/noticeView"  component={NoticeTable} />
                 <AuthRoute path="/AllNoticeView"  component={AllNotice} />
@@ -179,8 +191,6 @@ const Routes = () => {
                     <Route path="/UserFutureProject" component={UserFutureProject}/>
                     <Route path="/UserPresentProject" component={UserPresentProject}/>
                     <Route path="/UserPastProject" component={UserPastProject}/>
-
-                
 
 
                 <AuthRoute path="/CardPageVisitsCheck" component={CardPageVisitsCheck}/>

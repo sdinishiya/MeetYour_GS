@@ -175,7 +175,8 @@ export default function Login() {
                   onClick={(e) => e.preventDefault()}
                   className="text-blueGray-200"
                 >
-                  <small>Forgot password?</small>
+                  {/* <small>Forgot password?</small> */}
+                  <small>Don't Have an Account?</small>
                 </a>
               </div>
               <div className="w-1/2 text-right">
