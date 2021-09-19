@@ -32,9 +32,9 @@ export default function LogLanding() {
             }}
           >
             <span
-              id="blackOverlay"
-              className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
+    id="blackOverlay"
+    className="w-full h-full absolute opacity-75 bg-black"
+    />
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">

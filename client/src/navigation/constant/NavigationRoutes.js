@@ -12,7 +12,8 @@ export const NAVIGATION_ROUTES = {
     addPeople: "/addPeople",
     votersList: "/votersList",
     chat: "/chat",
-    complaints: "/admin/complaints",
+    complaints: "/complaints",
+    notification: "/notifications",
 
     auth: "/auth",
     register: "/auth/register",
@@ -21,4 +22,5 @@ export const NAVIGATION_ROUTES = {
     landing: "/landing",
     logLanding: "/logLanding",
     profile: "/profile",
+    clientProfile: "/clientProfile",
 }

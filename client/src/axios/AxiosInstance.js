@@ -15,7 +15,9 @@ export const BACKEND_API = {
     ADD_PEOPLE: BASE_URL + "/people/",
     GET_VOTERS: BASE_URL + "/people/getVoters",
     GET_COMPLAINTS: BASE_URL + "/complaint",
-
+    UPDATE_USER: BASE_URL + "/user/updateUser",
+    UPLOAD_IMAGE: BASE_URL + "/user/imageUpload",
+    NOTIFICATIONS: BASE_URL + "/notification/"
 }
 
 

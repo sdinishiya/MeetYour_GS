@@ -25,12 +25,12 @@ db.connect(function(err) {
     console.log('connected as id ' + db.threadId);
 });
 
-// const pool = mysql.createPool({
+// const pool = mysql2.createPool({
 //     user: "admin",
-//     host: "mysql-49357-0.cloudclusters.net",
-//     password: 'htRbbgjw',
-//     database: "G3",
-//     port: "14123"
+//     host: "mysql-50744-0.cloudclusters.net",
+//     password: 'rIFIsJCa',
+//     database: "meetyourgs",
+//     port: "17158"
 // });
 
 pool.getConnection((err) => {
@@ -38,7 +38,7 @@ pool.getConnection((err) => {
         console.log("database connection failed")
         console.log(err)
     }
-    else console.log("Connected to database")
+    else console.log("Connected to database mysql2 ")
 })
 
 // now get a Promise wrapped instance of that pool

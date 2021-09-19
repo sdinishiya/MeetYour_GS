@@ -37,7 +37,6 @@ export default function Admin() {
             <Route path="/admin/Notice" exact component={Notice} />
             <Route path="/admin/Forum" exact component={Forum} />
             {/* <Route path="/Finance/ViewPettycash" exact component={PettyCash} /> */}
-            <Route path={NAVIGATION_ROUTES.complaints} exact component={ComplaintsController} />
 
             <Redirect from="/admin" to="/admin/dashboard" />
           </Switch>

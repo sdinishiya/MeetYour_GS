@@ -380,7 +380,23 @@ CREATE TABLE `user` (
   `userType` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(12) NOT NULL,
-  `status` int(2) NOT NULL
+  `status` int(2) NOT NULL,
+  `userImage` varchar(9999) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notification`
+--
+
+CREATE TABLE `notification` (
+                        `notificationId` int(100) NOT NULL,
+                        `title` varchar(50) NOT NULL,
+                        `description` varchar(50) NOT NULL,
+                        `status` int(10) NOT NULL,
+                        `userID` int(10) ,
+                        `userType` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -392,6 +408,12 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `agrimaterial`
   ADD PRIMARY KEY (`materialid`);
+
+--
+-- Indexes for table `notification`
+--
+ALTER TABLE `notification`
+    ADD PRIMARY KEY (`notificationId`);
 
 --
 -- Indexes for table `appointment`
@@ -504,6 +526,12 @@ ALTER TABLE `agrimaterial`
 --
 ALTER TABLE `appointment`
   MODIFY `appID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+    MODIFY `notificationId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `complaint`

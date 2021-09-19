@@ -55,13 +55,14 @@ import {People} from "../views/admin/People/People";
 import {AddPeople} from "../views/admin/People/components/AddPeople";
 import {VotersList} from "../views/admin/People/VotersList";
 import {Chat} from "../views/admin/Chat/Chat";
-import {ComplaintsController} from "../views/admin/Complaints/controller/ComplaintsController";
 import AddForm from "../components/FormTemplate/AddForms";
 import FormTemplateView from "../components/FormTemplate/FormTemplateView";
 import ActiveForms from "../components/FormTemplate/ActiveForms";
 import UserFormView from "../components/FormTemplate/UserFormView";
 import Donate2 from "../components/Donation/donate2";
 import UpdateconstMaterial from "../components/Material/UpdateconstMaterial";
+import {NotificationController} from "../views/admin/Notification/controller/NotificationController";
+import {ComplaintsController} from "../views/admin/Complaints/controller/ComplaintsController";
 
 const Routes = () => {
     return(
@@ -70,10 +71,11 @@ const Routes = () => {
                 {/* add routes with layouts */}
                 <AuthRoute path={NAVIGATION_ROUTES.admin} component={Admin} />
                 <ProtectedRoute path={NAVIGATION_ROUTES.auth} component={Auth} />
+                <AuthRoute path={NAVIGATION_ROUTES.complaints} exact component={ComplaintsController} />
                 {/* add routes without layouts */}
                 <Route path={NAVIGATION_ROUTES.landing} exact component={Landing} />
-                <AuthRoute path={NAVIGATION_ROUTES.login} exact component={LogLanding} />
-                <AuthRoute path={NAVIGATION_ROUTES.logLanding} exact component={Profile} />
+                <AuthRoute path={NAVIGATION_ROUTES.logLanding} exact component={LogLanding} />
+                <AuthRoute path={NAVIGATION_ROUTES.clientProfile} exact component={Profile} />
                 {/*<AuthRoute path={NAVIGATION_ROUTES.complaints} exact component={ComplaintsController} />*/}
                 <Route path="/" exact component={Landing} />
                 {/* add redirect for first page */}
@@ -82,6 +84,7 @@ const Routes = () => {
                 <AuthRoute path={NAVIGATION_ROUTES.addPeople} exact component={AddPeople} />
                 <AuthRoute path={NAVIGATION_ROUTES.votersList} exact component={VotersList} />
                 <AuthRoute path={NAVIGATION_ROUTES.chat} exact component={Chat} />
+                <AuthRoute path={NAVIGATION_ROUTES.notification} exact component={NotificationController} />
 
                 {/* Appointment  */}
                 <AuthRoute path="/ViewScheduled"  component={ViewScheduled} />

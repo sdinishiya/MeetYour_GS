@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {USER_TYPES} from "constants/CommonConstants";
 import {axiosInstance, BACKEND_API} from "axios/AxiosInstance";
 import {useSnackbar} from "notistack";
+import {sendNotification} from "../../../../axios/CommonMethods";
 
 export const ComplaintsController = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -84,6 +85,8 @@ export const ComplaintsController = () => {
         }).finally(() => {
             setComplaintIsLoading(false);
         })
+
+        await sendNotification("A new complaint has been added", complaintDetails.topic, USER_TYPES.ADMIN)
     }
 
     const handleSaveFeedback = async () => {
@@ -93,7 +96,7 @@ export const ComplaintsController = () => {
             });
             return;
         }
-
+        const updatedData = tableData.find(item => item.complaintID === feedbackDetails.complaintId)
         setFeedbackIsLoading(true)
         await axiosInstance({
             method: 'PUT',
@@ -103,7 +106,6 @@ export const ComplaintsController = () => {
             enqueueSnackbar("Added Feedback", {
                 variant: 'success'
             });
-            const updatedData = tableData.find(item => item.complaintID === feedbackDetails.complaintId)
             setTableData([...tableData.filter(item => item.complaintID !== feedbackDetails.complaintId), {...updatedData, feedback: feedbackDetails.feedback}])
             setIsFeedbackDialogOpen(false);
         }).catch((error) => {
@@ -119,6 +121,9 @@ export const ComplaintsController = () => {
         }).finally(() => {
             setFeedbackIsLoading(false);
         })
+
+        await sendNotification("You have received a feedback from the ADMIN", feedbackDetails.feedback, USER_TYPES.CLIENT, updatedData.userID)
+
     }
 
     useEffect(() => {

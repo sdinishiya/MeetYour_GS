@@ -12,7 +12,8 @@ const userModel = {
         userType: "userType",
         email: "email",
         password: "password",
-        status: "status"
+        status: "status",
+        userImage: "userImage",
     }
 }
 
@@ -54,10 +55,30 @@ const findUserById = async (userId) => {
     return null;
 }
 
+const updateUser = async (firstName, lastName, address, phone, email, userId) => {
+
+    await dbConn.query(`UPDATE ${userModel.tableName} SET
+                            ${userModel.fields.firstName} = ?,
+                            ${userModel.fields.lastName} = ?,
+                            ${userModel.fields.address} = ?,
+                            ${userModel.fields.phone} = ?,
+                            ${userModel.fields.email} = ?
+                           WHERE ${userModel.fields.userId} = ?`, [firstName, lastName, address, phone, email, userId]);
+
+}
+
+const insertImage = async (image, userId) => {
+    await dbConn.query(`UPDATE ${userModel.tableName} SET
+                            ${userModel.fields.userImage} = ?
+                           WHERE ${userModel.fields.userId} = ?`, [image, userId]);
+}
+
 
 module.exports = {
     createUser,
     findUserByEmail,
     getAllUsers,
-    findUserById
+    findUserById,
+    updateUser,
+    insertImage
 };

@@ -1,21 +1,77 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import {useSnackbar} from "notistack";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {axiosInstance, BACKEND_API} from "../../axios/AxiosInstance";
+import {updateUser} from "../../store/action/authAction";
 
 // components
 
 export default function CardSettings() {
   const { enqueueSnackbar } = useSnackbar();
-  const [isUpdate, setIsUpdate] = useState(false);
-
   const user = useSelector((state) => state.authReducer);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const dispatch = useDispatch();
+
+  const initialUserState = {
+    userId: user.userID,
+    phone: user.phone,
+    email: user.email,
+    firstName: user.fname,
+    lastName: user.lname,
+    address: user.address,
+    userImage: user.userImage,
+  }
+  const [userDetails, setUserDetails] = useState(initialUserState);
 
   const handleEnableUpdate = () => {
     setIsUpdate(true);
   }
 
   const handleDisableUpdate = () => {
+    setUserDetails(initialUserState)
     setIsUpdate(false);
+  }
+
+  const handleChange = (event) => {
+    setUserDetails({
+      ...userDetails,
+      [event.target.name]: event.target.value
+    })
+  }
+
+  const handleUpdate = async () => {
+    await axiosInstance({
+      method: 'POST',
+      url: BACKEND_API.UPDATE_USER,
+      data: userDetails
+    }).then(res => {
+      if (res.status === 200) {
+        enqueueSnackbar("Updated User Details", {
+          variant: 'success'
+        });
+
+        dispatch(updateUser({
+          userID: userDetails.userId,
+            fname: userDetails.firstName,
+            lname: userDetails.lastName,
+            address: userDetails.address,
+            email: userDetails.email,
+            phone: userDetails.phone,
+          userImage: userDetails.userImage,
+        }))
+        setIsUpdate(false);
+      }
+    }).catch((error) => {
+      if (error.response) {
+        enqueueSnackbar(error.response.data.message, {
+          variant: 'error'
+        });
+      } else {
+        enqueueSnackbar("Something went wrong", {
+          variant: 'error'
+        });
+      }
+    });
   }
 
 
@@ -30,7 +86,7 @@ export default function CardSettings() {
                   <button
                       className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={handleEnableUpdate}
+                      onClick={handleUpdate}
                   >
                     Update
                   </button>
@@ -68,8 +124,10 @@ export default function CardSettings() {
                     Phone No.
                   </label>
                   <input
-                      value={user.phone}
+                      value={userDetails.phone}
                       disabled={!isUpdate}
+                      onChange={handleChange}
+                      name={"phone"}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="lucky.jesse"
@@ -85,8 +143,10 @@ export default function CardSettings() {
                     Email address
                   </label>
                   <input
-                      value={user.email}
+                      value={userDetails.email}
                       disabled={!isUpdate}
+                      onChange={handleChange}
+                      name={"email"}
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="jesse@example.com"
@@ -102,8 +162,10 @@ export default function CardSettings() {
                     First Name
                   </label>
                   <input
-                      value={user.fname}
+                      value={userDetails.firstName}
                       disabled={!isUpdate}
+                      onChange={handleChange}
+                      name={"firstName"}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Lucky"
@@ -119,8 +181,10 @@ export default function CardSettings() {
                     Last Name
                   </label>
                   <input
-                      value={user.lname}
+                      value={userDetails.lastName}
                       disabled={!isUpdate}
+                      onChange={handleChange}
+                      name={"lastName"}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Jesse"
@@ -144,8 +208,10 @@ export default function CardSettings() {
                     Address
                   </label>
                   <input
-                      value={user.address}
+                      value={userDetails.address}
                       disabled={!isUpdate}
+                      onChange={handleChange}
+                      name={"address"}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
