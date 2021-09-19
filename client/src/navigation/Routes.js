@@ -174,7 +174,7 @@ const Routes = () => {
                     <Route path="/FutureProject" component={FutureProject}/>
                     <Route path="/PastProject" component={PastProject}/>
                     <Route path="/AddProjects" component={AddProjects}/>
-                    <Route path="/EditProject" component={EditProjects}/>
+                    <Route path="/EditProject/:id" component={EditProjects}/>
                 {/* Users */}
                     <Route path="/UserFutureProject" component={UserFutureProject}/>
                     <Route path="/UserPresentProject" component={UserPresentProject}/>
