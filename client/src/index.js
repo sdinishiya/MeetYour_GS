@@ -44,8 +44,9 @@ import PettyCash from "components/Finance/ViewPettycash.js";
 //Forum
 import AddForum from "components/Forum/AddForum.js";
 import ForumTable from "components/Forum/ForumView.js";
+import ViewMessages from "components/Forum/ViewMessages.js";
 import ForumView from "components/Pages/Formpage.js";
-import AddNewForum from "components/Forum/AddNewForum.js"
+import AddNewForum from "components/Forum/AddNewForum.js";
 
 //Project
 import AddProject from "components/Projects/AddProject.js";
@@ -163,6 +164,7 @@ ReactDOM.render(
       <Route path="/AddNewForum" component={AddNewForum} />
       <Route path="/forumView" component={ForumTable} />
       <Route path="/Forumpage" component={ForumView} />
+      <Route path="/ViewMessages" component={ViewMessages} />
 
       {/* Project */}
       <Route path="/AddProject" component={AddProject} />

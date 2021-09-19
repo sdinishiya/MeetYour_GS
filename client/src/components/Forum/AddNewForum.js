@@ -6,6 +6,7 @@ import { TextField } from '@material-ui/core';
 import Navbarloglanding from "components/Navbars/Navbarlanding";
 import UserHeader from "components/Headers/UserHeader.js";
 import axios from 'axios';
+import validator from 'validator'
 import props from 'prop-types';
 
 // components
@@ -30,6 +31,18 @@ export default function ForumTable({ color }) {
       setforums(response.data)
     })
   }, [])
+
+const [IDError, setIDError] = useState('')
+  const validateID = (event) => {
+    var ID = event.target.value
+   
+    if (validator.isID(ID)) {
+      setIDError('Valid ID :)')
+    } else {
+      setIDError('Enter valid ID!')
+    }
+  }
+
 
   const forumadd = () => {
     console.log(forumID);
@@ -117,7 +130,7 @@ export default function ForumTable({ color }) {
               ID Confirmation
             </label>
             <input type="text"
-              name="expDate" onChange={(event) => { setConfirm(event.target.value); }}
+              name="expDate" onChange={(event) => { setConfirm(event.target.value);validateID(event)}}
               required
               placeholder="Type your ID No"
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />

@@ -6,12 +6,20 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navbarloglanding from "components/Navbars/Navbarlanding";
 import UserHeader from "components/Headers/UserHeader.js";
 import axios from 'axios';
-//import Box from '@mui/material/Box';
-//import TreeView from '@mui/lab/TreeView';
-//import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-//import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-//import TreeItem from '@mui/lab/TreeItem';
-//import TrapFocus from '@mui/material/Unstable_TrapFocus';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+import { DataGrid, GridRowModel } from '@mui/x-data-grid';
 
 // components
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
@@ -32,6 +40,12 @@ export default function ForumTable({ color }) {
   const history = useHistory();
   // const classes = useStyles();
 
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   const [forums, setforums] = useState([]);
 
   useEffect(() => {
@@ -39,6 +53,16 @@ export default function ForumTable({ color }) {
       setforums(response.data)
     })
   }, [])
+
+  function createData(
+    name: string,
+  ) {
+    return { name };
+  }
+
+  const rows = [
+    createData('Hello')
+  ];
 
   const forumadd = () => {
     console.log(forumID);
@@ -88,84 +112,6 @@ export default function ForumTable({ color }) {
           </div>
         </div>
 
-        {/* <div className={"relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded " + "bg-white"} >
-          <div className="rounded-t mb-0 px-4 py-3 border-0">
-            <div className="flex flex-wrap items-center">
-              <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                <h3
-                  className={"font-semibold text-lg " + "text-blueGray-700"} >
-                  Forum Details Table
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div className="block w-full overflow-x-auto">
-            <table className="items-center w-full bg-transparent border-collapse">
-              <thead>
-                <tr
-                  className={
-                    "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
-                    "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                  <th className={"px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                    Forum Topic
-                  </th>
-                  <th className={"px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                    Description
-                  </th>
-                  <th className={"px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                    Date Uploaded
-                  </th>
-                  <th className={"px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                    Expiry Date
-                  </th>
-                  <th className={"px-6 align-middle border " + "bg-blueGray-50 text-blueGray-500 border-blueGray-100"}>
-                    Status
-                  </th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {forums.map((forum) => {
-                  const dt = new Date(forum.uploadDate);
-                  const year = dt.getFullYear() + '/';
-                  const month = ('0' + (dt.getMonth() + 1)).slice(-2) + '/';
-                  const day = ('0' + dt.getDate()).slice(-2);
-
-                  const dp = new Date(forum.expDate);
-                  const year1 = dp.getFullYear() + '/';
-                  const month1 = ('0' + (dp.getMonth() + 1)).slice(-2) + '/';
-                  const day1 = ('0' + dp.getDate()).slice(-2);
-
-                  return (
-                    <tr>
-                      <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                        <span className={"ml-3 font-bold " + "text-blueGray-600"}>
-                          {forum.topic}
-                        </span>
-                      </th>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {forum.description}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {year + month + day}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {year1 + month1 + day1}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {forum.active_status}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                        <TableDropdown />
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div> */}
-
       </section>
 
       <section className="pb-20 bg-white-200 -mt-24">
@@ -174,61 +120,127 @@ export default function ForumTable({ color }) {
 
             <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
-                {forums.map((viewApp) => {
-                  <blockquote className="relative p-8 mb-4">
+                <blockquote className="relative p-8 mb-4">
 
-                    <h4 className="text-xl font-bold text-white">
-                      {viewApp.topic}
-                    </h4>
-                    <p className="text-md font-light mt-2 text-white">
-                      {viewApp.message}
-                    </p>
-                    <br /><button onClick={() => SettingsPowerRounded(true)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                        Reply
-                      </button>
-                    {/* <box>
-                      {open && (
-                        <TrapFocus open>
-                          <Box tabIndex={-1} sx={{ mt: 1, p: 1 }}>
-                            <label>
-                              Enter your comment : <input type="text" />
-                            </label>
-                            <br />
-                            <button type="button" onClick={() => setOpen(false)}>
-                              Close
-                            </button>
-                          </Box>
-                        </TrapFocus>
-                      )}
-                    </box> */}
+                  <h4 className="text-xl font-bold text-white">
+                    Topic 1
+                  </h4>
+                  <p className="text-md font-light mt-2 text-white">
+                    In need of resource materials for your on-going projects or inventions?
+                    We are here to provide and facilitate your small scale businesses.
+                  </p>
+                  <br />
 
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Reply 
+                        </button>
 
-                    <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                      Report
-                    </button>
-
-                    {/* <TreeView aria-label="comments" defaultCollapseIcon={<ExpandMoreIcon />} defaultExpandIcon={<ChevronRightIcon />}
-                      sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                    >
-                      <TreeItem nodeId="1" label="Comments">
-                        <TreeItem nodeId="2" label="Comments" />
-                      </TreeItem>
-                    </TreeView> */}
-
-                  </blockquote>
-
-                })
-
-
-                }
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required/><br />
+                              <TextField id="standard-basic" label="Message" variant="standard" />
+                              <br />
+                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Submit
+                              </button>
+                            </Box>
 
 
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
 
+                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Comments
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Comments</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {rows.map((row) => (
+                                      <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {row.name}
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                              <br />
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
+                </blockquote>
               </div>
 
             </div>
 
-            {/* <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
 
                 <blockquote className="relative p-8 mb-4">
@@ -241,11 +253,109 @@ export default function ForumTable({ color }) {
                     We are here to provide and facilitate your small scale businesses.
                   </p>
                   <br />
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Reply
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required/><br />
+                              <TextField id="standard-basic" label="Message" variant="standard" />
+                              <br />
+                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Submit
+                              </button>
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
                   <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Reply
-                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                     Report
                   </button>
+
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Comments
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Comments</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {rows.map((row) => (
+                                      <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {row.name}
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                              <br />
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
                 </blockquote>
 
               </div>
@@ -265,16 +375,116 @@ export default function ForumTable({ color }) {
                     We are here to provide and facilitate your small scale businesses.
                   </p>
                   <br />
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Reply
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required /><br />
+                              <TextField id="standard-basic" label="Message" variant="standard" />
+                              <br />
+                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Submit
+                              </button>
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
                   <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Reply
-                  </button><button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                     Report
                   </button>
+
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Comments
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Comments</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {rows.map((row) => (
+                                      <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {row.name}
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                              <br />
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
+
                 </blockquote>
 
               </div>
 
-            </div> */}
+            </div>
           </div>
         </div>
       </section>
