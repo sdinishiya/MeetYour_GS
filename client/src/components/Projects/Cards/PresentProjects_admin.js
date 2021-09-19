@@ -100,7 +100,7 @@ export default function ProjectReviewCard1(props) {
         delete_post(index.target.value);
      }
     }else if  (index.target.innerText=='EDIT'){
-      window.location.href="/EditProject"+index.target.value;
+      window.location.href="../EditProject/"+index.target.value;
       // alert("edit page");
     }
 

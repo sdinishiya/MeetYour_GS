@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 // components
 import OtherMaterialNavbar from "components/Navbars/OtherMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import OtherMaterialHeader from "components/Material/OtherMaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
@@ -71,7 +71,7 @@ const mystyle = {
     <div className="relative md:ml-64 bg-blueGray-100">
       <OtherMaterialNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <OtherMaterialHeader />
       <section className="pb-18 relative block bg-white">
 
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
@@ -80,7 +80,7 @@ const mystyle = {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
             <div className="w-full lg:w-10/12 px-4">
-            <Link to="/AddnewotherMaterial">
+            {/* <Link to="/AddnewotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -109,7 +109,7 @@ const mystyle = {
                           type="submit" >
                           View Distrubuted Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
               </div>
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">

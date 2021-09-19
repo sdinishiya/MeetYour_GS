@@ -69,19 +69,45 @@ export default function EditProjects() {
   const [readMore, setreadMore] = useState('');
   const history = useHistory();
 
- useEffect(()=>{
-  axios.get(`http://localhost:3001/getproject/${id}`)
-  .then(function (response) {
-      // handle success
-      console.log(response.data[0]);
-      settitle(response.data[0].title);
-      setdate(response.data[0].date);
-      setintro(response.data[0].intro);
-      setreadMore(response.data[0].read_more);
-      settype(response.data[0].type);
-      
-  })
- },[])
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await axios.get('http://localhost:3001/getproject', {
+            params: {
+                id:id,
+            }
+        });
+        // setRow(response.data[0]);
+        settitle(response.data[0].title);
+        setdate(response.data[0].date);
+        setintro(response.data[0].intro);
+        setreadMore(response.data[0].read_more);
+        settype(response.data[0].type);
+        console.log(response.data[0].title);
+    };
+    fetchData();
+}, []);
+
+
+//  useEffect(()=>{
+//   axios.get(`http://localhost:3001/getproject/${id}`),
+//   {
+//     params: {
+//      id:id,
+//   }
+
+//   }
+//   .then(function (response) {
+
+//       // handle success
+//       // console.log(response.data[0]);
+//       settitle(response.data[0].title);
+//       setdate(response.data[0].date);
+//       setintro(response.data[0].intro);
+//       setreadMore(response.data[0].read_more);
+//       settype(response.data[0].type);
+//       console.log(response.data[0].title);
+//   })
+//  },[])
 
   function submit(event){
     event.preventDefault();
