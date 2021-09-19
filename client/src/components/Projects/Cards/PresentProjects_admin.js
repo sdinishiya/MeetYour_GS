@@ -100,7 +100,7 @@ export default function ProjectReviewCard1(props) {
         delete_post(index.target.value);
      }
     }else if  (index.target.innerText=='EDIT'){
-      window.location.href="/EditProject"+index.target.value;
+      window.location.href="../EditProject/"+index.target.value;
       // alert("edit page");
     }
 
@@ -113,7 +113,7 @@ export default function ProjectReviewCard1(props) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            PR
+            MYGS
           </Avatar>
         }
         action={
@@ -185,17 +185,7 @@ export default function ProjectReviewCard1(props) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Read More</Typography>
-          <Typography paragraph>
-        a
-          </Typography>
-          <Typography paragraph>
-          a
-          </Typography>
-          <Typography paragraph>
-          a
-          </Typography>
-          <Typography>
-          a </Typography>
+          {props.readMore}
         </CardContent>
       </Collapse>
     </Card>
