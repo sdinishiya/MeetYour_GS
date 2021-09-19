@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import CardStats from "components/Cards/CardStats.js";
 
-export default function MaterialHeader() {
+export default function AgriMaterialHeader() {
   return (
     <>
       {/* Header */}
@@ -84,9 +84,39 @@ export default function MaterialHeader() {
                    </Link>
                  </div>
                </div>
-             </div>
-
-            
+             </div><br/><br/><br/><br/><br/>
+              <div classname=" lg:w-10/12">
+                <Link to="/AddnewagriMaterial">
+                    <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="submit" >
+                            Add New Material
+                    </button> 
+                  </Link>
+                  <Link to="/AddagriMaterial">
+                    <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="submit" >
+                            Add Material
+                    </button> 
+                  </Link>
+                  <Link to="/AgriMaterial">
+                    <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="submit" >
+                            View Added Material
+                    </button> 
+                  </Link>
+                  <Link to="/SupplyagriMaterial">
+                    <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="submit" >
+                            Distrubute Material    
+                    </button>
+                  </Link>
+                  <Link to="/ViewSuppliedagriMaterial">
+                    <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                            type="submit" >
+                            View Distrubuted Material
+                    </button> 
+                  </Link>
+              </div>
             </div>
           </div>
         </div>

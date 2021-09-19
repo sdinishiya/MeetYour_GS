@@ -69,6 +69,7 @@ export default function EditProjects() {
   const [readMore, setreadMore] = useState('');
   const history = useHistory();
 
+
  useEffect(()=>{
   axios.get(`http://localhost:3001/getproject/${id}`)
   .then(function (response) {
@@ -82,6 +83,7 @@ export default function EditProjects() {
       console.log(id);
   })
  },[])
+
 
   function submit(event){
     event.preventDefault();

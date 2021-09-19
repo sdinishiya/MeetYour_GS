@@ -6,7 +6,7 @@ import axios from "axios";
 // components
 import AgriMaterialNavbar from "components/Navbars/AgriMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import AgriMaterialHeader from "components/Material/AgriMaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
@@ -27,7 +27,7 @@ export default function ViewSupplyAgri() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <AgriMaterialNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <AgriMaterialHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
@@ -35,7 +35,7 @@ export default function ViewSupplyAgri() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
-              <Link to="/AddnewagriMaterial">
+              {/* <Link to="/AddnewagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -64,7 +64,7 @@ export default function ViewSupplyAgri() {
                           type="submit" >
                           View Distrubuted Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                     <div className="rounded-t mb-0 px-4 py-3 border-0">
                       <div className="flex flex-wrap items-center">

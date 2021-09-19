@@ -211,16 +211,16 @@ export default function Sidebar() {
                                 <Link
                                     className={
                                         "text-xs uppercase py-3 font-bold block " +
-                                        (window.location.href.indexOf("/ViewDonation") !== -1
+                                        (window.location.href.indexOf("/FormTemplateView") !== -1
                                             ? "text-emerald-500 hover:text-emerald-500"
                                             : "text-blueGray-700 hover:text-blueGray-500")
                                     }
-                                    to="/admin/Finance"
+                                    to="/FormTemplateView"
                                 >
                                     <i
                                         className={
                                             "fas fa-file mr-2 text-sm " +
-                                            (window.location.href.indexOf("/admin/maps") !== -1
+                                            (window.location.href.indexOf("/FormTemplateView") !== -1
                                                 ? "opacity-75"
                                                 : "text-blueGray-300")
                                         }
