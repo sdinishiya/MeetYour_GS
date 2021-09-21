@@ -6,7 +6,7 @@ import axios from "axios";
 // components
 import OtherMaterialNavbar from "components/Navbars/OtherMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import OtherMaterialHeader from "components/Material/OtherMaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
@@ -44,7 +44,7 @@ export default function AddnewotherMaterial() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <OtherMaterialNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <OtherMaterialHeader />
       <section className="pb-18 relative block bg-white">
 
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
@@ -52,8 +52,8 @@ export default function AddnewotherMaterial() {
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
-              <div className="w-full lg:w-5/12 px-4">
-              <Link to="/AddnewotherMaterial">
+              <div className="w-full lg:w-6/12 px-4">
+              {/* <Link to="/AddnewotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -70,7 +70,7 @@ export default function AddnewotherMaterial() {
                           type="submit" >
                           View Added Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
                
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
@@ -110,19 +110,19 @@ export default function AddnewotherMaterial() {
                   </div>
                 </div>
               </div>
-              <div className="w-full lg:w-7/12 px-4">
-              <Link to="/SupplyotherMaterial">
+              <div className="w-full lg:w-6/12 px-4">
+              {/* <Link to="/SupplyotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          Supply Material    
+                          Distrubute Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedotherMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Supplied Material
+                          View Distrubuted Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                   <div className="rounded-t mb-0 px-4 py-3 border-0">
                     <div className="flex flex-wrap items-center">

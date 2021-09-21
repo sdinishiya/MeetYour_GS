@@ -8,10 +8,10 @@ import axios from 'axios';
 
 import Navbarsignup from "components/Navbars/Navbarsignup";
 import Footer from "components/Footers/Footer.js";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 
 export default function Landing() {
-  const {t,i18}= useTranslation()
+  // const {t,i18}= useTranslation()
 
   const [viewList,setviewList]=useState([])
   useEffect(()=>{
@@ -103,7 +103,7 @@ export default function Landing() {
                     </div>
                     <h6 className="text-xl font-semibold">{record.topic} </h6>
                     <p className="mt-2 mb-4 text-black">
-                      Posted: {year + month + day} | Deadline : {year1 + month1 + day1}
+                    Deadline : {year1 + month1 + day1} | Posted: {year + month + day} 
                     </p>
                     <p className="mt-2 mb-4 text-blueGray-500">
                       {record.description}
@@ -264,7 +264,7 @@ export default function Landing() {
                       </Link>
                     </li>
                     <li className="py-2">
-                      <Link to="/Pages/Projectpage" className="font-bold flex items-center">
+                      <Link to="UserFutureProject" className="font-bold flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-lightBlue-600 bg-lightBlue-200 mr-3">
                             <i className="far fa-paper-plane"></i>
@@ -298,7 +298,7 @@ export default function Landing() {
                   In need of resource materials for your on-going projects or inventions? 
                   We are here to provide and facilitate your small scale businesses.
                 </p>
-                <Link to="/Pages/Resoursepage" className="font-bold text-blueGray-700 mt-8">
+                <Link to="/Const" className="font-bold text-blueGray-700 mt-8">
                   Click to View & Request Resources
                 </Link>
               </div>

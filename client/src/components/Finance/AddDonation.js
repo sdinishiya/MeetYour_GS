@@ -11,27 +11,29 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
 export default function AddDonation() {
-  const [date,setdate] = useState("");
-  const [donorID,setdonorID] = useState("");
-  const [donorName,setdonorName] = useState("");
-  const [address,setaddress] = useState("");
-  const [phone,setphone] = useState("");
-  const [email,setemail] = useState("");
-  const [description,setdescription] = useState("");
-  const [amount,setamount] = useState("");
+  const [date,setdate] = useState(""); 
+  const [donation_id,setdonation_id] = useState("");
+  const [firstName, setfirstName] = useState('');
+  const [lastName, setlastName] = useState('');
+  const [donationAmt, setdonationAmt] = useState('');
+  const [address, setaddress] = useState('');
+  const [city, setcity] = useState('');
+  const [phoneNo, setphoneNo] = useState('');
+  const [email, setemail] = useState('');
     const history  = useHistory();
 
     const adddonation = (e)=>{
       e.preventDefault();
-      console.log(donorID);
-       axios.post('http://localhost:3001/donationcreate',{
+      console.log(donation_id);
+       axios.post('http://localhost:3001/donations',{
         date:date,
-        donorName:donorName,
+        first_name:firstName,
+        last_name:lastName,
+        donation_amt:Number(donationAmt),
         address:address,
-        phone:phone,
-        email:email,
-        description:description,
-        amount:amount,
+        city:city, 
+        phoneno:phoneNo, 
+        email:email, 
 
         }).then(()=>{
            console.log("success");
@@ -74,13 +76,35 @@ export default function AddDonation() {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Donor Name
+                        First Name
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Donor Name" onChange={(event)=>{setdonorName(event.target.value);}} 
+                        name="First Name" onChange={(event)=>{setfirstName(event.target.value);}} 
                         required
                         placeholder="Enter Name..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Last Name
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Last Name" onChange={(event)=>{setlastName(event.target.value);}} 
+                        required
+                        placeholder="Enter Name..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Donation Amount
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Donation Amount" onChange={(event)=>{setdonationAmt(event.target.value);}} 
+                        required
+                        placeholder="Enter Donation Amount..."/>
                     </div>
 
                     <div className="relative w-full mb-3 mt-8">
@@ -96,13 +120,24 @@ export default function AddDonation() {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Phone No
+                        City
                       </label>
                       <input type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Phone No" onChange={(event)=>{setphone(event.target.value);}} 
+                        name="City" onChange={(event)=>{setcity(event.target.value);}} 
                         required
-                        placeholder="Enter Phone No..."/>
+                        placeholder="Enter City..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Phone NO
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Phone NO" onChange={(event)=>{setphoneNo(event.target.value);}} 
+                        required
+                        placeholder="Enter Phone NO..."/>
                     </div>
 
                     <div className="relative w-full mb-3 mt-8">
@@ -115,29 +150,7 @@ export default function AddDonation() {
                         required
                         placeholder="Enter Email ID..."/>
                     </div>
-
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Description
-                      </label>
-                      <input type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Description" onChange={(event)=>{setdescription(event.target.value);}} 
-                        required
-                        placeholder="Enter Description..."/>
-                    </div>
-
-                    <div className="relative w-full mb-3 mt-8">
-                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-                        Amount
-                      </label>
-                      <input type="text"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        name="Amount" onChange={(event)=>{setamount(event.target.value);}} 
-                        required
-                        placeholder="Enter Amount..."/>
-                    </div>
-                    
+ 
                     <box>
                     <div className="text-center mt-6">
                       {/* <button type="submit" onClick={add_fund} id="submitBtn"style={mystyle.submitBtn}> Add</button> */}

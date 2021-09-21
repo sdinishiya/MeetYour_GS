@@ -53,7 +53,7 @@ export default function UserView() {
                         <thead>
                           <tr>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Availability ID
+                              Time Slot ID
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               GS Name
@@ -68,11 +68,11 @@ export default function UserView() {
                               Duration
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Booked slots
+                              Remaining slots
                             </th>
-                            <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                            {/* <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Status
-                            </th>
+                            </th> */}
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                              
                             </th>
@@ -104,17 +104,17 @@ export default function UserView() {
                                  {viewApp.Duration}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {viewApp.currentCount}/{viewApp.maxCount}
+                                {viewApp.maxCount-viewApp.currentCount}
                             </td>
+
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                 {viewApp.availStatus}
-                            </td>
-                            <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to={location=> `/UserBooking/${viewApp.availID}`}>
+                              {(viewApp.maxCount!=viewApp.currentCount)?<Link to={location=> `/UserBooking/${viewApp.availID}`}>
                               <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                   > Book 
                               </button>
-                              </Link>
+                              </Link>: ""
+                              }
+                              
                             </td>
                           </tr>
                             )

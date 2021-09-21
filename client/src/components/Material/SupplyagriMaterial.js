@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 // components
 import AgriMaterialNavbar from "components/Navbars/AgriMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import AgriMaterialHeader from "components/Material/AgriMaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
@@ -18,6 +18,7 @@ export default function SupplyagriMaterial() {
     const [supplieddate,setsupplieddate] = useState("");
     const [materialid,setmaterialid] = useState("");
     const [materialname,setmaterialname] = useState("");
+    const [name,setname] = useState("");
     const [description,setdescription] = useState("");
     const [quantity,setquantity] = useState("");
     
@@ -31,6 +32,7 @@ export default function SupplyagriMaterial() {
         supplieddate:supplieddate,
         materialid:materialid,
         materialname:materialname,
+        name:name,
         description:description,
         quantity:quantity,
 
@@ -68,16 +70,15 @@ const mystyle = {
     <div className="relative md:ml-64 bg-blueGray-100">
       <AgriMaterialNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <AgriMaterialHeader />
       <section className="pb-18 relative block bg-white">
-
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
         <section className="relative block py-18 lg:pt-0 ">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
             <div className="w-full lg:w-10/12 px-4">
-            <Link to="/AddnewagriMaterial">
+            {/* <Link to="/AddnewagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -98,21 +99,21 @@ const mystyle = {
                 <Link to="/SupplyagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          Supply Material    
+                          Distrubute Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedagriMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Supplied Material
+                          View Distrubuted Material
                   </button> <br/><br/>
-                </Link>
+                </Link> */}
               </div>
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-emerald-200">
                   <div className="flex-auto p-5 lg:p-10">
                     <h1 className="text-2xl font-semibold uppercase text-center justify-center">
-                        SUPPLY Agriculture MATERIAL
+                      Distrubute Agriculture Material
                     </h1>
                     
                     <div className="relative w-full mb-3 mt-8">
@@ -146,6 +147,17 @@ const mystyle = {
 
                     <div className="relative w-full mb-3 mt-8">
                       <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                        Beneficiary Name
+                      </label>
+                      <input type="text"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        name="Beneficiary Name" onChange={(event)=>{setname(event.target.value);}} 
+                        required
+                        placeholder="Enter Name..."/>
+                    </div>
+
+                    <div className="relative w-full mb-3 mt-8">
+                      <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                         Description
                       </label>
                       <input type="text"
@@ -173,7 +185,7 @@ const mystyle = {
                         className="bg-emerald-450 text-white active:bg-emerald-300 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="submit"
                         onClick={agri_Materials}>
-                          ADD 
+                          Distrubute 
                       </button>
                       <Link to = '/AgriMaterial'>
                       <button

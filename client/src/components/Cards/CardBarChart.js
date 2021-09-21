@@ -1,3 +1,4 @@
+//card bar chart
 import React from "react";
 import Chart from "chart.js";
 

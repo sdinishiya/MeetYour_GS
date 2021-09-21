@@ -17,22 +17,22 @@ export default function ViewRequests() {
 
     const [viewList,setviewList]=useState([])
     useEffect(()=>{
-      axios.get("http://localhost:3001/confirmbook").then((response)=>{
+      axios.get("http://localhost:3001/confirmView").then((response)=>{
           setviewList(response.data)
       })
     },[])
 
     // cancel
     const [cancel, setcancel] = useState("Cancelled");
-    const cancelReq = (appID) => {
+    const cancelReq = (bookID) => {
       axios
         .put("http://localhost:3001/cancel-book", {
           status: cancel,
-          appID: appID,
+          bookID: bookID,
         })
 
         .then((response) => {
-          console.log(appID);
+          console.log(bookID);
         });
       alert(" Appointment Request Cancelled ");
     };
@@ -94,7 +94,7 @@ export default function ViewRequests() {
                               Email
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                              Message 
+                              Topic 
                             </th>
                             <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                               Cancel 
@@ -112,7 +112,7 @@ export default function ViewRequests() {
                             return(
                           <tr>
                             <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
-                                 {record.appID} 
+                                 {record.bookID} 
                             </th>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {year + month + day}
@@ -136,7 +136,7 @@ export default function ViewRequests() {
                                 {record.email}
                             </td>
                             <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {record.des}
+                                {record.topic}
                             </td>
                             {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                             <Link to="/ViewRequests">
@@ -151,7 +151,7 @@ export default function ViewRequests() {
                             <Link to="/ViewRequests">
                                 <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                       type="submit" 
-                                      onClick={() => cancelReq(record.appID)}>  {" "}
+                                      onClick={() => cancelReq(record.bookID)}>  {" "}
                                       Cancel Appointment
                                 </button>
                               </Link>  

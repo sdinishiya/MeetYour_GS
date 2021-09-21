@@ -55,7 +55,7 @@ export default function AllmessageView() {
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-11/12 px-4">
-              <Link to="/noticeView">
+              <Link to="/MessageView">
                 <button className="bg-emerald-400 text-white active:bg-emerald-400 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                       type="submit" >
                       View Sent SMS
@@ -138,27 +138,19 @@ export default function AllmessageView() {
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                   {notice.status}
                               </td>
-                              {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                                <TableDropdown />
-                              </td> */}
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/MessageView">
-                                  <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-                                        type="submit" 
-                                        onClick={() => sendSMS(notice.smsID)}>  {" "}         
-                                        Send
-                                  </button>
-                                </Link> 
-                              </td>
-                              {/* <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                              <Link to="/noticeView">
-                                <button className="bg-red-500 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                              {(notice.status!="Sent")?
+
+                                <Link to="/MessageView">
+                                <button className="bg-emerald-400 text-white active:bg-emerald-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                                       type="submit" 
-                                      onClick={() => activate(notice.noticeID)}>  {" "}  
-                                     Remove
+                                      onClick={() => sendSMS(notice.smsID)}>  {" "}         
+                                      Send
                                 </button>
-                              </Link>
-                              </td> */}
+                                </Link>  : ""
+                              }
+                              </td> 
+                              
                             </tr>
                             )
                             })}

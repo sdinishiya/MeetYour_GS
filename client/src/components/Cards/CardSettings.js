@@ -1,20 +1,56 @@
-import React from "react";
+import React, {useState} from "react";
+import {useSnackbar} from "notistack";
+import {useSelector} from "react-redux";
 
 // components
 
 export default function CardSettings() {
+  const { enqueueSnackbar } = useSnackbar();
+  const [isUpdate, setIsUpdate] = useState(false);
+
+  const user = useSelector((state) => state.authReducer);
+
+  const handleEnableUpdate = () => {
+    setIsUpdate(true);
+  }
+
+  const handleDisableUpdate = () => {
+    setIsUpdate(false);
+  }
+
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
             <h6 className="text-blueGray-700 text-xl font-bold">My account</h6>
-            <button
-              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-            >
-              Settings
-            </button>
+            {isUpdate ? (
+                <div>
+                  <button
+                      className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={handleEnableUpdate}
+                  >
+                    Update
+                  </button>
+                  <button
+                      className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={handleDisableUpdate}
+                  >
+                    Cancel
+                  </button>
+                </div>
+            ) : (
+                <button
+                    className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={handleEnableUpdate}
+                >
+                  Update Details
+                </button>
+            )}
           </div>
         </div>
         <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -29,9 +65,11 @@ export default function CardSettings() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Username
+                    Phone No.
                   </label>
                   <input
+                      value={user.phone}
+                      disabled={!isUpdate}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="lucky.jesse"
@@ -47,6 +85,8 @@ export default function CardSettings() {
                     Email address
                   </label>
                   <input
+                      value={user.email}
+                      disabled={!isUpdate}
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="jesse@example.com"
@@ -62,6 +102,8 @@ export default function CardSettings() {
                     First Name
                   </label>
                   <input
+                      value={user.fname}
+                      disabled={!isUpdate}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Lucky"
@@ -77,6 +119,8 @@ export default function CardSettings() {
                     Last Name
                   </label>
                   <input
+                      value={user.lname}
+                      disabled={!isUpdate}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Jesse"
@@ -100,6 +144,8 @@ export default function CardSettings() {
                     Address
                   </label>
                   <input
+                      value={user.address}
+                      disabled={!isUpdate}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
@@ -115,6 +161,7 @@ export default function CardSettings() {
                     City
                   </label>
                   <input
+                      disabled={!isUpdate}
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="New York"
@@ -130,6 +177,7 @@ export default function CardSettings() {
                     Country
                   </label>
                   <input
+                      disabled={!isUpdate}
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="United States"
@@ -146,6 +194,7 @@ export default function CardSettings() {
                   </label>
                   <input
                     type="text"
+                    disabled={!isUpdate}
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     defaultValue="Postal Code"
                   />
@@ -168,11 +217,12 @@ export default function CardSettings() {
                     About me
                   </label>
                   <textarea
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
-                    rows="4"
-                  ></textarea>
+                      disabled={!isUpdate}
+                      type="text"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      defaultValue="A beautiful UI Kit and Admin for React & Tailwind CSS. It is Free and Open Source."
+                      rows="4"
+                  />
                 </div>
               </div>
             </div>

@@ -500,7 +500,7 @@ iframe,
 embed,
 object {
   display: block;
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
 
 /**
@@ -1130,6 +1130,12 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgba(28, 97, 100, var(--tw-bg-opacity));
 }
+
+.bg-gray-40 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(90, 99, 99, var(--tw-bg-opacity));
+}
+
 
 .bg-red-50 {
   --tw-bg-opacity: 1;
@@ -3112,6 +3118,18 @@ select {
 
   .lg\:w-9\/12 {
     width: 75%;
+  }
+
+  .lg\:w-10\/12 {
+    width: 83.333%;
+  }
+
+  .lg\:w-11\/12 {
+    width: 91.666%;
+  }
+
+  .lg\:w-12\/12 {
+    width: 100%;
   }
 }
 

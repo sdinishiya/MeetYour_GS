@@ -1,6 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import { useTranslation } from "react-i18next";
+// import i18n from "i18next";
 
 const Languagesdropdown = () => {
   const {t,i18n} = useTranslation()
@@ -36,8 +37,8 @@ const Languagesdropdown = () => {
           <span className="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full">
             <img
               alt="..."
-              className="w-full rounded-full align-middle border-none shadow-lg"
-              src={require("assets/img/lang.jfif").default}
+              className="w-full rounded-full align-middle border-none "
+              src={require("assets/img/Lan.jpeg").default}
             />
           </span>
         </div>
@@ -58,15 +59,7 @@ const Languagesdropdown = () => {
         >
           English
         </a>
-        <a
-          href="#pablo"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={()=>changeLanguage("ta")}
-        >
-          தமிழ்
-        </a>
+       
         <a
           href="#pablo"
           className={
@@ -75,7 +68,16 @@ const Languagesdropdown = () => {
           onClick={()=>changeLanguage("sn")}
         >
           සිංහල
-          
+        </a>
+
+        <a
+          href="#pablo"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+          onClick={()=>changeLanguage("ta")}
+        >
+          தமிழ்
         </a>
         
       </div>

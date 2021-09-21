@@ -7,7 +7,7 @@ import axios from "axios";
 // components
 import ConstMaterialNavbar from "components/Navbars/ConstMaterialNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import MaterialHeader from "components/Material/MaterialHeader.js";
+import ConstMaterialHeader from "components/Material/ConstMaterialHeader.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 
@@ -28,7 +28,7 @@ export default function ViewDonation() {
     <div className="relative md:ml-64 bg-blueGray-100">
       <ConstMaterialNavbar />
       {/* Header */}
-      <MaterialHeader />
+      <ConstMaterialHeader />
       <section className="pb-18 relative block bg-white">
       <div className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <br /> <br /> <br /> <br /> 
@@ -37,7 +37,7 @@ export default function ViewDonation() {
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-10/12 px-4">
               {/* <SearchBar/> */}
-              <Link to="/AddnewconstMaterial">
+              {/* <Link to="/AddnewconstMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
                           Add New Material
@@ -58,16 +58,16 @@ export default function ViewDonation() {
                 <Link to="/SupplyconstMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          Supply Material    
+                          Distrubute Material    
                   </button>
                 </Link>
                 <Link to="/ViewSuppliedconstMaterial">
                   <button className="bg-emerald-400 text-white active:bg-emerald-300 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                           type="submit" >
-                          View Supplied Material
+                          View Distrubuted Material
                   </button> 
                   
-                </Link>
+                </Link> */}
                 <form className="md:flex hidden lg:w-3/12 flex-row flex-wrap items-center lg:ml-auto mr-3">
                   <div className="relative flex w-full flex-wrap items-stretch">
                     <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
