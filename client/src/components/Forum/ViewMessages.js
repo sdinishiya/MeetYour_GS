@@ -14,7 +14,7 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 export default function ViewMessages() {
   const [forumID, setID] = useState("");
   const [topic, setTopic] = useState("");
-  const [description, setDescription] = useState("");
+  const [postText, setpostText] = useState("");
   const [uploadDate, setUploadDate] = useState("");
   const [confirm, setConfirm] = useState("");
   const [active_status, setStatus] = useState("");
@@ -36,7 +36,7 @@ export default function ViewMessages() {
 
     axios.post('http://localhost:3001/addnewforum', {
       topic: topic,
-      description: description,
+      postText: postText,
       uploadDate: uploadDate,
       confirm: confirm,
       active_status: active_status,
@@ -120,7 +120,7 @@ export default function ViewMessages() {
                                 </span>
                               </th>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                {forum.description}
+                                {forum.postText}
                               </td>
                               <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                 {year + month + day}

@@ -972,16 +972,16 @@ app.put('/send-sms', (req,res) => {
     );
   });
 
-app.post('/addnewforum' , (req , res)=>{
+app.post('/AddNewForum' , (req , res)=>{
     const postID = req.body.postID;
     const postText = req.body.postText;
     const topic = req.body.topic;
-    const date = req.body.date;
+    const uploadDate = req.body.uploadDate;
     const emailID = req.body.emailID;
     const comments = req.body.comments;
     const status = req.body.status;
     
-   db.query("INSERT INTO forumpost (postID,postText,topic,date,emailID,comments,status) VALUES (?,?,?,?,?,?,?)",[postID,postText,topic,date,emailID,comments,status],(err,result)=>{
+   db.query("INSERT INTO forumpost (postID,postText,topic,uploadDate,emailID,comments,status) VALUES (?,?,?,?,?,?,?)",[postID,postText,topic,uploadDate,emailID,comments,status],(err,result)=>{
        if(err){
            console.log(err);
        }else{
@@ -991,7 +991,7 @@ app.post('/addnewforum' , (req , res)=>{
 
 });
 
-app.get('/forumview', (req,res)=>{
+app.get('/ForumView', (req,res)=>{
     db.query("SELECT * FROM forumpost ORDER BY postID ASC",(err,result)=>{
         if(err){
             console.log(err);
