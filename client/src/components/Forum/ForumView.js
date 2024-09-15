@@ -61,7 +61,7 @@ export default function ForumTable({ color }) {
   }
 
   const rows = [
-    createData('Hello')
+    createData('Hello. Thank you for the post')
   ];
 
   const forumadd = () => {
@@ -96,13 +96,13 @@ export default function ForumTable({ color }) {
           <div className="flex flex-wrap">
             <div className="w-1/3 px-6">
               <Link to="/AddNewForum">
-                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                <button className="bg-emerald-450 text-white active:bg-emerald-450 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
                   Add New Forums
                 </button>
               </Link>
               <Link to="/ForumView">
-                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                <button className="bg-emerald-450 text-white active:bg-emerald-450 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
                   View Forums
                 </button> <br /><br />
@@ -119,266 +119,21 @@ export default function ForumTable({ color }) {
           <div className="flex flex-wrap items-center mt-32">
 
             <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-white">
                 <blockquote className="relative p-8 mb-4">
 
-                  <h4 className="text-xl font-bold text-white">
+                  <h4 className="text-xl font-bold text-black">
                     Topic 1
                   </h4>
-                  <p className="text-md font-light mt-2 text-white">
-                    In need of resource materials for your on-going projects or inventions?
-                    We are here to provide and facilitate your small scale businesses.
+                  <p className="text-md font-light mt-2 text-black">
+                    Hello
                   </p>
                   <br />
 
                   <PopupState variant="popover" popupId="demo-popup-popover">
                     {(popupState) => (
                       <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                          Reply 
-                        </button>
-
-                        <Popover
-                          {...bindPopover(popupState)}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                        >
-                          <Typography sx={{ p: 2 }}>
-                            <Box
-                              component="form"
-                              sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                              }}
-                              noValidate
-                              autoComplete="off"
-                            >
-                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required/><br />
-                              <TextField id="standard-basic" label="Message" variant="standard" />
-                              <br />
-                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                Submit
-                              </button>
-                            </Box>
-
-
-                          </Typography>
-                        </Popover>
-                      </div>
-                    )}
-                  </PopupState>
-
-                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Report
-                  </button>
-
-                  <PopupState variant="popover" popupId="demo-popup-popover">
-                    {(popupState) => (
-                      <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                          Comments
-                        </button>
-
-                        <Popover
-                          {...bindPopover(popupState)}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                        >
-                          <Typography sx={{ p: 2 }}>
-                            <Box
-                              component="form"
-                              sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                              }}
-                              noValidate
-                              autoComplete="off"
-                            >
-                              <TableContainer component={Paper}>
-                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                  <TableHead>
-                                    <TableRow>
-                                      <TableCell>Comments</TableCell>
-                                    </TableRow>
-                                  </TableHead>
-                                  <TableBody>
-                                    {rows.map((row) => (
-                                      <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                      >
-                                        <TableCell component="th" scope="row">
-                                          {row.name}
-                                        </TableCell>
-                                      </TableRow>
-                                    ))}
-                                  </TableBody>
-                                </Table>
-                              </TableContainer>
-                              <br />
-                            </Box>
-
-
-                          </Typography>
-                        </Popover>
-                      </div>
-                    )}
-                  </PopupState>
-
-                </blockquote>
-              </div>
-
-            </div>
-
-            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
-
-                <blockquote className="relative p-8 mb-4">
-
-                  <h4 className="text-xl font-bold text-white">
-                    Topic 2
-                  </h4>
-                  <p className="text-md font-light mt-2 text-white">
-                    In need of resource materials for your on-going projects or inventions?
-                    We are here to provide and facilitate your small scale businesses.
-                  </p>
-                  <br />
-                  <PopupState variant="popover" popupId="demo-popup-popover">
-                    {(popupState) => (
-                      <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                          Reply
-                        </button>
-
-                        <Popover
-                          {...bindPopover(popupState)}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                        >
-                          <Typography sx={{ p: 2 }}>
-                            <Box
-                              component="form"
-                              sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                              }}
-                              noValidate
-                              autoComplete="off"
-                            >
-                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required/><br />
-                              <TextField id="standard-basic" label="Message" variant="standard" />
-                              <br />
-                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                                Submit
-                              </button>
-                            </Box>
-
-
-                          </Typography>
-                        </Popover>
-                      </div>
-                    )}
-                  </PopupState>
-
-                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                    Report
-                  </button>
-
-                  <PopupState variant="popover" popupId="demo-popup-popover">
-                    {(popupState) => (
-                      <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                          Comments
-                        </button>
-
-                        <Popover
-                          {...bindPopover(popupState)}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                          }}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                        >
-                          <Typography sx={{ p: 2 }}>
-                            <Box
-                              component="form"
-                              sx={{
-                                '& > :not(style)': { m: 1, width: '25ch' },
-                              }}
-                              noValidate
-                              autoComplete="off"
-                            >
-                              <TableContainer component={Paper}>
-                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                                  <TableHead>
-                                    <TableRow>
-                                      <TableCell>Comments</TableCell>
-                                    </TableRow>
-                                  </TableHead>
-                                  <TableBody>
-                                    {rows.map((row) => (
-                                      <TableRow
-                                        key={row.name}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                      >
-                                        <TableCell component="th" scope="row">
-                                          {row.name}
-                                        </TableCell>
-                                      </TableRow>
-                                    ))}
-                                  </TableBody>
-                                </Table>
-                              </TableContainer>
-                              <br />
-                            </Box>
-
-
-                          </Typography>
-                        </Popover>
-                      </div>
-                    )}
-                  </PopupState>
-                </blockquote>
-
-              </div>
-
-            </div>
-
-            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
-              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-emerald-300">
-
-                <blockquote className="relative p-8 mb-4">
-
-                  <h4 className="text-xl font-bold text-white">
-                    Topic 3
-                  </h4>
-                  <p className="text-md font-light mt-2 text-white">
-                    In need of resource materials for your on-going projects or inventions?
-                    We are here to provide and facilitate your small scale businesses.
-                  </p>
-                  <br />
-                  <PopupState variant="popover" popupId="demo-popup-popover">
-                    {(popupState) => (
-                      <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                           Reply
                         </button>
 
@@ -405,7 +160,7 @@ export default function ForumTable({ color }) {
                               <TextField id="outlined-basic" label="ID Number" variant="outlined" required /><br />
                               <TextField id="standard-basic" label="Message" variant="standard" />
                               <br />
-                              <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                              <button className="bg-emerald-350 text-white active:bg-emerald-350 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                                 Submit
                               </button>
                             </Box>
@@ -417,14 +172,256 @@ export default function ForumTable({ color }) {
                     )}
                   </PopupState>
 
-                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                  <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                     Report
                   </button>
 
                   <PopupState variant="popover" popupId="demo-popup-popover">
                     {(popupState) => (
                       <div>
-                        <button variant="contained" {...bindTrigger(popupState)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Comments
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Comments</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {rows.map((row) => (
+                                      <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {row.name}
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                              <br />
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
+                </blockquote>
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-white">
+
+                <blockquote className="relative p-8 mb-4">
+
+                  <h4 className="text-xl font-bold text-black">
+                    Topic 2
+                  </h4>
+                  <p className="text-md font-light mt-2 text-black">
+                    Hello
+                  </p>
+                  <br />
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Reply
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required /><br />
+                              <TextField id="standard-basic" label="Message" variant="standard" />
+                              <br />
+                              <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Submit
+                              </button>
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
+                  <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Comments
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TableContainer component={Paper}>
+                                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                  <TableHead>
+                                    <TableRow>
+                                      <TableCell>Comments</TableCell>
+                                    </TableRow>
+                                  </TableHead>
+                                  <TableBody>
+                                    {rows.map((row) => (
+                                      <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                      >
+                                        <TableCell component="th" scope="row">
+                                          {row.name}
+                                        </TableCell>
+                                      </TableRow>
+                                    ))}
+                                  </TableBody>
+                                </Table>
+                              </TableContainer>
+                              <br />
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+                </blockquote>
+
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-white">
+
+                <blockquote className="relative p-8 mb-4">
+
+                  <h4 className="text-xl font-bold text-black">
+                    Topic 3
+                  </h4>
+                  <p className="text-md font-light mt-2 text-black">
+                    Hello
+                  </p>
+                  <br />
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                          Reply
+                        </button>
+
+                        <Popover
+                          {...bindPopover(popupState)}
+                          anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                          }}
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                          }}
+                        >
+                          <Typography sx={{ p: 2 }}>
+                            <Box
+                              component="form"
+                              sx={{
+                                '& > :not(style)': { m: 1, width: '25ch' },
+                              }}
+                              noValidate
+                              autoComplete="off"
+                            >
+                              <TextField id="outlined-basic" label="ID Number" variant="outlined" required /><br />
+                              <TextField id="standard-basic" label="Message" variant="standard" />
+                              <br />
+                              <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                Submit
+                              </button>
+                            </Box>
+
+
+                          </Typography>
+                        </Popover>
+                      </div>
+                    )}
+                  </PopupState>
+
+                  <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                    Report
+                  </button>
+
+                  <PopupState variant="popover" popupId="demo-popup-popover">
+                    {(popupState) => (
+                      <div>
+                        <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                           Comments
                         </button>
 
@@ -485,6 +482,134 @@ export default function ForumTable({ color }) {
               </div>
 
             </div>
+            {forums.map((record) => {
+
+              return (<blockquote className="relative p-8 mb-4">
+
+                <h4 className="text-xl font-bold text-black">
+                  {record.topic}
+                </h4>
+                <p className="text-md font-light mt-2 text-black">
+                  {record.postText}
+                </p>
+                <br />
+                <PopupState variant="popover" popupId="demo-popup-popover">
+                  {(popupState) => (
+                    <div>
+                      <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        Reply
+                      </button>
+
+                      <Popover
+                        {...bindPopover(popupState)}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Typography sx={{ p: 2 }}>
+                          <Box
+                            component="form"
+                            sx={{
+                              '& > :not(style)': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                          >
+                            <TextField id="outlined-basic" label="ID Number" variant="outlined" required /><br />
+                            <TextField id="standard-basic" label="Message" variant="standard" />
+                            <br />
+                            <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                              Submit
+                            </button>
+                          </Box>
+
+
+                        </Typography>
+                      </Popover>
+                    </div>
+                  )}
+                </PopupState>
+
+                <button className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                  Report
+                </button>
+
+                <PopupState variant="popover" popupId="demo-popup-popover">
+                  {(popupState) => (
+                    <div>
+                      <button variant="contained" {...bindTrigger(popupState)} className="bg-emerald-350 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        Comments
+                      </button>
+
+                      <Popover
+                        {...bindPopover(popupState)}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Typography sx={{ p: 2 }}>
+                          <Box
+                            component="form"
+                            sx={{
+                              '& > :not(style)': { m: 1, width: '25ch' },
+                            }}
+                            noValidate
+                            autoComplete="off"
+                          >
+                            <TableContainer component={Paper}>
+                              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                  <TableRow>
+                                    <TableCell>Comments</TableCell>
+                                  </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                  {rows.map((row) => (
+                                    <TableRow
+                                      key={row.name}
+                                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                      <TableCell component="th" scope="row">
+                                        {row.name}
+                                      </TableCell>
+                                    </TableRow>
+                                  ))}
+                                </TableBody>
+                              </Table>
+                            </TableContainer>
+                            <br />
+                          </Box>
+
+
+                        </Typography>
+                      </Popover>
+                    </div>
+                  )}
+                </PopupState>
+
+
+              </blockquote>)
+
+            })}
+            <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
+              <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-white">
+
+
+
+              </div>
+
+            </div>
+
           </div>
         </div>
       </section>

@@ -14,29 +14,29 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
 export default function ForumTable({ color }) {
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [forums, setforums] = useState([]);
+  //const [searchTerm, setSearchTerm] = useState("");
+  //const [forums, setforums] = useState([]);
   const [forumID, setID] = useState("");
   const [topic, setTopic] = useState("");
-  const [description, setDescription] = useState("");
-  const [uploadDate, setUploadDate] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [active_status, setStatus] = useState("");
+  const [postText, setpostText] = useState("");
+  const [uploadDate,setUploadDate] = useState("");
+  const [emailID, setemailID] = useState("");
+  const [active_status, setactive_status] = useState("");
   const history = useHistory();
   // const classes = useStyles();
 
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/forumview").then((response) => {
-      setforums(response.data)
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get("http://localhost:3001/forumview").then((response) => {
+  //     setforums(response.data)
+  //   })
+  // }, [])
 
 const [IDError, setIDError] = useState('')
   const validateID = (event) => {
-    var ID = event.target.value
+    var emailID = event.target.value;
    
-    if (validator.isID(ID)) {
+    if (validator.isID(emailID)) {
       setIDError('Valid ID :)')
     } else {
       setIDError('Enter valid ID!')
@@ -47,19 +47,20 @@ const [IDError, setIDError] = useState('')
   const forumadd = () => {
     console.log(forumID);
 
-    axios.post('http://localhost:3001/addnewforum', {
+    axios.post('http://localhost:3001/AddNewForum', {
       topic: topic,
-      description: description,
+      postText: postText,
       uploadDate: uploadDate,
-      confirm: confirm,
+      emailID: emailID,
       active_status: active_status,
 
     }).then(() => {
       console.log("success");
+    });
       alert("Message is sent");
       history.push("/ForumView");
 
-    });
+    
   };
 
   return (
@@ -73,13 +74,13 @@ const [IDError, setIDError] = useState('')
           <div className="flex flex-wrap">
             <div className="w-1/3 px-6">
               <Link to="/AddNewForum">
-                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                <button className="bg-emerald-450 text-white active:bg-emerald-450 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
                   Add New Forums
                 </button>
               </Link>
               <Link to="/ForumView">
-                <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                <button className="bg-emerald-450 text-white active:bg-emerald-450 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
                   type="submit" >
                   View Forums
                 </button> <br /><br />
@@ -89,9 +90,9 @@ const [IDError, setIDError] = useState('')
           </div>
         </div>
 
-        <div className="flex-auto p-5 lg:p-10">
+        <div className="flex-auto p-5 lg:p-8">
           <h1 className="text-2xl font-semibold text-center justify-center">
-            ADD YOUR MESSAGE
+            ADD YOUR FORUM
           </h1>
           <div className="relative w-full mb-3 mt-8">
             <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
@@ -99,7 +100,7 @@ const [IDError, setIDError] = useState('')
             </label>
             <input type="text"
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              name="topic" onChange={(event) => { setTopic(event.target.value); }}
+              name="topic" onChange={(event) => {setTopic(event.target.value); }}
               required
               placeholder="Topic" />
           </div>
@@ -111,7 +112,7 @@ const [IDError, setIDError] = useState('')
               rows="4"
               cols="80"
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-              name="description" onChange={(event) => { setDescription(event.target.value); }}
+              name="description" onChange={(event) => {setpostText(event.target.value); }}
               required
               placeholder="Type a message to notify..."
             />
@@ -121,16 +122,17 @@ const [IDError, setIDError] = useState('')
               Date Uploaded
             </label>
             <input type="date"
-              name="uploadDate" onChange={(event) => { setUploadDate(event.target.value); }}
+              name="uploadDate" onChange={(event) => {setUploadDate(event.target.value); }}
               required
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           </div>
+
           <div className="relative w-full mb-3 mt-8">
             <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
               ID Confirmation
             </label>
             <input type="text"
-              name="expDate" onChange={(event) => { setConfirm(event.target.value);validateID(event)}}
+              name="confirm" onChange={(event) => {setemailID(event.target.value);{/*validateID(event)*/}}}
               required
               placeholder="Type your ID No"
               className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
